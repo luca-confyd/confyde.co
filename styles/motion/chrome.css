@@ -1,0 +1,62 @@
+/* ---------------------------------------------------------------------------
+   Page chrome motion: the desktop floating bars' entrance and the mobile nav
+   sheet's fade.
+
+   Both live here rather than in utilities because both need a reduced-motion
+   resting state, and this directory's convention is that every animation system
+   owns its own file and ends with that state - which is also the frame the
+   visual-comparison harness screenshots against.
+--------------------------------------------------------------------------- */
+
+@keyframes bb-nav-sheet-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer components {
+  /* Opacity only, no transform, per the brand's motion rules. There is no exit
+     animation: the sheet unmounts on close, because a slow exit reads as lag. */
+  .nav-sheet {
+    animation: bb-nav-sheet-in 150ms linear both;
+  }
+
+  /*
+     The floating bars' shared wrapper. The artboard transitions `transform`
+     only, so the bar snaps to full opacity and then glides in; `opacity` is
+     added to the list here on the same curve. cubic-bezier(.22,1,.36,1) is
+     easeOutQuint.
+  */
+  .bars-wrapper {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+    pointer-events: none;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bars-wrapper[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}
+
+/* The resting state. Note what is NOT here: the nav's dark/light flip. A colour
+   change is not motion, and the brand permits colour transitions throughout. */
+@media (prefers-reduced-motion: reduce) {
+  .nav-sheet {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .bars-wrapper,
+  .bars-wrapper[data-shown="true"] {
+    transition: none !important;
+    transform: none !important;
+  }
+}

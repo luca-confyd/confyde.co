@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Asap, Fraunces, Hanken_Grotesk, Nunito_Sans, Source_Serif_4 } from "next/font/google";
+
+import { FloatingBars } from "@/components/chrome/floating-bars";
+import { SiteHeaderDesktop } from "@/components/chrome/site-header-desktop";
+import { SiteHeaderMobile } from "@/components/chrome/site-header-mobile";
+import { StickyBottomBar } from "@/components/chrome/sticky-bottom-bar";
 import "./globals.css";
 
 /* -----------------------------------------------------------------------------
@@ -76,7 +81,31 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-AU"
       className={`${fraunces.variable} ${nunitoSans.variable} ${asap.variable} ${hankenGrotesk.variable} ${sourceSerif.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {/*
+          Neither artboard has a skip link. With a header pinned to the top and a
+          bar pinned to the bottom, skipping matters more than usual, so it is
+          the first focusable thing on the page. `#top` is the id `<main>`
+          already carries.
+        */}
+        <a
+          href="#top"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[80] focus:rounded-lg focus:bg-card focus:px-4 focus:py-2 focus:text-[15px] focus:font-semibold focus:text-ink focus:outline-2 focus:outline-offset-2 focus:outline-forest-700"
+        >
+          Skip to content
+        </a>
+
+        {/* Two headers and two bar systems, mutually exclusive at 1024px.
+            `display: none` takes the inactive pair out of the accessibility
+            tree, so only one `Main` landmark is ever exposed. */}
+        <SiteHeaderDesktop />
+        <SiteHeaderMobile />
+
+        {children}
+
+        <FloatingBars />
+        <StickyBottomBar />
+      </body>
     </html>
   );
 }

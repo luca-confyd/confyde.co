@@ -2,6 +2,7 @@
 
 @import "../styles/base.css";
 @import "../styles/motion/reveal.css";
+@import "../styles/motion/chrome.css";
 
 /* ---------------------------------------------------------------------------
    Design tokens.
@@ -78,6 +79,28 @@
   --color-pf-overlay-50: oklch(97.9% 0.004 91);
   --color-pf-overlay-100: oklch(96.1% 0.01 87);
   --color-pf-overlay-200: oklch(95% 0.013 97);
+
+  /* ---------------------------------------------------------------------
+     Accessibility-corrected text tones.
+
+     Four pieces of text in the artboards fail WCAG AA against their own
+     backgrounds. Measured on the rendered artboards, then darkened by the
+     smallest amount that clears the threshold:
+
+       eyebrow          #95B225 -> #657919   2.26 -> 4.54  (needs 4.5)
+       marquee-term     #A4A39D -> #8D8C87   2.27 -> 3.02  (needs 3.0, large)
+       eyebrow-mobile   #7E9A2B -> #607521   2.81 -> 4.53  (needs 4.5)
+       marquee-mobile   #8A9082 -> #6A6F64   2.88 -> 4.53  (needs 4.5)
+
+     These are separate tokens rather than edits to lime-700, pf-ink-400 and
+     slate-400, because those three are used elsewhere at sizes and on surfaces
+     where they already pass, and darkening them there would be a change nobody
+     asked for.
+  --------------------------------------------------------------------- */
+  --color-eyebrow: #657919;
+  --color-eyebrow-mobile: #607521;
+  --color-marquee-term: #8d8c87;
+  --color-marquee-term-mobile: #6a6f64;
 
   /* Scope-of-works category dots, from the app's default-categories taxonomy. */
   --color-cat-demolition: #8a7a65;

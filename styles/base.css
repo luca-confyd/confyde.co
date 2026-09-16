@@ -118,15 +118,6 @@
     letter-spacing: -0.02em;
   }
 
-  /* Uppercase tracked label. 11.5px is only ever this. */
-  .eyebrow {
-    font-family: var(--font-body);
-    font-size: 0.78125rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
   /* -------------------------------------------------------------------------
      Elevation.
 
