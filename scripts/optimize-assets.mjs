@@ -42,10 +42,8 @@ const PLAN = [
   // A technical site plan: fine linework, so it gets the highest quality here.
   { in: "assets/takeoff-plan.png", out: "takeoff-plan.webp", maxWidth: 1467, quality: 92 },
 
-  // Mascots. Illustration with alpha, never rendered above 262px CSS.
-  { in: "assets/brambie-leaning.png", out: "brambie-leaning.webp", maxWidth: 640, quality: 88 },
-  { in: "assets/brambie-peering.png", out: "brambie-peering.webp", maxWidth: 640, quality: 88 },
-  { in: "assets/brambie-pointing.png", out: "brambie-pointing.webp", maxWidth: 640, quality: 88 },
+  // The three brambie mascots were dropped with the inline CTA section, which
+  // was the only thing on the homepage that used them.
 
   // Partner mark, rendered at 34px.
   { in: "assets/xero-mark.png", out: "xero-mark.webp", maxWidth: 160, quality: 90 },

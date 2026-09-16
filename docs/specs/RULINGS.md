@@ -248,3 +248,68 @@ portable for this (it carries its own `bg-pf-surface-500`), so this is a
 composition change, not a rewrite. I will do it during section 03 review rather
 than hand it back, and verify with the geometry harness that the card's bottom
 edge lands below the strip.
+
+---
+
+## Page-wide conventions discovered during the build
+
+Every engineer from section 05 on must know these.
+
+### `sm:` beats `desk:` at desktop widths — use `sm-only:`
+
+Tailwind emits the 64rem `desk` block **before** its own 40rem `sm` block, so on
+any element that sets the same property at both, `sm:` wins at 1440px. It is not
+a bug we can order around; it is how the variants are generated.
+
+`@custom-variant sm-only (640px–1023px)` is declared in `app/globals.css` and is
+disjoint from `desk`. **Use `sm-only:` for any mobile-range tweak on an element
+that also has a `desk:` value for the same property.** Plain `sm:` is only safe
+inside a subtree that is already `desk:hidden`.
+
+This bit the social-proof band, whose `max-w` and `px` landed on their 640px
+values at 1440px.
+
+### The page surface differs by breakpoint
+
+`body` is canvas beige below 1024 and `pf-surface-300` above, because the two
+artboards genuinely do not share a page surface. Set on the page, not per band -
+tinting individual bands would draw a seam the artboards do not have.
+
+### Contrast headroom is thin by design
+
+The corrected tokens clear AA by roughly 0.13 (`--color-eyebrow` measures
+≈4.63:1 against a 4.5 requirement) because the client asked for the smallest
+darkening that clears. Anything that composites them through an opacity - a
+fade, an overlay, a tinted parent - will fail. Do not put them behind one.
+
+---
+
+## Scope changes from the client (mid-build)
+
+### The inline CTA section is cut entirely
+
+All three instances are removed from the homepage:
+
+- "Build a bigger business. Start free" (brambie-leaning)
+- "Create and send a quote within 30mins. Get started now, free" (brambie-peering)
+- "Run your next job with Bramble, get started free!" (brambie-pointing)
+
+Consequences handled: the three mascot images were referenced by nothing else on
+the page and are deleted from `public/images/`, and `scripts/optimize-assets.mjs`
+no longer lists them, so a re-run cannot quietly reintroduce them. That takes the
+committed image payload from 2.3 MB to 2.0 MB and the asset count from 12 to 9.
+
+The page still has plenty of conversion surface without them: the hero's two CTAs,
+the nav's "Get started", the desktop floating bars, the mobile sticky bottom bar
+and the pinned CTA stage.
+
+### Spec depth is proportional to section complexity
+
+Not every section earns a thousand-line spec. The deep treatment is reserved for
+the sections with real choreography - chapters 1, 2 and 3, the before/after
+phones, and the pinned CTA stage. Simple bands (FAQ, integrations, customer
+stories, the mid-page pull quotes, the footer) go straight to an engineer working
+from the artboard, with the same verification gate at the end.
+
+The gate never changes: geometry to zero drift, axe and console clean at three
+widths in both motion preferences, its own commit.
