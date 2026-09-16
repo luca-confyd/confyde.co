@@ -1,0 +1,81 @@
+/* ---------------------------------------------------------------------------
+   The trades marquee, both breakpoints.
+
+   Two compositions share one animation: a track made of two byte-identical
+   copies of the term list, translated by exactly half its own width forever.
+   Only the duration differs (60s desktop, 26s mobile), so the call sites set
+   --marquee-duration and everything else lives here.
+
+   WHY THE TRACK HAS NO GAP OF ITS OWN
+   -----------------------------------
+   `translateX(-50%)` is a percentage of the animated element's own border box.
+   Both artboards build that box as `A + g + A` - copy, outer gap, copy - so
+   -50% travels `A + g/2`, where a seamless loop needs `A + g`: the distance
+   from the first term of copy 1 to the first term of copy 2. The strip
+   therefore snapped back g/2 on every cycle (40px desktop, 14px mobile). It is
+   invisible in a screenshot only because the inner and outer gaps happen to
+   match, which is why it survived design review.
+
+   The fix (RULINGS.md §03/04 ruling 1) is structural, not numeric: the outer
+   track carries no gap, and each copy carries its own trailing `padding-right`
+   equal to the inner gap. The box becomes `2 x (A + g)`, -50% lands exactly on
+   `A + g`, and every spacing including the seam is still g. Nothing moves at
+   rest, so the visual diff stays clean. Both are Tailwind utilities at the call
+   sites (`gap-20 pr-20` / `gap-7 pr-7`) - the geometry belongs next to the
+   markup it spaces, not in here.
+--------------------------------------------------------------------------- */
+
+@keyframes bb-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer components {
+  .marquee-track {
+    animation: bb-marquee var(--marquee-duration, 60s) linear infinite;
+  }
+
+  /*
+    WCAG 2.2.2 (Pause, Stop, Hide). The desktop artboard pauses on `:hover`
+    only, which no keyboard and no touch user can reach; the mobile artboard has
+    no pause at all. `:focus-within` is the smallest honest addition - paired
+    with a `tabindex="0"` on the clipper it makes the strip pausable by Tab on
+    both breakpoints, and it resumes from where it stopped rather than from 0.
+
+    No visible pause control: neither artboard draws one and RULINGS.md §03/04
+    ruling 5 declines to invent one. The residual gap - a touch user with no
+    reduced-motion preference still has no mechanism - is logged, not papered
+    over.
+
+    The selector deliberately sits on the outer `<section>`, not the clipper:
+    that reproduces the artboard's own hover target, which includes the heading
+    and the padding above it (the artboard puts `.pf-marquee` on both elements).
+  */
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* The resting state, as every file in this directory ends with.
+
+   The desktop artboard has no reduced-motion rule at all - its only such block
+   targets `.pf-logo-track`, a class that appears nowhere - so an infinite
+   linear translation ran regardless of the preference. RULINGS.md calls that a
+   hard gate.
+
+   `transform: none` as well as `animation: none`: stopping the animation alone
+   leaves the track wherever the compositor last put it, which is not a defined
+   frame. Pinning the transform settles both tracks at translateX(0) - first
+   term flush to the left edge of the clipper, behind the mask fade - which is
+   what makes the comparison harness's screenshots byte-stable. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
