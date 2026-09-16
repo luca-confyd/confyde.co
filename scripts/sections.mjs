@@ -77,6 +77,18 @@ export const SECTIONS = {
     siteWeb: "[data-section='chapter-1-desktop']",
     siteMobile: "[data-section='chapter-1-mobile']",
   },
+  "chapter-2": {
+    title: "Chapter 2 - sales assistant",
+    site: null,
+    // #pf-radar is the two-card row's own id and the web artboard's only
+    // occurrence, so it pins this section and nothing else.
+    web: "#dc-root section:has(#pf-radar)",
+    // The mini replay's document track is the mobile artboard's only
+    // .m-doc-track; the eyebrow/heading pairs alone match four sections.
+    mobile: "#dc-root section:has(.m-doc-track)",
+    siteWeb: "[data-section='chapter-2-desktop']",
+    siteMobile: "[data-section='chapter-2-mobile']",
+  },
   integrations: {
     title: "Integrations",
     site: null,

@@ -62,7 +62,14 @@ export function ChapterShellMobile({
   return (
     <section
       data-section={dataSection}
-      className="mx-auto mb-[30px] w-full max-w-[592px] px-4 desk:hidden sm:max-w-[624px] sm:px-8"
+      /*
+        The gutter is a margin, not padding, because that is how the mobile
+        artboard writes it - its section box excludes the gutter. The rendered
+        pixels are identical either way, but the box edge is what the geometry
+        harness measures from, so padding made every node in every chapter read
+        16px out against a section origin that was not the artboard's.
+      */
+      className="mx-4 mb-[30px] max-w-[560px] desk:hidden sm:mx-8 sm:max-w-[560px] min-[592px]:mx-auto"
     >
       <div className="overflow-hidden rounded-xl">
         <div className="relative px-[18px] pt-[26px] pb-[22px]">

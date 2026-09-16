@@ -9,6 +9,9 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    // Parallel workers build into their own output directory via NEXT_DIST_DIR,
+    // so those need ignoring too or eslint lints build output.
+    ".next-*/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

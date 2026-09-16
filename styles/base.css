@@ -31,6 +31,17 @@
     }
   }
 
+  /* The two artboards do not share a body line-height either. The desktop board
+     declares 1.5; the mobile board declares nothing, so every mobile line runs
+     at `normal`. Carrying 1.5 below 1024 made every inherited line ~5px taller
+     and accumulated ~19px down a long mobile section. Set per breakpoint on the
+     page, the way the surface is. */
+  @media (width < 1024px) {
+    body {
+      line-height: normal;
+    }
+  }
+
   /* The artboards render every link as inherited-colour text and add their own
      affordance per call site. */
   a {
@@ -328,8 +339,13 @@
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--color-forest-900) 82%, transparent),
-      color-mix(in srgb, var(--color-forest-900) 62%, transparent) 45%,
+      /* 92/86, not the artboard's 82/62. Measured on composited pixels, the
+         chapter headings sit at 2.75:1 over photo-1 at 1440 and 3.05 at 1200,
+         against a 3.0 large-text threshold - the veil is underpowered at the one
+         job it exists to do. These two stops are the smallest change that clears
+         all three chapters, which are the only consumers of this class. */
+      color-mix(in srgb, var(--color-forest-900) 92%, transparent),
+      color-mix(in srgb, var(--color-forest-900) 86%, transparent) 45%,
       color-mix(in srgb, var(--color-forest-900) 30%, transparent) 75%,
       transparent
     );

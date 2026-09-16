@@ -150,6 +150,13 @@
 /* The resting state. This is also what the visual-comparison harness screenshots
    against, which is why every motion file in this directory ends with one. */
 @media (prefers-reduced-motion: reduce) {
+  /* `[data-anim]` is in this list deliberately, and it is the load-bearing part.
+     Under reduced motion useReveal removes the idle class and adds no animation
+     class at all, so a rule that only named the animation classes pinned nothing
+     - and any inline transform on a revealed element (chapter 3's stat cards)
+     was left applied, resting in a state the artboard never shows. Matching the
+     attribute covers the element whichever class it is currently wearing. */
+  [data-anim],
   .reveal-idle,
   .reveal-word,
   .reveal-scale,

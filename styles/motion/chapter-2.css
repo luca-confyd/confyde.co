@@ -1,0 +1,716 @@
+/* ---------------------------------------------------------------------------
+   Chapter 2 - the replay, and the most tightly synchronised thing on the page.
+
+   Desktop is ONE 20-second clock driving eleven infinite loops. 1% of the cycle
+   is 200ms, and every number below is authored as a percentage of that cycle
+   rather than as a delay, which is what lets the QA harness freeze the whole
+   section with a bare `a.currentTime = t` and read cycle time straight off it.
+   Nothing here carries an `animation-delay`.
+
+   WHY THE SCROLL AND THE ACCORDION CANNOT DRIFT. The argument the card makes is
+   that the client scrolled the quote and stopped on the paving, so the document
+   travel and the accordion are one gesture: the document moves, the row under
+   the cursor tints, its detail opens, it closes, the document moves again.
+   Every one of `bb-doc`'s five travel windows sits inside a gap where no group
+   is fully open, and every gap between one group closing and the next opening
+   is exactly 2% = 400ms. That regularity is the metronome. An uneven gap, or a
+   travel that overlaps a fully-open group, is a bug rather than a variation.
+
+   THE HIGHLIGHT AND THE BODY SHARE ONE SET OF PERCENTAGES. `bb-hdN` is written
+   with exactly the same six stops as `bb-accN` for every N. They are separate
+   keyframe sets only because they animate different properties; a one-percent
+   drift between a pair shows up as the row tinting before it opens, which is
+   invisible by eye and obvious in a diff of the two blocks.
+
+   THE MEDIA QUERY THAT IS NOT HERE. <ChapterTwoDesktop> is `hidden desk:block`
+   and <ChapterTwoMobile> is `desk:hidden`, so at any width exactly one of the
+   two compositions is laid out. The 20s and 14s systems can therefore share one
+   file with no breakpoint at all - the same argument sections 05 and 06 make.
+
+   DROPPED ON THE WAY THROUGH. The artboard also declares `@keyframes pf-replay`
+   and `.pf-replay-track`, a percentage-based draft of the document scroll
+   (-8/-23/-39/-54/-66%) that is applied to ZERO elements - the markup uses
+   `pf-doc-track` throughout. Its `translateY(-39%)` line in the reduced-motion
+   block is dead for the same reason. Dropped as dead code and recorded in
+   docs/specs/08-chapter-2.md §3.1 so nobody restores them.
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   1. The document scroll, 20s.
+
+   Six plateaus, five travels, one rewind. The offsets are hard pixels tuned to
+   the 339px frame, and that is safe: measured, the track is 483.25px closed and
+   553.75px with group 4 open at EVERY viewport from 1024 to 1440, because every
+   row is single-line with `text-overflow: ellipsis`. The clip is 352px, so the
+   deepest legal scroll with group 4 open is 201.75px and -179px sits inside it.
+
+   Travel 3 (42% -> 47%) is the fast one: 70px in 1000ms, the flick down into
+   Paving. Travel 5 is a 9px nudge; if it reads as a jump the easing is wrong.
+   The 93% -> 100% return is the only long travel and is meant to read as a
+   rewind, not a cut.
+
+   `cubic-bezier(.5,0,.3,1)` is a slow-in/soft-out curve - it reads as a hand
+   flicking a scroll wheel rather than as a lerp.
+--------------------------------------------------------------------------- */
+@keyframes bb-doc {
+  0%,
+  16% {
+    transform: translateY(0);
+  }
+  22%,
+  28% {
+    transform: translateY(-40px);
+  }
+  34%,
+  42% {
+    transform: translateY(-80px);
+  }
+  47%,
+  68% {
+    transform: translateY(-150px);
+  }
+  72%,
+  80% {
+    transform: translateY(-170px);
+  }
+  84%,
+  93% {
+    transform: translateY(-179px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   2. The six accordion bodies.
+
+   Group 4, Paving, is the whole point of the section: it opens THREE line items
+   where every other group opens two, and it holds 4200ms - three times groups
+   1, 2 and 5, and 4.2x group 6. That ratio is what the "2m 40s" beside it in
+   the timing table is claiming, so it is the one number in this file that
+   carries an argument rather than a rhythm.
+
+   The 61px / 87px targets are 14.5px and 17.25px taller than the measured
+   natural heights (46.5px and 69.75px). Harmless slack today, and it is what
+   stops a wrapped label clipping - but a third line item in any two-item group
+   would render 69.75px and clip at 61px, so copy changes must be re-measured
+   (docs/specs/08-chapter-2.md D9).
+--------------------------------------------------------------------------- */
+@keyframes bb-acc1 {
+  0%,
+  6% {
+    max-height: 0;
+    opacity: 0;
+  }
+  9%,
+  16% {
+    max-height: 61px;
+    opacity: 1;
+  }
+  19%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+@keyframes bb-acc2 {
+  0%,
+  18% {
+    max-height: 0;
+    opacity: 0;
+  }
+  21%,
+  28% {
+    max-height: 61px;
+    opacity: 1;
+  }
+  31%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+@keyframes bb-acc3 {
+  0%,
+  30% {
+    max-height: 0;
+    opacity: 0;
+  }
+  33%,
+  42% {
+    max-height: 61px;
+    opacity: 1;
+  }
+  45%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+@keyframes bb-acc4 {
+  0%,
+  44% {
+    max-height: 0;
+    opacity: 0;
+  }
+  47%,
+  68% {
+    max-height: 87px;
+    opacity: 1;
+  }
+  71%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+@keyframes bb-acc5 {
+  0%,
+  70% {
+    max-height: 0;
+    opacity: 0;
+  }
+  73%,
+  80% {
+    max-height: 61px;
+    opacity: 1;
+  }
+  83%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+@keyframes bb-acc6 {
+  0%,
+  82% {
+    max-height: 0;
+    opacity: 0;
+  }
+  85%,
+  90% {
+    max-height: 61px;
+    opacity: 1;
+  }
+  93%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   3. The six header highlights - the same six percentages, every time.
+--------------------------------------------------------------------------- */
+@keyframes bb-hd1 {
+  0%,
+  6% {
+    background: transparent;
+  }
+  9%,
+  16% {
+    background: var(--color-well);
+  }
+  19%,
+  100% {
+    background: transparent;
+  }
+}
+@keyframes bb-hd2 {
+  0%,
+  18% {
+    background: transparent;
+  }
+  21%,
+  28% {
+    background: var(--color-well);
+  }
+  31%,
+  100% {
+    background: transparent;
+  }
+}
+@keyframes bb-hd3 {
+  0%,
+  30% {
+    background: transparent;
+  }
+  33%,
+  42% {
+    background: var(--color-well);
+  }
+  45%,
+  100% {
+    background: transparent;
+  }
+}
+@keyframes bb-hd4 {
+  0%,
+  44% {
+    background: transparent;
+  }
+  47%,
+  68% {
+    background: var(--color-well);
+  }
+  71%,
+  100% {
+    background: transparent;
+  }
+}
+@keyframes bb-hd5 {
+  0%,
+  70% {
+    background: transparent;
+  }
+  73%,
+  80% {
+    background: var(--color-well);
+  }
+  83%,
+  100% {
+    background: transparent;
+  }
+}
+@keyframes bb-hd6 {
+  0%,
+  82% {
+    background: transparent;
+  }
+  85%,
+  90% {
+    background: var(--color-well);
+  }
+  93%,
+  100% {
+    background: transparent;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   4. The cursor.
+
+   Eight stops on its own `ease-in-out` legs, so it drifts and settles rather
+   than tracking. It is deliberately NOT synchronised to the accordion - a real
+   replay cursor does not sit on the thing it is reading - so do not "fix" it
+   into alignment with the open group.
+
+   `left`/`top` rather than a transform, on purpose: the percentages resolve
+   against the 339x352 document clip, and rewriting them as a transform would
+   change what they resolve against. It is one small layout and paint per frame
+   on a 13px box inside a clipped 339x352 region; measured cost is negligible.
+--------------------------------------------------------------------------- */
+@keyframes bb-cursor {
+  0% {
+    left: 34%;
+    top: 32%;
+  }
+  12% {
+    left: 46%;
+    top: 46%;
+  }
+  26% {
+    left: 28%;
+    top: 38%;
+  }
+  42% {
+    left: 41%;
+    top: 52%;
+  }
+  56% {
+    left: 52%;
+    top: 44%;
+  }
+  70% {
+    left: 31%;
+    top: 58%;
+  }
+  84% {
+    left: 44%;
+    top: 66%;
+  }
+  100% {
+    left: 34%;
+    top: 32%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   5. The scrub bar and the recording pip.
+
+   The scrub is the only LINEAR thing in the section, because it is a clock and
+   an eased clock reads as broken. It reaches full at 18800ms and holds for the
+   last 1200ms while the document is still rewinding.
+
+   The pip runs its own 2s cycle. 20 / 2 = 10 exactly, so it stays permanently
+   in phase with the master loop at ten blinks per cycle. 0.5Hz, far under the
+   3Hz WCAG 2.3.1 threshold, and it is a fade rather than a flash.
+--------------------------------------------------------------------------- */
+@keyframes bb-scrub {
+  0% {
+    width: 0;
+  }
+  94%,
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes bb-rec {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   6. The two hot rows.
+
+   A marks Paving, B marks Irrigation. A's window (4400 -> 16800ms) brackets
+   group 4's dwell (8800 -> 14200ms) with 4400ms of lead and 2600ms of trail:
+   the heatmap marks the hot section 2200ms BEFORE the replay reaches it, which
+   is the whole idea - the data knows before the playback does. Losing that lead
+   flattens the argument.
+
+   [LOG] B declares no exit transform where A exits at scale(.8), so B fades at
+   full size. Asymmetric, and shipped as drawn (D10).
+--------------------------------------------------------------------------- */
+@keyframes bb-heat-a {
+  0%,
+  22% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  36%,
+  70% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  84%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes bb-heat-b {
+  0%,
+  46% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  58%,
+  90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   7. The mobile system, 14s. 1% of this cycle is 140ms.
+
+   A different piece, not a scaled one. There is no accordion to synchronise to,
+   so the document simply scrolls: four plateaus in three moves, dwelling
+   longest on the third (38% -> 64% = 3640ms), which is where "Paving &
+   stonework" and its heat blob sit. That dwell is the mobile expression of the
+   same "2m 40s", and at 26% of its cycle it is proportionally longer than
+   desktop's 21%.
+
+   Two other differences are deliberate and easy to flatten by accident: the
+   cursor moves MONOTONICALLY downward on a `cubic-bezier(.4,0,.2,1)` and tracks
+   the scroll, where desktop's wanders on `ease-in-out`; and `bb-m-scrub` is a
+   from/to pair, so it reaches 100% at exactly 14000ms with no hold, where
+   desktop's holds full for its last 1200ms.
+--------------------------------------------------------------------------- */
+@keyframes bb-m-doc {
+  0%,
+  14% {
+    transform: translateY(0);
+  }
+  22%,
+  30% {
+    transform: translateY(-18px);
+  }
+  38%,
+  64% {
+    transform: translateY(-44px);
+  }
+  72%,
+  90% {
+    transform: translateY(-68px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes bb-m-heat-a {
+  0%,
+  20% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  36%,
+  66% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes bb-m-heat-b {
+  0%,
+  44% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  56%,
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bb-m-cursor {
+  0%,
+  14% {
+    left: 58%;
+    top: 22%;
+  }
+  30% {
+    left: 40%;
+    top: 48%;
+  }
+  50% {
+    left: 66%;
+    top: 54%;
+  }
+  70% {
+    left: 44%;
+    top: 66%;
+  }
+  88%,
+  100% {
+    left: 58%;
+    top: 78%;
+  }
+}
+
+@keyframes bb-m-scrub {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* 14 / 1.4 = 10 exactly, so mobile also blinks ten times per cycle and never
+   drifts against its master loop. */
+@keyframes bb-m-rec {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@layer components {
+  .doc-track {
+    animation: bb-doc 20s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  }
+
+  /* One driver for twelve elements. Each group sets its own `animation-name`
+     inline - `bb-acc4` on the body, `bb-hd4` on the header - which is what
+     keeps the six pairs in phase by construction: they share every property
+     except the name of the six-stop set they run.
+
+     `cubic-bezier(.32,.72,0,1)` is a hard ease-out, so a body is 90% open in
+     the first third of its 600ms travel. `both` matters: without it the six
+     elements would sit at their unanimated values for the first frame. */
+  .acc,
+  .acc-head {
+    animation-duration: 20s;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+
+  .replay-cursor {
+    animation: bb-cursor 20s ease-in-out infinite;
+  }
+
+  .replay-scrub {
+    animation: bb-scrub 20s linear infinite;
+  }
+
+  .rec-pip {
+    animation: bb-rec 2s ease-in-out infinite;
+  }
+
+  .heat-a {
+    animation: bb-heat-a 20s ease-in-out infinite;
+  }
+
+  .heat-b {
+    animation: bb-heat-b 20s ease-in-out infinite;
+  }
+
+  .m-doc-track {
+    animation: bb-m-doc 14s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  }
+
+  .m-heat-a {
+    animation: bb-m-heat-a 14s ease-in-out infinite;
+  }
+
+  .m-heat-b {
+    animation: bb-m-heat-b 14s ease-in-out infinite;
+  }
+
+  .m-cursor {
+    animation: bb-m-cursor 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .m-scrub {
+    animation: bb-m-scrub 14s linear infinite;
+  }
+
+  .m-rec {
+    animation: bb-m-rec 1.4s ease-in-out infinite;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   8. The resting state. Hard gate, and the frame the harness measures.
+
+   Desktop rests at t = 11000ms (55%) and mobile at t = 8400ms (60%). Both are
+   the Paving dwell: the longest hold in each loop, the frame the timing table
+   beside it is describing, and - because the two agree - the same story at both
+   breakpoints, which is the same reason section 05 picked its frame.
+
+   THE ARTBOARD'S OWN BLOCK IS BROKEN AND IS NOT PORTED. It pins
+   `.pf-acc { max-height: none; opacity: 1 }`, which opens all SIX groups at
+   once and makes the document 789px tall against the live frame's 553.75px -
+   while pinning the scroll to a -150px offset computed for the 553.75px
+   version, so the reduced-motion render shows a different slice of the document
+   from the live one. It also leaves NO header highlighted, so the one group
+   that is open is not the one that is marked, and it drops the cursor back to
+   its inline `56%/42%`, which is not on the keyframe path at all (at 11000ms
+   the cursor is at 51.9%/44.1% - a 14px error on a 13px dot). Same class of
+   smear as section 05's `opacity: 1 !important`, and replaced wholesale.
+
+   Two desktop values are rounded from mid-tween to the adjacent keyframe so the
+   state is DEFINED rather than interpolated, which is what a deterministic diff
+   needs: heat B is at opacity .871 / scale(.948) at 11000ms and is pinned to
+   its 58% keyframe 600ms later, and the cursor is pinned to its 56% keyframe,
+   200ms later and 0.1% from the measured value on both axes. Mobile needs no
+   rounding - at 8400ms both blobs are exactly opacity 1 / scale(1).
+
+   The nine static forest blobs need no rule here. They never animated.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .doc-track,
+  .acc,
+  .acc-head,
+  .heat,
+  .replay-cursor,
+  .replay-scrub,
+  .rec-pip {
+    animation: none !important;
+  }
+
+  /* The 47-68% plateau: the document scrolled to the Paving group. */
+  .doc-track {
+    transform: translateY(-150px) !important;
+  }
+
+  /* Exactly one group is open, and it is the one the table is about. */
+  .acc {
+    max-height: 0 !important;
+    opacity: 0 !important;
+  }
+  .acc[data-rest="true"] {
+    max-height: 87px !important;
+    opacity: 1 !important;
+  }
+
+  /* ...and exactly one header is highlighted, the same one. */
+  .acc-head {
+    background: transparent !important;
+  }
+  .acc-head[data-rest="true"] {
+    background: var(--color-well) !important;
+  }
+
+  /* Both blobs are at their 58% value. */
+  .heat {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+
+  /* On the keyframe path, not the inline fallback. */
+  .replay-cursor {
+    left: 52% !important;
+    top: 44% !important;
+  }
+
+  .replay-scrub {
+    width: 55% !important;
+  }
+
+  /* The pip is a solid dot at rest, not a ghost. */
+  .rec-pip {
+    opacity: 1 !important;
+  }
+
+  /* Mobile. The artboard's own block is sound here and is kept, with the one
+     addition it is missing: `.m-cursor` would otherwise fall back to its inline
+     58%/52%, where the loop rests it at 48.9%/63.3% - 13px down and 9px across
+     on a 9px dot inside a 148x172 box. */
+  .m-doc-track,
+  .m-heat,
+  .m-cursor,
+  .m-scrub,
+  .m-rec {
+    animation: none !important;
+  }
+
+  .m-doc-track {
+    transform: translateY(-44px) !important;
+  }
+
+  .m-heat {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+
+  .m-scrub {
+    width: 60% !important;
+  }
+
+  .m-cursor {
+    left: 49% !important;
+    top: 63% !important;
+  }
+
+  .m-rec {
+    opacity: 1 !important;
+  }
+}

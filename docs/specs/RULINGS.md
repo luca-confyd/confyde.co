@@ -420,3 +420,85 @@ pass. It reproduced an already-fixed 62-node drift exactly.
 newest file in the source tree, rebuilds when it is behind, and kills any server
 that predates the rebuild. Every runner shares that helper, so the guard covers
 the geometry harness, the comparison harness and the audit at once.
+
+### Verifying a section whose artboard reduced-motion rule is broken
+
+Chapter 2, chapter 1, the before/after phones and the marquee all have artboard
+reduced-motion blocks that are wrong - chapter 2's opens **all six** accordions at
+once, where the corrected resting state opens one. Our build is right and the
+artboard is not, so `--motion reduce` compares two different compositions and
+reports drift that is really the defect we fixed.
+
+**Run those sections with `--motion none --freeze <t>`**, which pins both sides to
+the same instant of the same animation. On chapter 2 that took the reported drift
+from 51 to 5, and the 5 that remained were real.
+
+The rule generalises: if a section's artboard reduced-motion block is on the
+defect list, its geometry run needs motion enabled.
+
+### The geometry harness measures leaf elements, and the artboard wraps text in spans
+
+Chapter 2's three reported drifts turned out to be one thing, and it is worth
+knowing before anyone chases a similar set.
+
+`scripts/geometry.mjs` only measures elements with no element children. The
+artboard puts a `<span>` inside its `<h1>` and inside its card `<h3>`s, so the
+heading blocks are never measured - their inner spans are. Markup without an
+equivalent child therefore gets compared *block box against inline box*, which
+differs in both width (an inline box shrink-wraps to its widest line) and `y`
+(an inline box is measured from the font's ascent, not the line box).
+
+That explained a reported `w 769 -> 820` and `y 148 -> 152` where the build was
+in fact correct: 820 was the right `max-width` and the artboard's 769 was its
+span shrink-wrapping.
+
+**It also surfaced a real fidelity finding.** The artboard's card titles carry
+`.pf-h3`, which sets `font-variation-settings: "wght" 420, …`, and an inline
+`font-weight: 600`. Variation settings beat `font-weight`, so those titles render
+at **wght 420, not 600** - the declared 600 is inert, the same class as the dead
+`.shadow-overlay` and the blur-destroyed `.pf-sticker`. Because the settings
+inherit, a nested medallion that only overrides the family also renders at 420.
+Building to the declared weight would have been visibly wrong.
+
+**Practical rule:** when a heading reports a width or `y` drift and nothing else
+around it moves, check whether the artboard wraps it in a span before changing
+any value. Matching the artboard's own structure fixes the measurement and
+usually inherits the type correctly at the same time.
+
+### Mobile geometry drift is expected, and it is fully accounted for
+
+After the line-height and shell-gutter corrections, every remaining drift on a
+mobile geometry run decomposes into exactly two client decisions and their
+consequences:
+
+- `font Nunito -> Nunito Sans` - the body-face unification (desktop is
+  authoritative).
+- `font Nunito -> Hanken Grotesk` / `Fraunces -> Source Serif 4` - the product
+  faces inside the depictions, on both breakpoints.
+- Small `y` deltas that follow from those faces' differing vertical metrics, plus
+  the documented `clamp()` on headings below the artboard's fixed 430px column.
+
+None of it accumulates into a layout defect and none of it is a section's to fix.
+**A mobile run reporting only these classes is a pass.** Anything else - an
+accumulating offset, a missing node, a width that is not the fluid range - is
+real and should be chased.
+
+### Chapter 3 cannot be compared at 1024px
+
+Its artboard is broken there: the unclosed `@media (min-width:1280px)` means the
+whole `.pf-won` driver is missing below 1280, so the artboard's landed card is
+stuck open at 99px with `animation-duration: 0s` and its toast sits at opacity 1.
+Our build animates correctly, so the two compositions legitimately differ across
+the entire 1024-1279 range. **Compare chapter 3 at 1280 and 1440 only.**
+
+### `--freeze` also freezes the entrance reveals
+
+`document.getAnimations()` returns every running animation, including the
+`.reveal-*` entrances. Freezing at `t = 0` therefore pins those at their first
+keyframe - `translateY(8px)` for `up-blur`, `scale(.95)` for `scale` - and the
+section reads as uniformly displaced or slightly small.
+
+It cost one false hero regression (the CTA row reporting 8px low) and one false
+board measurement (992px reading as 942.4px). **Freeze only where the section has
+a looping system to pin, and use a `t` inside that loop rather than 0.** For a
+section whose only motion is the entrance, run without `--freeze` at all.
