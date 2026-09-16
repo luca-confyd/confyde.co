@@ -1,0 +1,402 @@
+/* ---------------------------------------------------------------------------
+   Chapter 3's won-job flight.
+
+   One 14s loop: a card is picked up out of the Negotiating lane, flown to
+   Closed, landed with a shine sweep and a toast, and the lane counts cross-fade
+   mid-flight. 1% of the cycle is 140ms, and nothing here carries an
+   `animation-delay`, so the QA harness gets cycle time from a bare
+   `a.currentTime = t`.
+
+   THE ARTBOARD'S MEDIA QUERY, AND THE ONE THAT REPLACES IT. The source opens
+   `@media (min-width:1280px)` at line 141 and never closes it, so the whole
+   driver, all seven support keyframes, the second `pf-won-fly` variant and the
+   reduced-motion block were trapped above 1280px and nothing animated below it
+   (docs/specs/10-chapter-3.md §5.2, D2). It also declared the whole block
+   TWICE, character for character; only the later copy was effective and the
+   dead one is not reproduced here.
+
+   The one query that survives is a real one. At 1280px the board goes from
+   three columns with a full-width Closed row to four columns with Closed as a
+   236px column on the right, and the card's travel vector changes with it: it
+   flies down and back to the left below 1280, and to the right at and above it.
+   Both vectors are correct for their own layout, so the columns and the vector
+   are declared in the same block where they cannot drift apart.
+
+   THE COUNT-UPS ARE NOT HERE. The eight-cell strip is driven by JavaScript
+   (`lib/use-count-up.ts`), not by CSS, and its reduced-motion behaviour is the
+   hook writing final values synchronously before paint.
+--------------------------------------------------------------------------- */
+
+@keyframes pb-won-slot {
+  0%,
+  48% {
+    max-height: 150px;
+  }
+  54%,
+  88% {
+    max-height: 0;
+  }
+  94%,
+  100% {
+    max-height: 150px;
+  }
+}
+
+@keyframes pb-won-land {
+  0%,
+  47% {
+    max-height: 0;
+    opacity: 0;
+  }
+  49% {
+    opacity: 1;
+  }
+  51%,
+  84% {
+    max-height: 150px;
+    opacity: 1;
+  }
+  90%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+/* The 58% stop declares ONLY opacity, deliberately. Transform therefore
+   interpolates straight through it - linearly, because the band also carries
+   `.won-lin` - from -120% at 52% to +140% at 66%, so the sweep travels at
+   constant speed while its opacity ramps up and back down under it. Adding a
+   transform here "for completeness" would put a velocity break mid-sweep. */
+@keyframes pb-won-shine {
+  0%,
+  52% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  58% {
+    opacity: 1;
+  }
+  66%,
+  100% {
+    opacity: 0;
+    transform: translateX(140%);
+  }
+}
+
+@keyframes pb-grab {
+  0%,
+  27% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  31%,
+  47% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  52%,
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes pb-won-toast {
+  0%,
+  52% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  58%,
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  86%,
+  100% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+}
+
+/* The crossfade runs 40% -> 46%, i.e. BEFORE the card lands at 49%: the board
+   has already reacted by the time the card arrives. */
+@keyframes pb-swap-a {
+  0%,
+  40% {
+    opacity: 1;
+  }
+  46%,
+  88% {
+    opacity: 0;
+  }
+  94%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pb-swap-b {
+  0%,
+  40% {
+    opacity: 0;
+  }
+  46%,
+  88% {
+    opacity: 1;
+  }
+  94%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* One keyframe set, six custom properties. The artboard wrote the two vectors
+   as two full copies of this block and they had already started to drift; the
+   variables are read at element level and are static per breakpoint, so they
+   interpolate exactly as literals would with no @property registration.
+
+   88% -> 94% is a VISIBLE REWIND, not a cut: the card fades back up from
+   opacity 0 while travelling back to its lane, so for 840ms a ghost flies
+   backwards across the board. That is what the source draws and it ships as
+   drawn (D7) - moving the opacity to a single stop at 94% would make it a hard
+   cut, which is a choreography change and the client's call. */
+@keyframes pb-won-fly {
+  0%,
+  28% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    box-shadow: 0 0 0 0 rgb(21 48 31 / 0);
+  }
+  32% {
+    opacity: 1;
+    transform: translate(var(--fly-x1), var(--fly-y1)) scale(1.04) rotate(-2deg);
+    box-shadow: 0 22px 40px -18px rgb(21 48 31 / 0.55);
+  }
+  44% {
+    opacity: 1;
+    transform: translate(var(--fly-x2), var(--fly-y2)) scale(1.04) rotate(-2deg);
+    box-shadow: 0 22px 40px -18px rgb(21 48 31 / 0.55);
+  }
+  49% {
+    opacity: 1;
+    transform: translate(var(--fly-x3), var(--fly-y3)) scale(1) rotate(0deg);
+    box-shadow: 0 10px 22px -14px rgb(21 48 31 / 0.4);
+  }
+  52% {
+    opacity: 0;
+    transform: translate(var(--fly-x3), var(--fly-y3)) scale(1) rotate(0deg);
+    box-shadow: 0 0 0 0 rgb(21 48 31 / 0);
+  }
+  88% {
+    opacity: 0;
+    transform: translate(var(--fly-x3), var(--fly-y3)) scale(1);
+  }
+  94%,
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@layer components {
+  /* The shared 14s driver. `animation-name` is set per element below.
+     cubic-bezier(.32,.72,0,1) is a much sharper decelerating curve than the
+     .19,1,.22,1 expo sections 02 and 05 use - about 90% of each segment's
+     distance in its first 40%. The two are not interchangeable and must not
+     share a token. */
+  .won-slot,
+  .won-card,
+  .won-grab,
+  .won-land,
+  .won-shine,
+  .won-toast,
+  .won-swap-a,
+  .won-swap-b {
+    animation-duration: 14s;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+
+  /* Pure opacity crossfades and the constant-velocity sweep run linear. */
+  .won-lin {
+    animation-timing-function: linear;
+  }
+
+  .won-slot {
+    animation-name: pb-won-slot;
+  }
+  .won-grab {
+    animation-name: pb-grab;
+  }
+  .won-land {
+    animation-name: pb-won-land;
+  }
+  .won-shine {
+    animation-name: pb-won-shine;
+  }
+  .won-toast {
+    animation-name: pb-won-toast;
+  }
+  .won-swap-a {
+    animation-name: pb-swap-a;
+  }
+  .won-swap-b {
+    animation-name: pb-swap-b;
+  }
+
+  .won-card {
+    /* Below 1280 the Closed lane is a full-width second row, so the card
+       travels a bit over two lane-widths LEFT and 345px DOWN, back to column 1
+       of the row beneath. The X terms are percentages of the card's own width,
+       which is the lane width - which is why they have to change with the
+       columns. See docs/specs/10-chapter-3.md §5.2. */
+    --fly-x1: -4%;
+    --fly-y1: -12px;
+    --fly-x2: -120%;
+    --fly-y2: 180px;
+    --fly-x3: -205%;
+    --fly-y3: 345px;
+    animation-name: pb-won-fly;
+  }
+
+  /* The board's base grid: three equal columns with Closed spanning both rows'
+     width. Here rather than in Tailwind because the 1280px block below has to
+     change it in the same place as the travel vector. */
+  .board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .board-closed {
+    grid-column: 1 / -1;
+  }
+
+  /* The tilted stat stack rests tucked down and slightly small behind the
+     browser card, and lifts to its true size on hover anywhere over the stage.
+     Nothing in the stage is focusable and the lift reveals no information - the
+     cards are fully legible at rest - so unlike the marquee's hover pause this
+     needs no :focus-within equivalent. */
+  .analytics-cards {
+    transform: translateY(18px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .analytics-stage:hover .analytics-cards {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The board's own breakpoint - the only width query in this file.
+
+   At 1280px the Closed lane stops being a full-width second row and becomes a
+   fixed 236px fourth column, so the flying card travels right and barely down
+   instead of down and hard left. The two are declared together on purpose.
+--------------------------------------------------------------------------- */
+@media (width >= 1280px) {
+  .board {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 236px;
+  }
+  .board-closed {
+    grid-column: auto;
+  }
+  .won-card {
+    --fly-x1: 2%;
+    --fly-y1: -12px;
+    --fly-x2: 62%;
+    --fly-y2: 6px;
+    --fly-x3: 104%;
+    --fly-y3: 30px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The resting state: the t = 0 frame, before the card is picked up.
+
+   Not a port. The artboard's own block pins every `.pf-won` element to
+   `opacity:1; transform:none; max-height:none`, and since that class sits on
+   twelve elements of six different kinds it produces a composition that exists
+   at no point in the live loop: both halves of all three swap pairs
+   superimposed, the landed Closed card visible at the same time as the card
+   still sitting in Negotiating, the shine band opaque across it, the grab badge
+   stuck on and the toast permanently on screen.
+
+   t = 0 is the right frame for three reasons: it is what the mobile artboard
+   draws statically, so the two breakpoints agree; it is the frame that holds
+   longest in the live loop (0-28%, 3.92s); and it is the only frame in which
+   the board is internally consistent with nothing transient on screen.
+
+   Consequence for QA: this deliberately differs from the artboard's own
+   reduced-motion frame, so the structural diff for this chapter runs with
+   `--motion none --freeze <t>` at matched t on both sides (RULINGS §05 ruling 3).
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .won-slot,
+  .won-card,
+  .won-grab,
+  .won-land,
+  .won-shine,
+  .won-toast,
+  .won-swap-a,
+  .won-swap-b {
+    animation: none !important;
+  }
+
+  /* The card is home, at rest, with no flight shadow. */
+  .won-card {
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Its lane slot is open. */
+  .won-slot {
+    max-height: none !important;
+  }
+
+  /* The job has not been won yet, so the Closed card does not exist.
+     `display: none` rather than `max-height: 0` - a zero-height box would still
+     leave the lane's 8px flex gap behind it. */
+  .won-land {
+    display: none !important;
+  }
+
+  /* Both are transients of the landing. */
+  .won-shine,
+  .won-toast {
+    display: none !important;
+  }
+
+  /* No hand on the card. */
+  .won-grab {
+    opacity: 0 !important;
+    transform: none !important;
+  }
+
+  /* One value per slot, not two. A is the before state. */
+  .won-swap-a {
+    opacity: 1 !important;
+  }
+  .won-swap-b {
+    opacity: 0 !important;
+  }
+
+  /* Upright, like the artboard at rest. The three cards carry the artboard's
+     inline `transform` (see components/home/chapter-3/stat-cards.tsx), which
+     the reveal entrance overrides at every other moment - but under this
+     preference the reveal hook adds no animation class, so there would be
+     nothing to override it and the cards would rest tilted where the artboard
+     does not. */
+  .analytics-card {
+    transform: none !important;
+  }
+
+  /* The stat stack rests TUCKED. The artboard pins it to `transform: none`,
+     which is its hovered position - a resting state pinned to a hover frame is
+     a composition no un-hovered user ever sees, and it is what the harness
+     would screenshot (D11). */
+  .analytics-cards {
+    transform: translateY(18px) scale(0.96) !important;
+    transition: none !important;
+  }
+}

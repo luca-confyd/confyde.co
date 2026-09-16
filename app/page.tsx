@@ -1,6 +1,7 @@
 import { BeforeAfter } from "@/components/home/before-after/before-after";
 import { Chapter1 } from "@/components/home/chapter-1/chapter-1";
 import { Chapter2 } from "@/components/home/chapter-2/chapter-2";
+import { Chapter3 } from "@/components/home/chapter-3/chapter-3";
 import { CtaStage } from "@/components/home/cta-stage/cta-stage";
 import { CustomerStories } from "@/components/home/customer-stories/customer-stories";
 import { Faq } from "@/components/home/faq/faq";
@@ -41,7 +42,7 @@ export default function HomePage() {
         <Chapter1 />
         <Chapter2 />
         <Integrations />
-        {/* Chapter 3 - playbook */}
+        <Chapter3 />
         <PullQuotes />
         <RepeatWork />
         <WhatYouGetBack />

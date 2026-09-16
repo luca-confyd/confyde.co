@@ -99,6 +99,27 @@ export const SECTIONS = {
     siteWeb: "[data-section='integrations']",
     siteMobile: "[data-section='integrations']",
   },
+  "chapter-3": {
+    title: "Chapter 3 - playbook",
+    site: null,
+    // `.pf-board` is the kanban grid and occurs exactly once in the web artboard.
+    web: "#dc-root section:has(.pf-board)",
+    // The mobile board's Closed group is the only group tone written as a 10%
+    // forest mix; the eyebrow/heading pairs alone match four sections.
+    mobile: "#dc-root section:has(> .canvas-botanical > div > div[style*='10%'])",
+    siteWeb: "[data-section='chapter-3-desktop']",
+    siteMobile: "[data-section='chapter-3-mobile']",
+  },
+  "chapter-3-leaderboard": {
+    title: "Chapter 3 - team leaderboard",
+    site: null,
+    // Mobile draws the leaderboard as its own section where desktop keeps it
+    // inside the chapter panel, so only the mobile side has anything to compare.
+    web: null,
+    mobile: "#dc-root section:has(div > ul li span[style*='48px'])",
+    siteWeb: null,
+    siteMobile: "[data-section='chapter-3-leaderboard-mobile']",
+  },
   "customer-stories": {
     title: "Customer stories",
     site: null,
