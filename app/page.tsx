@@ -1,4 +1,5 @@
 import { BeforeAfter } from "@/components/home/before-after/before-after";
+import { Chapter1 } from "@/components/home/chapter-1/chapter-1";
 import { CtaStage } from "@/components/home/cta-stage/cta-stage";
 import { CustomerStories } from "@/components/home/customer-stories/customer-stories";
 import { Faq } from "@/components/home/faq/faq";
@@ -36,7 +37,7 @@ export default function HomePage() {
         <LogoMarqueeMobile />
         <SocialProof />
         <BeforeAfter />
-        {/* Chapter 1 - meet Bramble */}
+        <Chapter1 />
         {/* Chapter 2 - sales assistant */}
         <Integrations />
         {/* Chapter 3 - playbook */}

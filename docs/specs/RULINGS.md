@@ -356,3 +356,67 @@ widths in both motion preferences, its own commit.
 | — | `then and rewrites it` in the desktop body copy, where mobile's version of the same sentence is grammatical | **Ship as drawn. Log.** Client copy. |
 | — | The ingest loop never clears: files 2-4 exit at 12.0/12.5/13.0s while file 1 has already restarted | **Assess and report.** If it can be closed without changing the resting composition - as the marquee fix was - close it. If closing it would move the static frame, leave it and log. |
 | — | Eight dead `tk-pop*` / `tk-fill*` keyframes | **Drop.** |
+
+### Unreset paragraph margins — check this in every section
+
+The artboards never reset `<p>` margins, so **every paragraph in them carries the
+browser's default `margin-bottom: 1em`** - 14px at 14px, 16px at 16px, 18px at
+18px. Our Tailwind reset removes it, so any gap that the artboard got for free
+comes out of our build and everything after it rides up.
+
+It has now bitten twice:
+
+- **Hero**: the CTA row's declared `margin-top: 44px` renders as 60px, because
+  the paragraph above contributes 16. Fixed by shipping 60.
+- **Chapter 1**: a uniform -18px through the take-off card, accumulating to -36px
+  by the proposal card, from two 18px paragraphs.
+
+**Every engineer must check for this**, and the geometry harness finds it
+instantly: a constant vertical offset that *accumulates* down a section is
+almost always this and nothing else.
+
+Reproduce the **rendered** gap as a real value on our side, per principle 1. Do
+not add a blanket `p { margin-bottom: 1em }` - the artboards' spacing is only
+accidentally uniform, and a global rule would fix the places it happens to match
+while silently breaking the places it does not.
+
+### D4 reversed on measurement — the 1150px query is live
+
+I ruled the artboard's `@media (max-width:1150px){.tk-grid{grid-template-columns:minmax(0,1fr)!important}}`
+dead, following the spec's reasoning that the 1000px content cap already governs
+that range. **The premise was wrong, and the engineer disproved it by measuring
+the artboard rather than reasoning about it.**
+
+The cap governs *width*; the query governs *tracks*. They are independent.
+Measured on the artboard:
+
+```
+1024px   .tk-grid columns: 848px          panes STACKED
+1149px   .tk-grid columns: 973px          panes STACKED
+1151px   .tk-grid columns: 546px 429px    side by side
+1280px   .tk-grid columns: 560px 440px    side by side
+```
+
+So across 1024-1150px - 127px of our own desktop range, starting at exactly the
+width we switch layouts - the artboard draws the plan **above** the priced lines.
+Shipping the grid flat put the card in the wrong composition at the switch width.
+
+**Reproduced**, per principle 1. Implemented as `min-[1151px]:` on a
+single-column base rather than `max-[1150px]:` on a two-column base, so the two
+declarations sit in disjoint ranges and neither depends on Tailwind's variant
+emission order - the same reasoning that produced `sm-only`.
+
+**Bounded**: this is the only `max-width` query in the web artboard, so chapters
+2 and 3 carry no version of this trap.
+
+### The harness was serving a stale build
+
+Found while fixing the above: `next start` serves whatever is in `.next`, so a
+server left running from an earlier build serves stale output - and a
+verification run against stale output is worse than none, because it reports a
+pass. It reproduced an already-fixed 62-node drift exactly.
+
+`scripts/lib/site-server.mjs` now compares `.next/BUILD_ID`'s mtime against the
+newest file in the source tree, rebuilds when it is behind, and kills any server
+that predates the rebuild. Every runner shares that helper, so the guard covers
+the geometry harness, the comparison harness and the audit at once.

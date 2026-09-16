@@ -395,3 +395,34 @@
     0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent),
     0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent);
 }
+
+/* ---------------------------------------------------------------------------
+   The live pip.
+
+   A 2.4s expanding ring marking a happening-now state. It lives here rather than
+   in any one section's motion file because three sections use it - the
+   before/after phone, chapter 1's proposal footer and the price library - and
+   whichever section owned it would have made the others depend on that file
+   being imported first. That is the kind of coupling that breaks silently the
+   first time someone reorders an import list.
+--------------------------------------------------------------------------- */
+@keyframes bb-live-pip {
+  0% { opacity: 0.8; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(2.6); }
+}
+
+@layer components {
+  .live-pip {
+    /* 2.4s, and the only animation in the section with no fill mode: it sits
+       exactly on top of an identical solid dot, so its resting value has to be
+       pinned explicitly below rather than left to `both`. */
+    animation: bb-live-pip 2.4s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-pip {
+    animation: none;
+    opacity: 0;
+  }
+}

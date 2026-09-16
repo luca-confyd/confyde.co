@@ -1,0 +1,715 @@
+/* ---------------------------------------------------------------------------
+   Chapter 1 - three independent clocks.
+
+   The take-off demo runs a 15s loop, the price-library ingest a 12s one (see
+   the note on the 13.5s period below), and the proposal card's live pip a 2.4s
+   one it borrows from `.live-pip` in before-after.css. Nothing here is
+   synchronised with anything else, which is the point: three product surfaces
+   doing three unrelated jobs read as a product, where three surfaces beating
+   together read as one animation.
+
+   THE MEDIA QUERY THAT IS NOT HERE. <Chapter1Desktop> is `hidden desk:block`
+   and <Chapter1Mobile> is `desk:hidden`, so at any width exactly one of the two
+   compositions is laid out and the other is `display: none`. That is why the
+   `tk-*` and `mtk-*` keyframes can share one file and one driver class with no
+   breakpoint at all, and why the artboard's `@media (max-width: 1150px)` rule
+   on `.tk-grid` is dead in our build (docs/specs/06-chapter-1.md D4).
+
+   DROPPED ON THE WAY THROUGH. Eight keyframe blocks - `tk-pop1..4` and
+   `tk-fill1..4` - are declared in the desktop artboard and applied to nothing;
+   their phasing shows they once drove a four-measurement version of the demo
+   that the artboard no longer draws, and the mobile artboard never carried them
+   at all. Dropped as dead code per RULINGS.md §06 (§05's `pf-clock-late` /
+   `pg-still` / `pf-done-rest` precedent), and recorded in the spec's §3.3 so
+   nobody restores them. The stale "rests on Training complete" comment on the
+   ingest loop went with them - no element in that card says Training complete.
+
+   MERGED ON THE WAY THROUGH. The spec asks for the desktop and mobile systems
+   in separate files on the grounds that their keyframe VALUES differ. Where
+   they are byte-identical they are written once here - the scan band, the two
+   covers and the five clock spans - because the one thing that differed, the
+   scan's travel distance, is now a single number on both breakpoints (see
+   below). Where the values genuinely differ (row slide distance, whether the
+   exit restores its transform, whether the ready bar scales) the two keep their
+   own blocks, because collapsing those into custom properties would hide a real
+   difference between two artboards behind a variable.
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   1. The take-off demo, 15s. 1% of the cycle is 150ms.
+
+   There is no `animation-delay` anywhere in this system: the whole choreography
+   is percentage offsets on one shared clock. That is what lets the QA harness
+   freeze it with a bare `a.currentTime = t` and get cycle time directly, unlike
+   section 05's positive-delay cards.
+--------------------------------------------------------------------------- */
+
+/* The scan band travels 560% of its own height, not the desktop artboard's
+   `104%`. The band is `height: 16%` of the plan box and `translateY` on a
+   percentage resolves against the element's own height, so 104% moves it 16.6%
+   of the plan and it never reaches either of the two annotations it exists to
+   reveal - it stops a third of the way down, above cover 2 at 57.56%. The
+   mobile artboard writes 560% for the same element, which is the intent:
+   (100 - 16) / 16 = 5.25 puts the band's bottom edge on the plan's bottom edge,
+   and the extra 0.35 carries it cleanly off. A mis-stepped animation is a bug
+   under RULINGS.md principle 2 and the mobile board supplies the evidence;
+   ruled in RULINGS.md §06 D1. It moves the frozen frame between t=1.2s and
+   t=8.7s, so QA compares that band at matched `t` rather than treating the
+   difference as a regression. */
+@keyframes tk-scan {
+  0%,
+  3% {
+    opacity: 0;
+    transform: translateY(-8%);
+  }
+  8% {
+    opacity: 1;
+  }
+  58% {
+    opacity: 1;
+    transform: translateY(560%);
+  }
+  64%,
+  100% {
+    opacity: 0;
+    transform: translateY(560%);
+  }
+}
+
+/* The covers start opaque and lift; they do NOT fade back in until 96%, which
+   is what makes the loop's restart read as a reset rather than a flicker. Cover
+   1 lifts on the same two percentages as row 1, cover 2 on the same two as row
+   2 - a measurement appearing on the plan at the exact moment its priced line
+   appears in the list is the argument the whole demo makes. */
+@keyframes tk-cover1 {
+  0%,
+  12% {
+    opacity: 1;
+  }
+  18%,
+  96% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes tk-cover2 {
+  0%,
+  26% {
+    opacity: 1;
+  }
+  32%,
+  96% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Five superimposed timer readings. Every handover has a gap - 17->21, 30->35,
+   44->49, 58->63 - so the chip is blank for 450-750ms between numbers and never
+   shows two at once. Two visible readings means either the spans have come off
+   `grid-area: 1 / 1` or the reduced-motion block has leaked. */
+@keyframes tk-c1 {
+  0%,
+  3% {
+    opacity: 0;
+  }
+  5%,
+  17% {
+    opacity: 1;
+  }
+  20%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tk-c2 {
+  0%,
+  18% {
+    opacity: 0;
+  }
+  21%,
+  30% {
+    opacity: 1;
+  }
+  34%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tk-c3 {
+  0%,
+  32% {
+    opacity: 0;
+  }
+  35%,
+  44% {
+    opacity: 1;
+  }
+  48%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tk-c4 {
+  0%,
+  46% {
+    opacity: 0;
+  }
+  49%,
+  58% {
+    opacity: 1;
+  }
+  62%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tk-c5 {
+  0%,
+  60% {
+    opacity: 0;
+  }
+  63%,
+  96% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The four priced rows. Everything with a 94% stop leaves together; any stagger
+   on the way out is a bug. */
+@keyframes tk-row1 {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  18%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+}
+
+@keyframes tk-row2 {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  32%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+}
+
+@keyframes tk-row3 {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  46%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+}
+
+@keyframes tk-row4 {
+  0%,
+  53% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  59%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+}
+
+@keyframes tk-total {
+  0%,
+  62% {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+  69%,
+  94% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+}
+
+/* The single overshoot in the whole section. If this settles at scale(1) with
+   no 1.1 on the way, the keyframe has been flattened. */
+@keyframes tk-ready {
+  0%,
+  64% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  75%,
+  94% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The mobile take-off card's four differences, and only those four.
+
+   Every percentage below is identical to its desktop counterpart; the mobile
+   artboard slides its rows 12px rather than 14px, does not restore the
+   transform on the way out, rises its totals 8px rather than 9px, and fades its
+   ready bar with no scale at all. Both are legible and both ship as drawn.
+--------------------------------------------------------------------------- */
+@keyframes mtk-row1 {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  18%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mtk-row2 {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  32%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mtk-row3 {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  46%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mtk-row4 {
+  0%,
+  53% {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  59%,
+  94% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mtk-total {
+  0%,
+  62% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  69%,
+  94% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  99%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mtk-ready {
+  0%,
+  64% {
+    opacity: 0;
+  }
+  70%,
+  94% {
+    opacity: 1;
+  }
+  99%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   2. The price-library ingest.
+
+   THE 13.5s PERIOD, AND WHY IT IS NOT 12s. The artboard runs this system on a
+   12s loop with four positive `animation-delay`s of 0 / .5 / 1 / 1.5s on the
+   file cards. A delay shifts an item's phase but not the loop's length, so the
+   four exits finish at 11.52 / 12.02 / 12.52 / 13.02s while file 1 has already
+   re-flown at 12.00s and the drop zone has already re-flashed lime: the deck
+   never clears before it refills.
+
+   Lengthening the period to 13.5s - 12s plus the longest delay - and scaling
+   every percentage by 12/13.5 leaves every event at the identical WALL time
+   inside the cycle and simply holds the empty stage for the 480ms between the
+   last exit and the restart. The resting composition is untouched, every frozen
+   frame the QA sheet screenshots is untouched, and the loop closes. This is the
+   same shape of fix as the marquee's `gap: 0` plus per-copy padding (RULINGS.md
+   §03/04 ruling 1): identical rendering at rest, a loop that actually joins up.
+
+   The one consequence to know about: 1% of this cycle is no longer a round
+   120ms, so the stops below are 12s percentages multiplied by 0.888889 and the
+   spec's timing table still reads in wall milliseconds, not in percent.
+--------------------------------------------------------------------------- */
+
+/* --dx alternates sign so the files arrive from alternating sides; --dr
+   alternates with it at 6-9deg so the four do not look stamped; --dy is a
+   constant 14px on all four, so they come from slightly BELOW rather than
+   above. Mobile sets --dx only: on a narrow card the rotation read as wobble,
+   so `m-drop-fly` has no rotate() at all - here that is the `0deg` fallback,
+   which is the same rendered result without a second keyframe block. */
+@keyframes ingest-fly {
+  0%,
+  1.7778% {
+    opacity: 0;
+    transform: translate(var(--dx, 40px), var(--dy, 14px)) rotate(var(--dr, 0deg)) scale(0.82);
+  }
+  8% {
+    opacity: 1;
+  }
+  14.2222%,
+  78.2222% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  85.3333%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 6px) rotate(0deg) scale(0.97);
+  }
+}
+
+/* The fill animates `width`, not `transform`. It is a 4px bar on four elements
+   and a scaleX would distort the pill's round caps, which is the whole reason
+   the bar reads as a bar. */
+@keyframes ingest-bar {
+  0%,
+  12.4444% {
+    width: 0;
+  }
+  30.2222%,
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes ingest-swap {
+  0%,
+  26.6667% {
+    opacity: 0;
+  }
+  33.7778%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ingest-swapout {
+  0%,
+  26.6667% {
+    opacity: 1;
+  }
+  33.7778%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ingest-done {
+  0%,
+  42.6667% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  49.7778%,
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  87.1111%,
+  100% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes ingest-tick {
+  0%,
+  44.4444% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  51.5556% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+  56.8889%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* The zone's resting border and background are its own inline values, which are
+   already this keyframe's neutral end - so the 0-10.67% lime flash is the only
+   thing it adds, and stopping the animation is all reduced motion needs to do. */
+@keyframes ingest-zone {
+  0%,
+  10.6667% {
+    border-color: color-mix(in oklab, var(--color-lime-500) 78%, transparent);
+    background: color-mix(in oklab, var(--color-lime-500) 14%, transparent);
+  }
+  26.6667%,
+  100% {
+    border-color: color-mix(in oklab, var(--color-cream) 42%, transparent);
+    background: color-mix(in oklab, var(--color-forest-900) 22%, transparent);
+  }
+}
+
+@keyframes ingest-count {
+  0%,
+  46.2222% {
+    opacity: 0;
+  }
+  53.3333%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@layer components {
+  /* -------------------------------------------------------------------------
+     The take-off driver. `animation-name` is supplied per element, inline,
+     because it is the only thing that differs across the eighteen elements
+     wearing this class - the same split the before/after section uses.
+  ------------------------------------------------------------------------- */
+  .tk {
+    animation-duration: 15s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+
+  /* Linear on exactly two kinds of element: a clock should tick evenly and a
+     scanner should travel evenly. Everything else keeps the expo-out curve. */
+  .tk-lin {
+    animation-timing-function: linear;
+  }
+
+  /* -------------------------------------------------------------------------
+     Four easings in the ingest system, all deliberate: the card lands fast and
+     settles (expo-out), the progress bar must not overshoot its ease
+     (standard), a crossfade should be even (linear) and the drop zone breathes
+     (ease-in-out).
+  ------------------------------------------------------------------------- */
+  .ingest-item {
+    animation: ingest-fly 13.5s cubic-bezier(0.19, 1, 0.22, 1) infinite both;
+  }
+
+  .ingest-fill {
+    animation: ingest-bar 13.5s cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+  }
+
+  /* `.file-type` holds the file's TYPE - `PDF`, `Excel`, `Photo` - and never a
+     percentage, despite the artboard calling it `pf-drop-pct`. `.file-read` is
+     the tick-and-"Read" chip that crossfades in over it. Nothing counts and
+     nothing measures progress in words; do not add a counter here. */
+  .file-type {
+    animation: ingest-swapout 13.5s linear infinite both;
+  }
+
+  .file-read {
+    animation: ingest-swap 13.5s linear infinite both;
+  }
+
+  .ingest-done {
+    animation: ingest-done 13.5s cubic-bezier(0.19, 1, 0.22, 1) infinite both;
+  }
+
+  .ingest-tick {
+    animation: ingest-tick 13.5s cubic-bezier(0.19, 1, 0.22, 1) infinite both;
+  }
+
+  .ingest-zone {
+    animation: ingest-zone 13.5s ease-in-out infinite both;
+  }
+
+  /* Named for a count-up the artboard never wrote: `248 materials learned` is
+     static and this is a pure fade. */
+  .ingest-count {
+    animation: ingest-count 13.5s linear infinite both;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The resting state, as every file in this directory ends with.
+
+   Two frames, one per system.
+
+   Take-off, t = 11250ms (75% of the 15s cycle): the first frame of the long
+   hold. Every priced row has landed, the totals are up, the ready bar has
+   settled out of its 1.1 overshoot, both covers have lifted, the scan band has
+   gone and the clock reads 2:14 - which is the same figure the ready bar
+   prints. It holds for 2850ms live, it is the state the section argues for, and
+   it is the composition the mobile artboard draws statically, so the two
+   breakpoints agree.
+
+   Ingest, t = 7680ms: all four files landed, all four bars full, all four
+   labels swapped to "Read", the footer up and the tick settled out of its 1.18
+   overshoot. That is the frame the live loop itself rests on.
+
+   NEITHER ARTBOARD'S OWN BLOCK CAN BE PORTED. Both put `opacity: 1 !important`
+   on the shared driver class, which sits on the covers, the scan band and all
+   five clock spans as well as on the rows - so at rest both plan annotations
+   are hidden behind their grey covers, a lime bar lies across the top of the
+   plan, and five timestamps print on top of each other. Mobile fixes the cover
+   half of it by sniffing `[style*="mtk-cover"]` and leaves the rest. Same class
+   of defect as RULINGS.md §05 ruling 3, ruled at §06 D5/D6. The three hooks
+   below - `.tk-cover`, `.tk-scan`, `.tk-clock` - exist for this: selecting on
+   the `style` attribute is brittle and does not survive a move to a style prop,
+   which is exactly what our build uses.
+
+   The artboard's `stroke-dashoffset: 0 !important` is dropped: nothing in this
+   section has a dashed SVG stroke for it to act on.
+
+   `.live-pip` is not repeated here. It is already declared once, globally, in
+   before-after.css - including its reduced-motion rule - and the artboard's own
+   duplicate declaration of the same 2.4s keyframe is the reason to keep exactly
+   one copy on the page.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .tk {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Both annotations are revealed and the scanner has finished. */
+  .tk-cover,
+  .tk-scan {
+    opacity: 0 !important;
+  }
+
+  /* One reading, the last one, agreeing with the "2m 14s" on the ready bar. */
+  .tk-clock {
+    opacity: 0 !important;
+  }
+  .tk-clock:last-child {
+    opacity: 1 !important;
+  }
+
+  .ingest-item,
+  .ingest-fill,
+  .file-type,
+  .file-read,
+  .ingest-done,
+  .ingest-tick,
+  .ingest-zone,
+  .ingest-count {
+    animation: none !important;
+  }
+
+  .ingest-item,
+  .ingest-done,
+  .ingest-tick {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .ingest-fill {
+    width: 100% !important;
+  }
+
+  /* The type chip has been replaced by its "Read" sibling. Both are pinned
+     explicitly rather than left to their default opacity: a resting state the
+     harness diffs against has to be declared, not inherited. */
+  .file-type {
+    opacity: 0 !important;
+  }
+  .file-read,
+  .ingest-count {
+    opacity: 1 !important;
+  }
+}

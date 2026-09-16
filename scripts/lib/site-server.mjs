@@ -1,4 +1,6 @@
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
+import { readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
 
 /**
  * Give the harness a dev server to shoot against.
@@ -30,13 +32,65 @@ async function responds(port) {
   }
 }
 
+const SOURCE_DIRS = ["app", "components", "content", "lib", "styles"];
+
+/**
+ * Newest mtime across the source tree.
+ *
+ * `next start` serves whatever is in .next, so a server left running from an
+ * earlier build will happily serve stale output - and a verification run against
+ * stale output is worse than no verification, because it reports a pass. This is
+ * not hypothetical: it silently reproduced a already-fixed 62-node drift.
+ */
+function newestSourceMtime() {
+  let newest = 0;
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const path = join(dir, entry.name);
+      if (entry.isDirectory()) walk(path);
+      else newest = Math.max(newest, statSync(path).mtimeMs);
+    }
+  };
+  for (const dir of SOURCE_DIRS) {
+    try {
+      walk(dir);
+    } catch {
+      /* a directory that does not exist yet is not a staleness signal */
+    }
+  }
+  return newest;
+}
+
+function buildIsStale() {
+  try {
+    return statSync(`${process.env.NEXT_DIST_DIR ?? ".next"}/BUILD_ID`).mtimeMs < newestSourceMtime();
+  } catch {
+    return true;
+  }
+}
+
 export async function siteServer() {
   if (process.env.BRAMBLE_SITE_ORIGIN) {
     return { origin: process.env.BRAMBLE_SITE_ORIGIN, stop: () => {}, reused: true };
   }
 
+  const stale = buildIsStale();
+  if (stale) {
+    console.log("build is older than the source tree - rebuilding before measuring");
+    execFileSync("npx", ["next", "build"], { stdio: "inherit" });
+  }
+
   for (const port of CANDIDATE_PORTS) {
     if (await responds(port)) {
+      // A server that predates the build we just made is serving the old one.
+      if (stale) {
+        try {
+          execFileSync("sh", ["-c", `lsof -ti:${port} | xargs kill -9`], { stdio: "ignore" });
+        } catch {
+          /* nothing listening is fine */
+        }
+        break;
+      }
       return { origin: `http://localhost:${port}`, stop: () => {}, reused: true };
     }
   }
@@ -44,13 +98,13 @@ export async function siteServer() {
   const port = CANDIDATE_PORTS.at(-1) + 1;
   // detached so we can signal the whole process group; `next dev` spawns a child
   // that otherwise survives its parent and keeps the port bound.
-  const child = spawn("npx", ["next", "dev", "--port", String(port)], {
+  const child = spawn("npx", ["next", "start", "--port", String(port)], {
     stdio: ["ignore", "pipe", "pipe"],
     detached: true,
   });
 
   await new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error("next dev did not start in 120s")), 120_000);
+    const timer = setTimeout(() => reject(new Error("next start did not come up in 120s")), 120_000);
     child.stdout.on("data", (b) => {
       if (b.toString().includes("Ready")) {
         clearTimeout(timer);

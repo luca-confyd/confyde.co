@@ -66,6 +66,17 @@ export const SECTIONS = {
     siteWeb: "[data-section='before-after-desktop']",
     siteMobile: "[data-section='before-after-mobile']",
   },
+  "chapter-1": {
+    title: "Chapter 1 - meet Bramble",
+    site: null,
+    // #pf-prices is the price-library card's inner wrapper and appears exactly
+    // once in the web artboard, so it pins this section and nothing else.
+    web: "#dc-root section:has(#pf-prices)",
+    // The take-off plan is the only image of its kind in the mobile artboard.
+    mobile: "#dc-root section:has(img[src*='takeoff-plan'])",
+    siteWeb: "[data-section='chapter-1-desktop']",
+    siteMobile: "[data-section='chapter-1-mobile']",
+  },
   integrations: {
     title: "Integrations",
     site: null,

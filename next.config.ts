@@ -2,6 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /**
+   * Several engineers build in this one working tree at the same time, and
+   * concurrent `next build` runs overwrite each other's output mid-read - which
+   * surfaces as a page served with no CSS at all, or as a verification run
+   * against a half-written build. Setting NEXT_DIST_DIR gives a parallel worker
+   * its own output directory so it cannot collide with anyone else's.
+   */
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
+
+  /**
    * No `output: "export"`. Every route here is fully prerendered at build time
    * either way, but staying on the default output keeps the Image Optimization
    * API available on Vercel - which matters a great deal for a page that renders

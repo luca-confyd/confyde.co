@@ -742,10 +742,6 @@
   84%, 100% { opacity: 0; transform: scale(0.9); }
 }
 
-@keyframes bb-live-pip {
-  0% { opacity: 0.8; transform: scale(1); }
-  70%, 100% { opacity: 0; transform: scale(2.6); }
-}
 
 @layer components {
   /* The shared driver. `animation-name` is set per element, inline, because it
@@ -783,12 +779,6 @@
     animation: bb-badge-climb 16s cubic-bezier(0.19, 1, 0.22, 1) infinite both;
   }
 
-  .live-pip {
-    /* 2.4s, and the only animation in the section with no fill mode: it sits
-       exactly on top of an identical solid dot, so its resting value has to be
-       pinned explicitly below rather than left to `both`. */
-    animation: bb-live-pip 2.4s cubic-bezier(0.19, 1, 0.22, 1) infinite;
-  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -847,8 +837,4 @@
 
   /* The pulse ring sits exactly on the solid base dot, so hiding it leaves the
      dot rather than a hole. */
-  .live-pip {
-    animation: none !important;
-    opacity: 0 !important;
-  }
 }

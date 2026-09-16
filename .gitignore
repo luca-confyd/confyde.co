@@ -45,3 +45,6 @@ review/
 
 # the design export is the source of truth, not a build input
 design-source/
+
+# a parallel worker's isolated build output
+.next-*/
