@@ -138,6 +138,11 @@ try {
     const isDesktop = width >= 1024;
     const artboardUrl = design.origin + (isDesktop ? ARTBOARDS.web : ARTBOARDS.mobile);
     const artboardSel = isDesktop ? section.web : section.mobile;
+    // Our build ships the desktop and mobile compositions as siblings, so the
+    // harness has to shoot whichever one is actually laid out at this width.
+    const siteSel = isDesktop
+      ? (section.siteWeb ?? section.site)
+      : (section.siteMobile ?? section.site);
 
     for (const freezeAt of freezes) {
       const tag = freezeAt === undefined ? `${width}` : `${width}-t${freezeAt}`;
@@ -159,7 +164,7 @@ try {
         url: `http://localhost:${SITE_PORT}/`,
         out: sitePath,
         width,
-        selector: section.site ?? undefined,
+        selector: siteSel ?? undefined,
         fullPage: section.fullPage ?? false,
         motion,
         freezeAt,

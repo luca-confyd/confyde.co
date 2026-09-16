@@ -189,3 +189,62 @@ The spec's §4.4 says the trailer bar's sub-line and CTA are Nunito Sans; ruling
 says Hanken Grotesk. **Ruling 9 is correct and the engineer was right to follow
 it** - measured in the browser, those two elements compute to
 `"Hanken Grotesk", system-ui, sans-serif`. The spec is wrong; no change needed.
+
+---
+
+## Section 05, before / after
+
+| # | Finding | Ruling |
+|---|---|---|
+| 1 | The unclosed `@media (min-width:1280px)` leaves the `pg-*` keyframes defined globally but every *driver* inside the query, so below 1280 nothing animates: all five unread counts render superimposed in one pill and all ten cards render flush | **Fix, using the recommended approach.** The two artboards are different compositions (10 cards vs 3), so two components are forced regardless. Gate them with `hidden desk:block` / `desk:hidden` and the motion CSS needs no breakpoint at all. Simpler than hoisting and it removes the class of bug entirely. **Log.** |
+| 2 | `.pf-oneline`'s nested `@media (min-width:1120px)` is load-bearing: at 1120px the panel gives 992px to a ~1130px nowrap headline, so hoisting to the authored breakpoint would clip the H2 | **Keep at ≥1280, as rendered.** Good catch. **Measure it in the browser before sign-off** rather than trusting the arithmetic. |
+| 3 | The artboard's own reduced-motion block is broken: `.pg` sits on four kinds of element, so `opacity:1!important` forces all ten halo rings visible and all five unread counts superimposed | **Fix, with the replacement as specified.** Pinning to `t = 15360ms` showing `31 unread` is the right frame - it is the peak, it holds longest, and it is exactly what the mobile artboard draws statically, so the two breakpoints agree. **Consequence for QA:** our reduced-motion frame will deliberately differ from the artboard's, so the structural diff for this section must be run with `--motion none --freeze <t>` at matched `t` values on both sides instead. Note it in the section's QA run. |
+| 4 | Duplicate keyframe block; only `pg-n3/n4/n5` differ and the later copy wins | **Keep the later copy** (handovers at 42%/72%), drop the dead one. |
+| 5 | Contrast, measured against composited pixels: the suspected rust badge **passes** at 7.51:1. Three real failures - greeting 2.78:1, channel labels 3.61:1, notification times 4.49:1 | **Fix to AA.** The client's standing preference is established from the section 03/04 escalation: correct contrast failures with the smallest change that clears the threshold. Note the spec's preferred gradient-stop fix reaches only **4.46:1, which still fails** - so use whichever minimal change actually measures ≥4.5, and **verify by measuring the composited pixels, not by arithmetic**. **Log** with before/after ratios. |
+| 6 | Do not apply `--color-eyebrow` here - this eyebrow is lime-500 on forest at 10.24:1 | **Correct, agreed.** Same point the hero engineer raised. The corrected tokens exist for lime-700-on-light only. |
+| 7 | Accessibility: `role="img"` plus a written `aria-label` per phone frame, with everything outside the frames fully readable | **Approved.** Ten fake notification cards is ~120 words of fiction that a sighted reader takes in as texture in under a second, but silencing the phones entirely would lose the device metaphor, which is itself the argument. The four strings outside the frames carry the section's whole point and stay readable. |
+| 8 | 23 catalogued defects, mostly narrative: the unread count *falls* 31 → 23 while cards are still arriving; the clock reads 12:06 am but seven notifications are timestamped after it; the pill blanks for a frame at each handover and shows nothing for the first 480ms of each cycle | **Ship as drawn. Log the notable ones.** These are content and choreography choices in the client's design, not defects in our port. Three dead keyframe sets (`pf-clock-late`, `pg-still`, `pf-done-rest`) and the unread `data-calm=""` attribute are dropped as dead code. |
+| 9 | The mobile H2's hard `<br>` is tuned for a 398px measure and orphans at 320px | **Fix** with `text-wrap: balance`. A rendering fix, not a copy edit - the words are unchanged. |
+| 10 | D21: ten cards clipping inside a 493px box is intentional | **Noted - QA must not file this as a bug.** |
+
+### Body face: Nunito vs Nunito Sans
+
+Caught by the geometry harness at 430px. The two artboards do not use the same
+body face: **the desktop homepage loads Nunito Sans, the mobile homepage loads
+Nunito.** They are different typefaces, not two names for one - Nunito is the
+rounded cut.
+
+**Ruling: Nunito Sans everywhere**, matching the desktop artboard. Two body faces
+split across breakpoints is a brand defect rather than a design, and it follows
+the client's own call on the section 04 font mismatch, where they chose the
+desktop artboard as authoritative.
+
+**Log this one prominently and note the counter-evidence**: two of the three
+artboards in the export (mobile homepage and the product page) use Nunito, so it
+is arguable that the desktop homepage is the outlier and Nunito is the intended
+marketing face. Neither is blessed by the design system, which names Inter and
+Fraunces for the marketing site. It is a one-line change in `app/layout.tsx` if
+the client prefers Nunito.
+
+Consequence: the mobile hero measures 3-4px of vertical drift against its
+artboard, because the two faces have different vertical metrics. That is the
+cost of the unification, not a layout bug.
+
+### Section 03: the marquee belongs inside the hero card
+
+Raised by the engineer during the build. In the desktop artboard the logo
+marquee is **the last child of the hero's `shadow-border-strong` card**, not a
+band of its own - so the card's bottom hairline and its layered shadow fall
+*below* the strip, not above it. Building the marquee as a sibling reproduces
+the surface tone but not that edge, and it is exactly the kind of one-hairline
+difference that reads as "close but not right".
+
+They composed it as a sibling because `components/home/hero/` was outside the
+scope I gave them, which was the correct call - better to flag a scope boundary
+than to quietly cross it.
+
+**Ruling: move it inside the hero card.** The marquee component was written to be
+portable for this (it carries its own `bg-pf-surface-500`), so this is a
+composition change, not a rewrite. I will do it during section 03 review rather
+than hand it back, and verify with the geometry harness that the card's bottom
+edge lands below the strip.

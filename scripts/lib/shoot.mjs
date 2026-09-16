@@ -45,7 +45,12 @@ export async function shoot({
   page.on("pageerror", (e) => messages.push({ type: "pageerror", text: e.message }));
 
   await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
-  if (waitFor) await page.waitForSelector(waitFor, { timeout: 30_000 });
+  if (waitFor) {
+    await page.waitForSelector(waitFor, { timeout: 30_000 });
+    // See scripts/geometry.mjs: the desktop artboard leaves the browser's
+    // default body margin in place, which offsets the entire page by 8px.
+    await page.evaluate(() => { document.body.style.margin = "0"; });
+  }
   await page.evaluate(() => document.fonts.ready);
 
   if (freezeAt !== undefined) {
@@ -62,11 +67,22 @@ export async function shoot({
   }
 
   // Force every lazily-decoded image to resolve before we capture.
+  //
+  // Bounded on purpose. The page ships the desktop and mobile compositions as
+  // siblings, so at any width roughly half the images sit inside a
+  // `display: none` subtree where `decode()` can simply never settle - it
+  // neither resolves nor rejects, and an unbounded wait here hangs the whole
+  // run. Those images are also, by definition, not in the shot.
   await page.evaluate(async () => {
+    const settle = (img) =>
+      Promise.race([
+        img.decode().catch(() => {}),
+        new Promise((resolve) => setTimeout(resolve, 2000)),
+      ]);
     await Promise.all(
       Array.from(document.images)
         .filter((img) => !img.complete)
-        .map((img) => img.decode().catch(() => {})),
+        .map(settle),
     );
   });
   await page.waitForTimeout(settle);

@@ -3,6 +3,43 @@
 @import "../styles/base.css";
 @import "../styles/motion/reveal.css";
 @import "../styles/motion/chrome.css";
+@import "../styles/motion/hero.css";
+
+/* ---------------------------------------------------------------------------
+   Viewport-height variants.
+
+   The hero is the one composition on the page that responds to viewport HEIGHT
+   rather than width: on a 1440x700 laptop or a landscape tablet it tightens its
+   nav clearance, its headline and its float-card stack so the stat strip still
+   lands above the fold. The artboard writes these as four `max-height` blocks.
+
+   Declaring them as variants keeps the values on the elements they belong to,
+   next to the base values they override, instead of in a stylesheet that
+   repeats the hero's selectors.
+
+   The artboard's 900 / 760 / 620 blocks overlap and rely on source order - on a
+   700px-tall viewport both 900 and 760 match and the later one wins. Variant
+   order is not something Tailwind guarantees, so they are written here as the
+   equivalent non-overlapping ranges instead. The resulting values are identical.
+--------------------------------------------------------------------------- */
+@custom-variant hero-short (@media (max-height: 820px));
+@custom-variant hero-h900 (@media (max-height: 900px) and (min-height: 761px));
+@custom-variant hero-h760 (@media (max-height: 760px) and (min-height: 621px));
+@custom-variant hero-h620 (@media (max-height: 620px));
+
+/* ---------------------------------------------------------------------------
+   The 640px gutter step, as a closed range.
+
+   Below 1024px all three sections step their side gutter at 640px. A plain
+   `sm:` expresses that, but Tailwind emits this build's `desk` block BEFORE its
+   own `sm` block, so on any element that sets the same property at both,
+   `sm:` wins at 1440px and the desktop value never lands. Writing the step as
+   640-1023 makes the two ranges disjoint, so source order stops mattering.
+
+   Only needed where one element carries both: a `desk:hidden` subtree can use
+   plain `sm:` safely, and the mobile hero and marquee do.
+--------------------------------------------------------------------------- */
+@custom-variant sm-only (@media (width >= 640px) and (width < 1024px));
 
 /* ---------------------------------------------------------------------------
    Design tokens.

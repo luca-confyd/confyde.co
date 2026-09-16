@@ -63,6 +63,31 @@ try {
         window.scrollTo(0, 0);
       });
 
+      // Let the entrance animations finish before measuring.
+      //
+      // axe computes contrast by compositing an element's colour through every
+      // ancestor's opacity, so a reveal caught at opacity 0.96 reports a lighter
+      // foreground than the page ever presents - enough to take a colour that
+      // measures 4.63:1 at rest down to 4.22:1 and fail it. WCAG 1.4.3 is about
+      // the text a reader reads, not a frame 400ms into a 500ms entrance, so
+      // the audit waits for the settled page rather than racing it.
+      //
+      // Infinite animations - the marquee tracks, the hero's float-card cycle -
+      // never finish, so they are excluded; the reduced-motion pass is what
+      // pins those to a known frame.
+      await page.evaluate(() =>
+        Promise.all(
+          document
+            .getAnimations()
+            .filter(
+              (a) =>
+                a.playState === "running" &&
+                a.effect?.getComputedTiming().iterations !== Infinity,
+            )
+            .map((a) => a.finished.catch(() => {})),
+        ),
+      );
+
       const { violations } = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
         .analyze();

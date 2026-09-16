@@ -9,7 +9,8 @@
     "lint": "eslint",
     "compare": "node scripts/compare.mjs",
     "optimize-assets": "node scripts/optimize-assets.mjs",
-    "audit": "node scripts/audit.mjs"
+    "audit": "node scripts/audit.mjs",
+    "geometry": "node scripts/geometry.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.46.0",

@@ -14,11 +14,21 @@
 
   body {
     margin: 0;
-    background: var(--color-pf-surface-300);
+    /* The two artboards do not share a page surface. Below 1024 every band sits
+       on the canvas beige; the desktop board sits on the near-white surface-300.
+       Set per breakpoint on the page rather than per band, or the bands that do
+       carry their own beige would draw a seam against the ones that do not. */
+    background: var(--color-canvas);
     color: var(--color-pf-ink-900);
     font-family: var(--font-body);
     font-weight: 400;
     line-height: 1.5;
+  }
+
+  @media (width >= 1024px) {
+    body {
+      background: var(--color-pf-surface-300);
+    }
   }
 
   /* The artboards render every link as inherited-colour text and add their own
@@ -107,6 +117,22 @@
       font-size: 3rem;
     }
   }
+
+  /* -------------------------------------------------------------------------
+     Local Fraunces cuts that the .display scale does not express.
+
+     The mobile artboard voices Fraunces at smaller optical sizes than .display's
+     default cut (opsz 32 and 24 against 40) and, in the marquee, with no
+     negative tracking at all. Only those properties differ, so these classes
+     override exactly those and let .display keep owning family and weight
+     (RULINGS.md §03/04 ruling 14: local override classes, do not bend the
+     shared scale to fit).
+  ------------------------------------------------------------------------- */
+
+
+
+
+
 
   /* Asap 800 is the wordmark and nothing else - the one sanctioned exception to
      the two-family rule, because it is the logo, not type. */
