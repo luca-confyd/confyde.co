@@ -1,0 +1,42 @@
+/* ---------------------------------------------------------------------------
+   Customer stories.
+
+   One gesture: hovering a story card scales the studio name set over its
+   photograph to 1.05 on a 300ms overshoot curve. It lives here rather than as
+   `group-hover:` utilities because the reduced-motion gate below has to pin the
+   resting state with `!important`, and a utility cannot be overridden from a
+   file that Tailwind orders before it.
+
+   The scale is on the NAME, not the card. docs/brand.md is explicit that a
+   clickable white card must not move and must not gain a shadow, and the
+   artboard respects that - the card is still, the label inside it answers.
+--------------------------------------------------------------------------- */
+
+@layer components {
+  .story-logo {
+    /* The artboard's own curve: a back-out overshoot, which is what makes a
+       5% scale legible at all. */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .story:hover .story-logo {
+    transform: scale(1.05);
+  }
+}
+
+/* The resting state, as every file in this directory ends with.
+
+   Pinned to `transform: none` - the unhovered frame - rather than merely
+   dropping the transition, which would leave the scale to apply instantly on
+   hover and give the comparison harness two possible frames for one card.
+   Killing the transition as well stops a pointer that is already resting on a
+   card from animating when the preference is toggled mid-session. */
+@media (prefers-reduced-motion: reduce) {
+  .story-logo {
+    transition: none !important;
+  }
+
+  .story:hover .story-logo {
+    transform: none !important;
+  }
+}

@@ -1,0 +1,59 @@
+/* ---------------------------------------------------------------------------
+   The testimonials carousel's drift.
+
+   The only motion this section owns. There are no keyframes: the travel is
+   scroll-linked, so its whole timeline is `--testi-drift`, which
+   components/home/testimonials/carousel.tsx writes on the track once per
+   animation frame. What lives here is where that value is consumed, how it
+   comes to rest, and the two preferences that switch it off.
+
+   WHY THE TRANSFORM IS ON THE TRACK AND NOT THE SCROLLER
+   -----------------------------------------------------
+   The artboard puts this transform on `#pf-testi-track`, which is also the
+   element with `overflow-x: auto` - the decoration and the user's own drag are
+   then two writers on one box, and mid-section a swipe visibly gets dragged
+   sideways under the finger. Here the scroll container and the transformed
+   track are two different elements, one inside the other. A transform is not
+   layout: it cannot change `scrollLeft`, `scrollWidth` or where a drag lands,
+   so the two channels stop touching. Measured at 1440px - `scrollLeft` holds at
+   0 through a full scroll pass of the section.
+
+   The second half of the fix is in the component: the first scroll of the
+   container retires the window listener for good.
+--------------------------------------------------------------------------- */
+
+@layer components {
+  .testi-drift {
+    transform: translateX(var(--testi-drift, 0px));
+  }
+
+  /*
+    The return trip, and only the return trip. While the drift is live the value
+    is rewritten every frame and a transition would smear it into a lag; once
+    the component has yielded it writes 0px exactly once, and this is what turns
+    that single write into a settle rather than a snap. 200ms is docs/brand.md's
+    layout beat.
+  */
+  .testi-drift[data-drift="yielded"] {
+    transition: transform 200ms ease-out;
+  }
+}
+
+/* The resting state, as every file in this directory ends with.
+
+   `translateX(0)` is the frame the section is authored around: the first card
+   flush against the strip's lead-in padding, which is also where the track
+   sits before any script runs and where it returns after the reader takes over.
+   So server markup, reduced motion and post-interaction all settle on one
+   frame, which is what makes the comparison harness's screenshots stable.
+
+   `!important` on both, and the component checks the same media query before it
+   attaches a listener. Belt and braces on purpose: the JS check is what stops
+   the work happening, this is what holds the frame if the preference is flipped
+   while the page is open. */
+@media (prefers-reduced-motion: reduce) {
+  .testi-drift {
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Asap, Fraunces, Hanken_Grotesk, Nunito_Sans, Source_Serif_4 } from "next/font/google";
 
+import { SiteFooter } from "@/components/chrome/footer/site-footer";
 import { FloatingBars } from "@/components/chrome/floating-bars";
 import { SiteHeaderDesktop } from "@/components/chrome/site-header-desktop";
 import { SiteHeaderMobile } from "@/components/chrome/site-header-mobile";
@@ -102,6 +103,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeaderMobile />
 
         {children}
+
+        {/* The footer is page chrome, so it lives beside the nav and the bars
+            rather than at the foot of the page component. */}
+        <SiteFooter />
 
         <FloatingBars />
         <StickyBottomBar />

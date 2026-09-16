@@ -5,6 +5,10 @@
 @import "../styles/motion/chrome.css";
 @import "../styles/motion/hero.css";
 @import "../styles/motion/marquee.css";
+@import "../styles/motion/before-after.css";
+@import "../styles/motion/customer-stories.css";
+@import "../styles/motion/testimonials.css";
+@import "../styles/motion/faq.css";
 
 /* ---------------------------------------------------------------------------
    Viewport-height variants.
@@ -94,7 +98,12 @@
   --color-charcoal-900: #1d2a20;
   --color-slate-700: #35402f;
   --color-slate-600: #4a5245;
-  --color-slate-500: #6e7669;
+  /* 2% darker than the design system's #6E7669. On white it measured 4.71:1 and
+     passed, but on the desktop page surface (#F8F7F2) it fell to 4.39 and failed
+     AA - the same thin-headroom trap the eyebrow corrections hit. Darkening the
+     token itself rather than patching one call site fixes every use at once, and
+     at this magnitude the change is not perceptible. */
+  --color-slate-500: #6c7467;
   --color-slate-400: #8a9082;
   --color-slate-300: #a2a899;
   --color-slate-100: #e5e8e5;
@@ -139,6 +148,13 @@
   --color-eyebrow-mobile: #607521;
   --color-marquee-term: #8d8c87;
   --color-marquee-term-mobile: #6a6f64;
+
+  /* The corrections above were computed against the canvas and surface-300 page
+     tones. card-muted (#E6E0CC) is darker, and they do not survive the move -
+     #657919 drops to 3.70:1 on it. Eyebrows sitting on a muted card need their
+     own step down. */
+  --color-eyebrow-muted: #596a16;
+  --color-eyebrow-muted-mobile: #576a1e;
 
   /* Scope-of-works category dots, from the app's default-categories taxonomy. */
   --color-cat-demolition: #8a7a65;

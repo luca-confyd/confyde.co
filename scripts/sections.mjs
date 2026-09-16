@@ -51,6 +51,41 @@ export const SECTIONS = {
     siteWeb: "[data-section='social-proof']",
     siteMobile: "[data-section='social-proof']",
   },
+  "before-after": {
+    title: "Before / after",
+    site: null,
+    // The only web section whose panel is a forest-900 div wrapping a centred
+    // header block and a two-column grid; `.pf-oneline` pins it to this one
+    // headline, which no other band carries.
+    web: "#dc-root section:has(h2.pf-oneline)",
+    // The mobile board's only section containing a phone frame - the 34px
+    // radius plus the #10160F body is unique to these two devices.
+    mobile: "#dc-root section:has(div[style*='#10160F'])",
+    // Two compositions shipped as siblings; the harness picks whichever one is
+    // laid out at the width being shot.
+    siteWeb: "[data-section='before-after-desktop']",
+    siteMobile: "[data-section='before-after-mobile']",
+  },
+  integrations: {
+    title: "Integrations",
+    site: null,
+    web: "#pf-qb",
+    // The Xero mark is the only image in the mobile band and appears nowhere
+    // else on that page; the eyebrow + h2 pair alone matches four sections.
+    mobile: "#dc-root section:has(img[src*='xero-mark'])",
+    siteWeb: "[data-section='integrations']",
+    siteMobile: "[data-section='integrations']",
+  },
+  "customer-stories": {
+    title: "Customer stories",
+    site: null,
+    web: "#pf-stories",
+    // Not drawn in the mobile artboard at all - our below-1024 layout is an
+    // addition, so there is no mobile side to diff against.
+    mobile: null,
+    siteWeb: "[data-section='customer-stories']",
+    siteMobile: "[data-section='customer-stories']",
+  },
   page: {
     title: "Whole page",
     site: null,

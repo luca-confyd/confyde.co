@@ -225,43 +225,9 @@
      five progressively softer blurs rather than a single drop shadow. The
      color-mix percentages are what make them read as warm rather than grey.
   ------------------------------------------------------------------------- */
-  .shadow-border-subtle {
-    box-shadow:
-      0 0 0 1px var(--color-pf-ink-100),
-      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
-      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
-      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
-      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 1%, transparent);
-  }
 
-  .shadow-border-default {
-    box-shadow:
-      0 0 0 1px var(--color-pf-ink-200),
-      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent);
-  }
 
-  .shadow-border-strong {
-    box-shadow:
-      0 0 0 1px var(--color-pf-ink-300),
-      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
-      0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent);
-  }
 
-  .shadow-overlay {
-    box-shadow:
-      0 0 0 1px color-mix(in oklch, var(--color-pf-ink-900) 10%, transparent),
-      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
-      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent),
-      0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent);
-  }
 
   /* -------------------------------------------------------------------------
      Buttons. Motion is never on the action you want someone to pause on, so
@@ -382,4 +348,50 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Elevation.
+
+   Declared as @utility rather than plain classes in @layer components so they
+   accept variants - `desk:shadow-border-default` works, which matters because
+   the two artboards draw genuinely different shadows at the two breakpoints and
+   a section would otherwise have to re-spell the whole recipe inline.
+--------------------------------------------------------------------------- */
+@utility shadow-border-subtle {
+  box-shadow:
+    0 0 0 1px var(--color-pf-ink-100),
+    0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+    0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+    0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+    0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 1%, transparent);
+}
+
+@utility shadow-border-default {
+  box-shadow:
+    0 0 0 1px var(--color-pf-ink-200),
+    0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent);
+}
+
+@utility shadow-border-strong {
+  box-shadow:
+    0 0 0 1px var(--color-pf-ink-300),
+    0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+    0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent);
+}
+
+@utility shadow-overlay {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--color-pf-ink-900) 10%, transparent),
+    0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+    0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent),
+    0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent);
 }

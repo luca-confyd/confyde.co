@@ -313,3 +313,46 @@ from the artboard, with the same verification gate at the end.
 
 The gate never changes: geometry to zero drift, axe and console clean at three
 widths in both motion preferences, its own commit.
+
+---
+
+## Section 14, customer stories
+
+| Finding | Ruling |
+|---|---|
+| Studio name on the photograph measures 3.76 / 4.15 / 6.08 : 1 (worst glyph pixel per card) | **Passes, ship as drawn.** At 26px the name is large text under WCAG, where the threshold is 3.0 rather than 4.5, so the worst card clears it. Darkening the veil to force 4.5 would visibly alter three photographs for no conformance gain. **Log the measurements** so the margin on the Occo card is on record. |
+| Em dashes in two blurbs, which `docs/brand.md` bans | **Keep. Log for the client.** Client copy is not ours to edit; the brand rule is theirs to apply. |
+| The section does not exist in the mobile artboard | **Approved as an addition**, built in the mobile language the committed sections already establish. Hiding three real customer stories below 1024px would have been the worse call. Log clearly as an addition, not a port. |
+| Three inert declarations dropped (a `gap` with one child, an `overflow: hidden` with nothing overflowing, a radius on an element with no background) | **Correct**, principle 1. |
+| Blurb and title inks kept on the desktop tones at both breakpoints | **Fine.** The mobile layout is our addition, so it has no artboard tones to match. Consistency with the desktop section is the better default. |
+
+---
+
+## Section 09, integrations
+
+| Finding | Ruling |
+|---|---|
+| Three partner lettermarks fail AA on their own brand colours: QuickBooks 3.41, Google Drive 1.93, WhatsApp 1.98 | **Ship as drawn. No change, and no escalation needed.** WCAG 1.4.3 exempts "text that is part of a logo or brand name" from contrast requirements, and that is exactly what these are - a partner's initial set on that partner's brand colour, standing in for their mark. The discs are `aria-hidden`, the full partner name sits beside each one in passing ink, and nothing is conveyed by the letter alone. Recolouring them would mean altering three other companies' marks to fix a rule that does not apply to them. **Log the measurements** so the reasoning is on record. Worth noting the engineer was right that QuickBooks could not have been fixed by darkening anyway - nothing in the palette clears 4.5 on `#2CA01C`. |
+| This section's eyebrow sits on `card-muted`, where the corrected tokens drop to 3.70 / 3.91 | **Real failure, fixed properly.** Added `--color-eyebrow-muted` `#596A16` (4.55) and `--color-eyebrow-muted-mobile` `#576A1E` (4.56). The engineer correctly refused to patch it with a local hex - that would have put a colour outside the system into a component. This is page-wide: **any corrected eyebrow placed on `card-muted` needs the muted pair.** |
+| Partner names truncate below 430px - two at 360-390px, five at 320px | **Fix: let them wrap.** 390px and 360px are among the commonest real phone widths, so unlike section 04 this is not a hypothetical edge. Losing "Google Calendar" to an ellipsis on a phone is content loss. |
+| Desktop tile shadow re-spelled inline because `.shadow-border-default` could not take a `desk:` variant | **Root cause fixed instead.** The four elevation recipes are now `@utility` rather than plain classes in `@layer components`, so they accept variants. The section can use `desk:shadow-border-default` and drop the second spelling. |
+| Both sub-paragraphs shipped, gated by breakpoint, because the artboards write different copy | **Correct**, matching the §02 rulings 12-14 precedent. Client's to unify. |
+| Gmail & Outlook's disc written as `forest-700` rather than a literal | **Right call.** `#2C5539` is Bramble's own forest, not a partner colour - neither Gmail nor Outlook is green. |
+
+---
+
+## Section 06, chapter 1
+
+| # | Finding | Ruling |
+|---|---|---|
+| D1 | The scan sweep does not sweep. Desktop `tk-scan` ends at `translateY(104%)` on a `height:16%` element, so it travels 16.6% of the plan and never reaches either revealed annotation. Mobile writes `560%` for the same element | **Fix to 560%.** The sweep exists to read the plan as the measurements appear; one that covers a sixth of it and never reaches the annotations is not doing its job. Mobile proves the intent, so this is a desktop typo, and it is the same class as the marquee loop - a broken animation, principle 2. It moves the frozen visual diff for that band, so note it in the section's QA rather than treating the difference as a regression. |
+| D5/D6 | Reduced motion is broken on both breakpoints: `.tk { opacity: 1 !important }` lands on the covers, the scan band and all five clock spans, so at rest both annotations stay hidden, a lime bar lies across the plan and five timestamps print on top of each other | **Fix, with the replacement blocks as specified**, pinned to `t = 11250ms` and `t = 7680ms`. Same as §05 ruling 3. This is a hard gate - it is both the accessible resting state and what the harness measures. |
+| D3 | `.canvas-botanical` comes from the linked design-system sheet, not any artboard `<style>` block | **Not a defect - a porting trap, and we already avoided it.** It exists in `styles/base.css`. Flagged so QA does not file it. |
+| — | On-photo masthead fails: `Laurence Landscapes` 2.83, `Q-1042 · Coogee` 3.14, `LIC# 284119C` 3.74 | **Fix**, moving the 24° gradient's last stop from 6% to 40%. The scrim exists precisely to make that masthead legible against the photograph; at 2.83:1 it is simply underpowered at its own job. This is not a design change, it is the design working. |
+| — | `--color-eyebrow` measures 4.40 on the `canvas-botanical` column, because the wash multiplies at `opacity:.5` and drops the surface to `#F5F3ED` | **Use the `--color-eyebrow-muted` pair on any botanical panel.** No fourth token needed - the muted tone was computed against a darker surface and clears comfortably here. Generalise the rule: **an eyebrow takes the muted pair whenever it sits on `card-muted` or on a botanical wash.** |
+| — | Four more flat-colour failures inside the product mockups: row sub-lines 3.29, slate-500 labels on `well` 4.28, type chips 4.30 | **Fix to ≥4.5, measured.** Prefer the existing `--color-slate-600` over minting new tokens, and only introduce one if the visual step is too large - measure and say which you chose. |
+| — | The lime "Quote ready" bar measures 10.27:1 | **Passes. Leave it.** |
+| — | The proposal card's five scope lines sum to $41,720 against a $48,200 "inc. GST" total, and mobile drops the Irrigation row entirely | **Ship as drawn. Log prominently for the client.** These are their numbers, not ours to reconcile - but on a quoting product, a proposal whose line items do not add up to its total is the one detail a landscaper would notice first. Worth them knowing. |
+| — | `then and rewrites it` in the desktop body copy, where mobile's version of the same sentence is grammatical | **Ship as drawn. Log.** Client copy. |
+| — | The ingest loop never clears: files 2-4 exit at 12.0/12.5/13.0s while file 1 has already restarted | **Assess and report.** If it can be closed without changing the resting composition - as the marquee fix was - close it. If closing it would move the static frame, leave it and log. |
+| — | Eight dead `tk-pop*` / `tk-fill*` keyframes | **Drop.** |

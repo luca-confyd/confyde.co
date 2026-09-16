@@ -15,9 +15,9 @@
  *
  *   node scripts/geometry.mjs <width> [--tolerance 2]
  */
-import { spawn } from "node:child_process";
 import { chromium } from "playwright";
 import { serveStatic } from "./lib/serve.mjs";
+import { siteServer } from "./lib/site-server.mjs";
 import { ARTBOARDS, ARTBOARD_READY, SECTIONS } from "./sections.mjs";
 
 const DESIGN_ROOT =
@@ -42,6 +42,15 @@ const scope = flag("scope", null);
  * really just the phase of its animation.
  */
 const freezeAt = flag("freeze", null);
+/**
+ * Which motion preference to measure under. `reduce` is right wherever both
+ * sides settle to the same resting state, which is every section but this one:
+ * the before/after artboard's own reduced-motion block is broken, so its resting
+ * frame is a smear our port deliberately does not reproduce (RULINGS.md §05
+ * ruling 3). `--motion none` measures the live loop instead, which is only
+ * meaningful together with a matched `--freeze`.
+ */
+const motion = flag("motion", "reduce") === "none" ? "no-preference" : "reduce";
 const isDesktop = width >= 1024;
 
 const collect = (root) => `((root) => {
@@ -56,7 +65,14 @@ const collect = (root) => `((root) => {
   const seen = new Map();
   for (const el of scope.querySelectorAll("*")) {
     if (el.children.length > 0) continue;              // leaves only
-    const text = (el.textContent || "").trim().replace(/\\s+/g, " ");
+    const text = (el.textContent || "")
+      .trim()
+      .replace(/\\s+/g, " ")
+      // Straight and curly quotes are the same string for matching purposes -
+      // we normalise to curly on purpose, so the artboard's straight ones would
+      // otherwise all report as absent.
+      .replace(/[\u2018\u2019]/g, "'")
+      .replace(/[\u201C\u201D]/g, '"');
     if (!text || text.length > 200) continue;
     const r = el.getBoundingClientRect();
     if (r.width === 0 || r.height === 0) continue;
@@ -82,23 +98,18 @@ const collect = (root) => `((root) => {
   return out;
 })(${JSON.stringify(root)})`;
 
-const PORT = 3108;
-spawn("sh", ["-c", `lsof -ti:${PORT} | xargs kill -9 2>/dev/null`]).unref();
-await new Promise((r) => setTimeout(r, 1200));
-
 const design = await serveStatic(DESIGN_ROOT, 4340);
-const site = spawn("npx", ["next", "dev", "--port", String(PORT)], { stdio: ["ignore", "pipe", "pipe"] });
-await new Promise((res, rej) => {
-  const t = setTimeout(() => rej(new Error("next dev did not start")), 90_000);
-  site.stdout.on("data", (b) => { if (b.toString().includes("Ready")) { clearTimeout(t); res(); } });
-});
-
+const site = await siteServer();
 const browser = await chromium.launch();
 
 async function measure(url, wait, rootSelector) {
-  const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
+  const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: motion });
   const page = await ctx.newPage();
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
+  // "load" rather than "networkidle": with several dev servers and agents
+  // running concurrently the network rarely goes quiet inside the timeout, and
+  // the explicit font/image waits below are the conditions we actually need.
+  await page.goto(url, { waitUntil: "load", timeout: 120_000 });
+  await page.waitForTimeout(600);
   if (wait) {
     await page.waitForSelector(wait);
     // The desktop artboard never resets the browser's default 8px body margin -
@@ -138,7 +149,7 @@ artboard = await measure(
   section ? (isDesktop ? section.web : section.mobile) : null,
 );
 build = await measure(
-  `http://localhost:${PORT}/`,
+  `${site.origin}/`,
   null,
   section ? (isDesktop ? (section.siteWeb ?? section.site) : (section.siteMobile ?? section.site)) : null,
 );
@@ -146,7 +157,7 @@ build = await measure(
   // Always tear these down, or the next run fails to bind the port.
   await browser.close().catch(() => {});
   await design.close().catch(() => {});
-  site.kill();
+  site.stop();
 }
 
 const drifted = [];
@@ -156,9 +167,12 @@ for (const [key, a] of artboard) {
   const b = build.get(key);
   if (!b) { missing.push(key); continue; }
   const deltas = [];
-  if (Math.abs(a.x - b.x) > tolerance) deltas.push(`x ${a.x}->${b.x}`);
+  const centre = (v) => v.x + v.w / 2;
+  const centred = Math.abs(centre(a) - centre(b)) <= tolerance;
+  // A centred box that gains symmetric padding moves its edges but not its ink.
+  if (Math.abs(a.x - b.x) > tolerance && !centred) deltas.push(`x ${a.x}->${b.x}`);
   if (Math.abs(a.y - b.y) > tolerance) deltas.push(`y ${a.y}->${b.y}`);
-  if (Math.abs(a.w - b.w) > tolerance) deltas.push(`w ${a.w}->${b.w}`);
+  if (Math.abs(a.w - b.w) > tolerance && !centred) deltas.push(`w ${a.w}->${b.w}`);
   if (Math.abs(a.size - b.size) > 0.6) deltas.push(`size ${a.size}->${b.size}`);
   if (a.weight !== b.weight) deltas.push(`weight ${a.weight}->${b.weight}`);
   if (a.family !== b.family) deltas.push(`font ${a.family}->${b.family}`);

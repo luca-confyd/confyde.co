@@ -44,7 +44,10 @@ export async function shoot({
   page.on("console", (m) => messages.push({ type: m.type(), text: m.text() }));
   page.on("pageerror", (e) => messages.push({ type: "pageerror", text: e.message }));
 
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
+  // See scripts/geometry.mjs - "networkidle" is unreliable under concurrent
+  // load, and the explicit font and image waits below are the real conditions.
+  await page.goto(url, { waitUntil: "load", timeout: 120_000 });
+  await page.waitForTimeout(600);
   if (waitFor) {
     await page.waitForSelector(waitFor, { timeout: 30_000 });
     // See scripts/geometry.mjs: the desktop artboard leaves the browser's

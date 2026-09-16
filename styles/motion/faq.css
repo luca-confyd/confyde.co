@@ -1,0 +1,89 @@
+/* ---------------------------------------------------------------------------
+   FAQ.
+
+   Two gestures, both driven entirely by the `open` attribute that the browser
+   sets on `<details>` - there is no JavaScript in this section, so there is no
+   state for CSS and the DOM to disagree about:
+
+     1. the answer panel expanding and fading, and
+     2. the mobile chevron turning over.
+
+   The artboard animates (1) by measuring `scrollHeight` in JS and transitioning
+   `max-height` towards it. That is an implementation detail of a JS accordion,
+   not a design requirement - the requirement is that the panel expands smoothly
+   - so it is replaced here by a real height transition on `::details-content`,
+   which has none of `max-height`'s failure modes (a wrong guess clips the
+   answer, a generous guess makes short answers open slowly).
+
+   Browsers without `::details-content` drop these rules as an unknown selector
+   and open the panel instantly, which is the same frame the reduced-motion gate
+   at the foot of this file pins. Nothing is lost but the easing.
+--------------------------------------------------------------------------- */
+
+@layer components {
+  .faq-item {
+    /* `interpolate-size` is what lets `block-size` animate between 0 and the
+       keyword `auto`. It is an inherited property, so declaring it on the
+       <details> is enough to reach that element's own ::details-content.
+       Deliberately not on :root: changing how `auto` interpolates is a
+       page-wide behaviour change, and only this section asked for it. */
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    /* `content-visibility` is in the list because the browser sets it to
+       `hidden` on a closed panel. Without `allow-discrete` it flips at the
+       START of the close and the answer vanishes rather than collapsing. */
+    transition:
+      block-size 0.3s ease,
+      opacity 0.3s ease,
+      content-visibility 0.3s allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+
+  /* The mobile chevron. Desktop swaps a plus for a minus instead, which needs no
+     motion - two glyphs, one hidden - so it is done with utilities at the call
+     site rather than here. */
+  .faq-chevron {
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+}
+
+/* The resting state, as every file in this directory ends with.
+
+   The resting frame of a disclosure is whichever state its `open` attribute
+   names, reached in one frame - so both states are pinned explicitly rather
+   than only dropping the transitions. Pinning both matters because the panel is
+   mid-transition-able: toggling the preference while an answer is half open
+   must land on a defined frame, not leave a 40%-tall panel behind. */
+@media (prefers-reduced-motion: reduce) {
+  .faq-item::details-content {
+    block-size: 0 !important;
+    opacity: 0 !important;
+    transition: none !important;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto !important;
+    opacity: 1 !important;
+  }
+
+  .faq-chevron {
+    transition: none !important;
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg) !important;
+  }
+}
