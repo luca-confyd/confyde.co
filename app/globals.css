@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@import "../styles/base.css";
+@import "../styles/motion/reveal.css";
+
+/* ---------------------------------------------------------------------------
+   Design tokens.
+
+   Transcribed from the Bramble design system token files that ship with the
+   Claude Design export (_ds/bramble-design-system-<id>/tokens/). The export's
+   artboards re-declare this same palette three times under three prefixes
+   (--pf-*, --m-*, --p-*) with hand-copied hexes; this block is the one source
+   of truth that replaces all three.
+
+   Naming follows the design system, NOT the artboards. The web artboard labels
+   the bright chip --pf-lime and the dark olive --pf-lime-500, which inverts the
+   system's own scale. Here lime-500 is the bright accent and lime-700 is the
+   dark olive used for uppercase eyebrows, matching tokens/colors.css.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Forest: the primary. Dark panels, action text, selected and complete. */
+  --color-forest-100: #cddfd3;
+  --color-forest-200: #b9c7b0;
+  --color-forest-300: #8fa886;
+  --color-forest-500: #4d8f6c;
+  --color-forest-700: #2c5539;
+  --color-forest-800: #1f4934;
+  --color-forest-900: #15301f;
+
+  /* Lime: the single accent. Means forward motion, nothing else. */
+  --color-lime-100: #ecf6bd;
+  --color-lime-500: #c8e84a;
+  --color-lime-700: #95b225;
+
+  /* Sage: form focus and ordinal markers. Never a fill, never a CTA. */
+  --color-sage: #7fa05a;
+
+  /* Rust: the single warning/destructive tone. Umber: a data tone only. */
+  --color-rust: #96602b;
+  --color-rust-deep: #7e4f22;
+  --color-umber: #6e4119;
+
+  /* Warm greige surfaces, one hue family. White = a thing you read or act on,
+     beige = the space between things. */
+  --color-canvas: #f3f0e6;
+  --color-rail: #ece8de;
+  --color-well: #f6f4ec;
+  --color-card-muted: #e6e0cc;
+  --color-card: #ffffff;
+  --color-hairline: #dfd8c8;
+  --color-cream: #e8e4d2;
+
+  /* Green-tinted ink family: warm-dark rather than neutral grey. */
+  --color-ink: #16321e;
+  --color-charcoal-900: #1d2a20;
+  --color-slate-700: #35402f;
+  --color-slate-600: #4a5245;
+  --color-slate-500: #6e7669;
+  --color-slate-400: #8a9082;
+  --color-slate-300: #a2a899;
+  --color-slate-100: #e5e8e5;
+
+  /* The marketing layer's own oklch ramp, carried verbatim. The .shadow-border-*
+     stacks color-mix() against these, so approximating them would visibly shift
+     every card edge on the page. */
+  --color-pf-ink-100: oklch(95.8% 0.007 98);
+  --color-pf-ink-200: #edeae4;
+  --color-pf-ink-300: oklch(87.6% 0.011 98);
+  --color-pf-ink-400: oklch(71.4% 0.009 98);
+  --color-pf-ink-500: oklch(67.6% 0.012 98);
+  --color-pf-ink-600: oklch(57.6% 0.008 98);
+  --color-pf-ink-700: oklch(38% 0.008 98);
+  --color-pf-ink-800: oklch(29% 0.005 98);
+  --color-pf-ink-900: oklch(23% 0.002 98);
+  --color-pf-surface-50: oklch(99.3% 0.004 96);
+  --color-pf-surface-300: oklch(97.5% 0.007 96);
+  --color-pf-surface-500: oklch(96.3% 0.012 96);
+  --color-pf-overlay-50: oklch(97.9% 0.004 91);
+  --color-pf-overlay-100: oklch(96.1% 0.01 87);
+  --color-pf-overlay-200: oklch(95% 0.013 97);
+
+  /* Scope-of-works category dots, from the app's default-categories taxonomy. */
+  --color-cat-demolition: #8a7a65;
+  --color-cat-excavation: #6f5b45;
+  --color-cat-retaining: #b89270;
+  --color-cat-paving: #a8a296;
+  --color-cat-planting: #8fb57e;
+  --color-cat-irrigation: #9cb4c7;
+
+  /* Type. Two systems live on this page at once: the marketing layer
+     (display/body) and the product mockups embedded in it, which render the
+     real app's faces (ui/ui-serif). Both are intentional. */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-nunito-sans), system-ui, sans-serif;
+  --font-logo: var(--font-asap), var(--font-nunito-sans), sans-serif;
+  --font-ui: var(--font-hanken), system-ui, sans-serif;
+  --font-ui-serif: var(--font-source-serif), Georgia, serif;
+
+  /* Radius: 4 / 6 / 8 / 12. Less rounded, never straight. 16px+ is banned. */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* The one breakpoint that matters: below it the mobile artboard's layouts
+     run, at and above it the desktop artboard's do. */
+  --breakpoint-desk: 1024px;
+}

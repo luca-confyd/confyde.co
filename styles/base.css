@@ -1,0 +1,296 @@
+/* ---------------------------------------------------------------------------
+   Base layer.
+
+   Everything here is ported from the two homepage artboards' inline <style>
+   blocks. Tailwind covers layout, spacing and colour; this file holds only what
+   utilities express badly - the type system's variable-font axes, the four
+   layered shadow-border recipes, and the brand's texture washes.
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-pf-surface-300);
+    color: var(--color-pf-ink-900);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* The artboards render every link as inherited-colour text and add their own
+     affordance per call site. */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* "No italics in either family" - brand system. */
+  em,
+  i {
+    font-style: normal;
+    font-weight: 500;
+  }
+}
+
+@layer components {
+  /* -------------------------------------------------------------------------
+     Display type.
+
+     The two artboards voice Fraunces differently and both are deliberate:
+     mobile sets a heavier, tighter, large-optical-size cut (wght 600, SOFT 60,
+     opsz 40) because it is competing with a photograph at 38px; desktop opens
+     it right up (wght 420, SOFT 100, opsz 10) because it has 76px to play with.
+     Mobile is the default here and desktop takes over at the one breakpoint.
+  ------------------------------------------------------------------------- */
+  .display {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-variation-settings: "wght" 600, "SOFT" 60, "opsz" 40;
+    text-wrap: pretty;
+  }
+
+  @media (width >= 1024px) {
+    .display {
+      font-weight: 400;
+      font-variation-settings: "wght" 420, "SOFT" 100, "WONK" 0, "opsz" 10;
+    }
+  }
+
+  .display-1 {
+    font-size: 2.75rem;
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+  }
+  .display-2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    letter-spacing: -0.008em;
+  }
+  .display-3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+  }
+  .display-4 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .display-5 {
+    font-size: 1rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  @media (width >= 768px) {
+    .display-1 {
+      font-size: 4rem;
+    }
+    .display-2 {
+      font-size: 2.5rem;
+    }
+    .display-3 {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (width >= 1024px) {
+    .display-1 {
+      font-size: 4.75rem;
+    }
+    .display-2 {
+      font-size: 3rem;
+    }
+  }
+
+  /* Asap 800 is the wordmark and nothing else - the one sanctioned exception to
+     the two-family rule, because it is the logo, not type. */
+  .wordmark {
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Uppercase tracked label. 11.5px is only ever this. */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.78125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* -------------------------------------------------------------------------
+     Elevation.
+
+     Cards carry no border and no shadow - the beige/white value step is the
+     whole elevation story. These four recipes are for the surfaces that sit
+     ABOVE the page rather than on it, and they are layered hairline + four or
+     five progressively softer blurs rather than a single drop shadow. The
+     color-mix percentages are what make them read as warm rather than grey.
+  ------------------------------------------------------------------------- */
+  .shadow-border-subtle {
+    box-shadow:
+      0 0 0 1px var(--color-pf-ink-100),
+      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 1%, transparent);
+  }
+
+  .shadow-border-default {
+    box-shadow:
+      0 0 0 1px var(--color-pf-ink-200),
+      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent);
+  }
+
+  .shadow-border-strong {
+    box-shadow:
+      0 0 0 1px var(--color-pf-ink-300),
+      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent),
+      0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 2%, transparent);
+  }
+
+  .shadow-overlay {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--color-pf-ink-900) 10%, transparent),
+      0 1px 1px -0.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 3px 3px -1.5px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 6px 6px -3px color-mix(in oklch, var(--color-pf-ink-900) 4%, transparent),
+      0 12px 12px -6px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent),
+      0 24px 24px -12px color-mix(in oklch, var(--color-pf-ink-900) 3%, transparent);
+  }
+
+  /* -------------------------------------------------------------------------
+     Buttons. Motion is never on the action you want someone to pause on, so
+     only the lime and ink fills move; glass just changes tint.
+  ------------------------------------------------------------------------- */
+  .btn-lime {
+    transition: filter 0.2s;
+  }
+  .btn-lime:hover {
+    filter: brightness(1.06);
+  }
+
+  .btn-ink {
+    border-radius: var(--radius-xl);
+    background-color: var(--color-pf-ink-700);
+    background-image: linear-gradient(to top, var(--color-pf-ink-800), var(--color-pf-ink-700));
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 100%;
+    box-shadow: 0 8px 20px -10px rgb(21 48 31 / 0.4);
+    transition:
+      background-size 0.2s,
+      box-shadow 0.2s;
+  }
+  .btn-ink:hover {
+    background-size: 100% 50%;
+  }
+
+  .btn-glass {
+    background-color: rgb(255 255 255 / 0.08);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.2),
+      0 1px 1px rgb(255 255 255 / 0.06) inset,
+      0 2px 6px rgb(0 0 0 / 0.12);
+    transition:
+      background-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .btn-glass:hover {
+    background-color: rgb(255 255 255 / 0.12);
+  }
+
+  /* -------------------------------------------------------------------------
+     Texture.
+  ------------------------------------------------------------------------- */
+
+  /* A watercolour botanical panel down the canvas's right margin, behind the
+     cards. Multiplied rather than laid over, so it darkens the beige instead of
+     introducing a second surface tone - which is what keeps it reading as the
+     canvas rather than as a very large card. Decorative, never clickable. */
+  .canvas-botanical {
+    position: relative;
+  }
+  .canvas-botanical::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 420px;
+    max-width: 45%;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("/images/canvas-botanical.jpg");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: right top;
+    mask-image: linear-gradient(to left, #000 0%, #000 45%, transparent 100%);
+  }
+  .canvas-botanical > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Film grain over a warm surface, multiplied so it reads as textured paper. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-size: 160px 160px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* The chapter banner treatment: a forest veil over the photograph plus a mask
+     that dissolves the photo's own bottom edge into the panel below it. */
+  .banner-fade {
+    mask-image: linear-gradient(to bottom, #000 40%, #000 50%, transparent 99%);
+  }
+  .banner-fade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-forest-900) 82%, transparent),
+      color-mix(in srgb, var(--color-forest-900) 62%, transparent) 45%,
+      color-mix(in srgb, var(--color-forest-900) 30%, transparent) 75%,
+      transparent
+    );
+  }
+
+  /* A white keyline knocked out around a floating pill, so it reads as a
+     sticker sitting on the photograph rather than a chip pasted onto it. */
+  .sticker {
+    filter: drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(2px 0 0 #fff)
+      drop-shadow(-2px 0 0 #fff) drop-shadow(0 12px 24px #00000059);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

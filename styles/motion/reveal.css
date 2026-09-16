@@ -1,0 +1,166 @@
+/* ---------------------------------------------------------------------------
+   Scroll-reveal entrances.
+
+   Ported from the web artboard's .pf-anim-* system. The artboard drove this by
+   polling every 60ms and re-scanning the whole tree on every DOM mutation, both
+   of which existed only because the canvas editor re-renders underneath it. We
+   drive it with an IntersectionObserver instead (lib/use-reveal.ts); the CSS
+   contract below is unchanged.
+
+   Contract: an element starts as .reveal-idle (opacity 0) carrying data-anim.
+   When it enters the viewport the hook swaps .reveal-idle for .reveal-<anim>
+   and sets --reveal-delay / --reveal-duration from its data attributes.
+--------------------------------------------------------------------------- */
+
+@keyframes bb-reveal-word {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes bb-reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(var(--reveal-scale-from, 0.95));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bb-reveal-up-blur {
+  from {
+    opacity: 0.2;
+    transform: translateY(var(--reveal-distance, 8px));
+    filter: blur(var(--reveal-blur, 2px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes bb-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance, 40px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bb-reveal-up-scale {
+  from {
+    opacity: 0;
+    transform: scale(var(--reveal-scale-from, 0.8)) translateY(var(--reveal-distance, 20px));
+    filter: blur(var(--reveal-blur, 2px));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes bb-reveal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance, 80px)) scale(0.9);
+    filter: blur(var(--reveal-blur, 4px));
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes bb-reveal-blur {
+  from {
+    opacity: 0;
+    filter: blur(var(--reveal-blur, 10px));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@layer components {
+  .reveal-idle {
+    opacity: 0;
+  }
+
+  .reveal-word {
+    display: inline-block;
+    animation: bb-reveal-word var(--reveal-duration, 0.5s) cubic-bezier(0.19, 1, 0.22, 1)
+      var(--reveal-delay, 0s) both;
+    will-change: transform, opacity, filter;
+  }
+
+  .reveal-scale,
+  .reveal-up-blur,
+  .reveal-up,
+  .reveal-up-scale,
+  .reveal-pop,
+  .reveal-blur {
+    animation-duration: var(--reveal-duration, 0.5s);
+    animation-timing-function: var(--reveal-ease, cubic-bezier(0.19, 1, 0.22, 1));
+    animation-delay: var(--reveal-delay, 0s);
+    animation-fill-mode: both;
+    will-change: transform, opacity, filter;
+  }
+
+  .reveal-scale {
+    animation-name: bb-reveal-scale;
+  }
+  .reveal-up-blur {
+    animation-name: bb-reveal-up-blur;
+  }
+  .reveal-up {
+    animation-name: bb-reveal-up;
+  }
+  .reveal-up-scale {
+    animation-name: bb-reveal-up-scale;
+    --reveal-ease: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .reveal-pop {
+    animation-name: bb-reveal-pop;
+  }
+  .reveal-blur {
+    animation-name: bb-reveal-blur;
+  }
+}
+
+/* The resting state. This is also what the visual-comparison harness screenshots
+   against, which is why every motion file in this directory ends with one. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-idle,
+  .reveal-word,
+  .reveal-scale,
+  .reveal-up-blur,
+  .reveal-up,
+  .reveal-up-scale,
+  .reveal-pop,
+  .reveal-blur {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
