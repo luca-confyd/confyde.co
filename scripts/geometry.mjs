@@ -43,6 +43,22 @@ const scope = flag("scope", null);
  */
 const freezeAt = flag("freeze", null);
 /**
+ * Scroll the scoped section to this progress (0..1) before measuring.
+ *
+ * The pinned CTA stage is a pure function of scroll position, so comparing it at
+ * the top of the page compares two different frames of the same animation and
+ * every chip reports a drift. This scrolls both documents until the section has
+ * travelled the same fraction of its own scrollable height.
+ */
+const progress = flag("progress", null);
+/**
+ * "reduce" (default) or "none". Reduced motion makes most comparisons
+ * deterministic, but where our build honours it and the artboard does not - the
+ * CTA stage's post-settle drift, the marquee - the two legitimately differ, and
+ * comparing them needs motion enabled on both sides.
+ */
+const motion = flag("motion", "reduce");
+/**
  * Which motion preference to measure under. `reduce` is right wherever both
  * sides settle to the same resting state, which is every section but this one:
  * the before/after artboard's own reduced-motion block is broken, so its resting
@@ -50,7 +66,6 @@ const freezeAt = flag("freeze", null);
  * ruling 3). `--motion none` measures the live loop instead, which is only
  * meaningful together with a matched `--freeze`.
  */
-const motion = flag("motion", "reduce") === "none" ? "no-preference" : "reduce";
 const isDesktop = width >= 1024;
 
 const collect = (root) => `((root) => {
@@ -103,7 +118,10 @@ const site = await siteServer();
 const browser = await chromium.launch();
 
 async function measure(url, wait, rootSelector) {
-  const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: motion });
+  const ctx = await browser.newContext({
+    viewport: { width, height: 900 },
+    reducedMotion: motion === "none" ? "no-preference" : "reduce",
+  });
   const page = await ctx.newPage();
   // "load" rather than "networkidle": with several dev servers and agents
   // running concurrently the network rarely goes quiet inside the timeout, and
@@ -118,6 +136,20 @@ async function measure(url, wait, rootSelector) {
     // as a drift on every element. Normalised so the comparison is like for like.
     await page.evaluate(() => { document.body.style.margin = "0"; });
     await page.waitForTimeout(150);
+  }
+  if (progress !== null && rootSelector) {
+    await page.evaluate(
+      ([sel, frac]) => {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        const travel = Math.max(0, el.offsetHeight - window.innerHeight);
+        window.scrollTo(0, top + travel * Number(frac));
+      },
+      [rootSelector, progress],
+    );
+    // Two frames for a rAF-coalesced scrub to settle.
+    await page.waitForTimeout(400);
   }
   if (freezeAt !== null) {
     await page.evaluate((t) => {

@@ -1,0 +1,317 @@
+/* ---------------------------------------------------------------------------
+   Section 13, the pinned CTA stage.
+
+   The page's only scroll-scrubbed composition. One continuous value, `--p`,
+   derived from the stage's position in the viewport, drives three things at
+   once: a word-by-word headline reveal, eleven chips spreading outward from
+   centre, and a two-lobe radial field growing underneath. Nothing here has a
+   duration; there are no keyframes in this file, because the user's own
+   scrolling is the clock.
+
+   JavaScript writes ONE property, on ONE element. Every value below is a
+   `calc()` derived from it. The artboard wrote 72 inline styles per tick -
+   eleven of them percentage insets, which resolve against the containing block
+   and so relay out eleven absolutely-positioned boxes every frame, plus a
+   ~300-character `background-image` string rebuilt, reparsed and rasterised
+   across 1.3 megapixels. See components/home/cta-stage/cta-scrub-stage.tsx.
+
+   Registering the properties with `@property` matters as much as the count:
+   an unregistered custom property is an opaque token stream that has to be
+   re-substituted and re-parsed at every use site, while a registered
+   `<number>` computes once per element and inherits as a number.
+
+   No `@media (min-width: …)` anywhere. Both compositions are gated by
+   `display: none` in the markup, so none of this needs a breakpoint - only the
+   reduced-motion block at the end, and the mobile band's one static gradient.
+--------------------------------------------------------------------------- */
+
+/* The scrub position. `initial-value: 1` is load-bearing: with no JavaScript,
+   before hydration, and under reduced motion, the stage renders its SETTLED
+   frame rather than an empty one. The script only ever drives `--p` away from
+   the resting state and back to it, so there is no flash of a ghosted headline
+   or of eleven invisible chips on a slow hydration - which is exactly what the
+   artboard's inline `opacity:.22` and `opacity:0` guarantee today. */
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+/* The three derived clocks. They run at different rates, and that is what makes
+   the motion read as organic rather than mechanical: the chips settle at 0.5,
+   the field finishes at 0.6, the headline reveal runs 0.30 -> 0.72. */
+@property --k-chip {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --k-field {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --rev {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 6;
+}
+
+/* The unrevealed word's opacity.
+
+   [ESCALATION - spec D19, §9.1.] Measured on composited pixels, `#1D1D1C` at
+   0.22 over `#F8F7F2` is `#C8C7C3`: 1.58:1, which is not merely below WCAG
+   1.4.3's large-text 3.0 but below the 1.4.11 non-text threshold as well. The
+   word `it.` sits there for 56.8% of the stage - 852px of scroll at 1440x900 -
+   plus the whole of the pre-roll on top. The smallest change that clears 3.0
+   against the worst-tinted background under the copy block is 0.495, i.e. a
+   floor of 0.50. It is a visible authoring change to a headline, so it is the
+   ruled a defect and corrected: 0.22 measured 1.58:1, below AA-large and below
+   the non-text threshold, and a word rests there for over half the stage. 0.5 is
+   the smallest value that clears 3.0 against the worst background under the copy
+   block, and the reveal still reads - the 2x step between revealed and
+   unrevealed is what carries it, not the floor. */
+@property --word-floor {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.5;
+}
+
+/* Per-chip statics, written once as inline styles from content/cta-stage.ts. */
+@property --dx0 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --dy0 {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tilt {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --fade-at {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --drift {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* The word index, as an inline style on each of the five spans. */
+@property --wi {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@layer components {
+  /* -------------------------------------------------------------------------
+     The three clocks, declared once on the stage and inherited everywhere.
+
+     Writing them here rather than at each use site is what keeps the whole
+     section derivable from a single number - and is what makes the
+     reduced-motion block at the foot of this file honest, because setting
+     `--p: 1` there really does set everything else.
+  ------------------------------------------------------------------------- */
+  .cta-stage {
+    --p: 1;
+    --k-chip: clamp(0, calc(var(--p) / 0.5), 1);
+    --k-field: clamp(0, calc(var(--p) / 0.6), 1);
+    --rev: calc(clamp(0, calc((var(--p) - 0.3) / 0.42), 1) * 6);
+  }
+
+  /* -------------------------------------------------------------------------
+     The ambient field.
+
+     It stays a paint, because it genuinely is one: the origin moves as the size
+     grows, so no single `scale()` about a fixed origin reproduces it. What goes
+     is the string rebuild and the pointless work - `--k-field` is clamped at 1
+     from p = 0.6, so the gradient stops being invalidated for the last 40% of
+     the stage. That is 600px of scroll at 1440x900 that the artboard repaints a
+     full viewport for, per frame, for no visual change at all (D16).
+
+     `contain: strict` keeps that repaint inside the layer. `will-change:
+     background-image` is deliberately NOT here - it would promote a
+     full-viewport layer and make things worse.
+
+     The mask is a four-stop vertical dissolve, 144px at each end on a 900px
+     viewport. It is what stops the field drawing a hard horizontal seam against
+     the sections above and below. `-webkit-mask-image` alongside it because
+     Safari still needs the prefix for the shorthand in this position.
+
+     Lime is first in the list and therefore painted on top. The artboard's
+     string writes forest first; the two lobes' 70% stops never reach each other
+     - forest's reaches y = 48.57% and lime's y = 51.43% at the final state - so
+     they do not overlap at any `p` and the order cannot change a pixel.
+  ------------------------------------------------------------------------- */
+  #cta-field {
+    --fs: calc((26 + 36 * var(--k-field)) * 1%);
+    --fy: calc((27.3 + 37.8 * var(--k-field)) * 1%);
+    --fo: calc((32 - 26 * var(--k-field)) * 1%);
+    --fa: calc(0.22 + 0.24 * var(--k-field));
+
+    contain: strict;
+    background-image:
+      radial-gradient(
+        ellipse var(--fs) var(--fy) at calc(100% - var(--fo)) calc(100% - var(--fo) / 2),
+        rgb(200 232 74 / var(--fa)) 0%,
+        rgb(200 232 74 / 0) 70%
+      ),
+      radial-gradient(
+        ellipse var(--fs) var(--fy) at var(--fo) calc(var(--fo) / 2),
+        rgb(21 48 31 / var(--fa)) 0%,
+        rgb(21 48 31 / 0) 70%
+      );
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  }
+
+  /* -------------------------------------------------------------------------
+     The eleven chips.
+
+     `container-type: size` makes the chip layer a size query container, so
+     `1cqw` / `1cqh` are 1% of exactly the box the artboard's percentage insets
+     resolved against. The pull-toward-centre therefore moves the same distance
+     it did, but as a transform the compositor handles rather than a layout the
+     main thread has to redo.
+  ------------------------------------------------------------------------- */
+  #cta-chips {
+    container-type: size;
+  }
+
+  .cta-chip {
+    /* dx0/dy0 are the START offset from rest, so the term vanishes at k = 1 and
+       every chip lands on its authored inset. Scale travels 0.95 -> 1.00, which
+       on a 36px pill is under 2px of growth: felt, not seen. The tilt never
+       varies - eleven fixed rotations between -6 and +6 degrees. */
+    transform: translate(
+        calc(var(--dx0) * (1 - var(--k-chip)) * 1cqw),
+        calc(var(--dy0) * (1 - var(--k-chip)) * 1cqh + var(--drift))
+      )
+      scale(calc(0.95 + 0.05 * var(--k-chip))) rotate(calc(var(--tilt) * 1deg));
+
+    /* The stagger is in the RATE, not in a delay: every chip starts fading at
+       p = 0 and chip 0 simply gets there fastest, so at p = 0.03 the eleven sit
+       at eleven different opacities and the pile appears to develop depth. */
+    opacity: clamp(0, calc(var(--p) / var(--fade-at)), 1);
+
+    /* `blur(0px)` still allocates a render surface, so the resting state is
+       `none` and the blur is gated on below, not zeroed. */
+    filter: none;
+  }
+
+  /* Everything that only exists while the script is driving `--p`. With the
+     attribute absent - no JS, pre-hydration, reduced motion - the chips rest at
+     their authored positions with no drift and no filter. */
+  .cta-stage[data-scrub="on"] .cta-chip {
+    /* The departure transient: once the spread has settled at p = 0.5 the whole
+       constellation lifts 46px together as the stage lets go. */
+    --drift: calc(-46px * clamp(0, calc((var(--p) - 0.5) / 0.5), 1));
+  }
+
+  /* Eleven blur surfaces exist for the first 18% of the stage and are released
+     for the other 82% by one attribute write. */
+  .cta-stage[data-scrub="on"]:not([data-chips-settled="true"]) .cta-chip {
+    filter: blur(calc(4px * (1 - clamp(0, calc(var(--p) / var(--fade-at)), 1))));
+  }
+
+  /* Applied and removed from the same IntersectionObserver that attaches the
+     listener. The artboard's `will-change` is unconditional and so pins eleven
+     composited layers for the whole lifetime of the page, including while the
+     section is 6000px away (D7). `filter` is deliberately not in the list - it
+     is gone entirely for most of the stage. */
+  .cta-stage[data-active="true"] .cta-chip {
+    will-change: transform, opacity;
+  }
+
+  /* -------------------------------------------------------------------------
+     The headline tail, five words.
+
+     opacity = floor + (1 − floor) · clamp(rev − (i − 0.5), 0, 1)
+
+     The −(i − 0.5) term gives word 0 a half-step head start, which is why it
+     rests at 0.610 rather than at the floor and why exactly one word is ever
+     mid-fade. Opacity on a text node is a compositor property; five of them are
+     free.
+  ------------------------------------------------------------------------- */
+  .cta-word {
+    opacity: clamp(
+      var(--word-floor),
+      calc(var(--word-floor) + (1 - var(--word-floor)) * (var(--rev) - var(--wi) + 0.5)),
+      1
+    );
+  }
+
+  /* -------------------------------------------------------------------------
+     The mobile band's static field.
+
+     The desktop stage's p = 1 gradient, scaled to the panel rather than to the
+     viewport and never touched again. No mask: the panel has a 12px radius and
+     clips, so there is no seam to dissolve. It is the one declaration that
+     makes the two breakpoints read as the same section.
+
+     A max-width query, not a min-width one: the band is `desk:hidden`, so this
+     is belt and braces rather than a breakpoint the composition depends on.
+  ------------------------------------------------------------------------- */
+  @media (width < 1024px) {
+    .cta-band-mobile {
+      background-image:
+        radial-gradient(ellipse 62% 65.1% at 94% 97%, rgb(200 232 74 / 0.46) 0%, rgb(200 232 74 / 0) 70%),
+        radial-gradient(ellipse 62% 65.1% at 6% 3%, rgb(21 48 31 / 0.46) 0%, rgb(21 48 31 / 0) 70%);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The resting state, as every file in this directory ends with.
+
+   A scroll-scrubbed section has no natural resting frame, so one has to be
+   chosen. This is the p = 1 frame with the drift zeroed, and it has to satisfy
+   three things at once: it is what a reader who asked for no motion gets, it is
+   what the comparison harness screenshots, and it is what renders before
+   hydration and with JavaScript off.
+
+   Why p = 1 and not p = 0: the headline only says what it means at full
+   opacity. At p = 0 the section is a blank screen carrying half a sentence in a
+   1.58:1 ghost, with all eleven chips invisible. Why minus the drift: -46px
+   means "this stage is letting go". It is a departure transient, not a state,
+   it carries no information, and zeroing it puts every chip at exactly its
+   authored `data-top` - the number a reader of the markup would predict.
+
+   The hook attaches nothing at all under this preference: no observer, no
+   listener, no rAF. `data-scrub` is therefore never set and the drift and the
+   blur are already absent; the rules below are the explicit belt to that
+   braces, and they are unlayered, so they beat the layered rules above without
+   needing `!important`.
+
+   Note for the PR: there is no WCAG 2.2.2 residual here, unlike the marquee and
+   the phones. Nothing in this section animates on its own clock. Every pixel of
+   motion is the reader's own scrolling, which they are already in control of.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  /* Self-documenting: every derived value follows from this one line, so there
+     are never two sets of numbers to keep in step. */
+  .cta-stage {
+    --p: 1;
+    --k-chip: 1;
+    --k-field: 1;
+    --rev: 6;
+  }
+
+  .cta-chip {
+    transform: scale(1) rotate(calc(var(--tilt) * 1deg));
+    opacity: 1;
+    filter: none;
+    will-change: auto;
+  }
+
+  .cta-word {
+    opacity: 1;
+  }
+}

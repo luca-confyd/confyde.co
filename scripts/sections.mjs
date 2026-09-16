@@ -86,6 +86,16 @@ export const SECTIONS = {
     siteWeb: "[data-section='customer-stories']",
     siteMobile: "[data-section='customer-stories']",
   },
+  "cta-stage": {
+    title: "CTA stage (pinned)",
+    site: null,
+    web: "#pf-cta-stage",
+    // Not drawn in the mobile artboard - the below-1024 band is an addition, so
+    // there is no mobile side to diff against.
+    mobile: null,
+    siteWeb: "[data-section='cta-stage']",
+    siteMobile: "[data-section='cta-band-mobile']",
+  },
   page: {
     title: "Whole page",
     site: null,

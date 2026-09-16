@@ -1,4 +1,5 @@
 import { BeforeAfter } from "@/components/home/before-after/before-after";
+import { CtaStage } from "@/components/home/cta-stage/cta-stage";
 import { CustomerStories } from "@/components/home/customer-stories/customer-stories";
 import { Faq } from "@/components/home/faq/faq";
 import { Hero } from "@/components/home/hero/hero";
@@ -43,7 +44,7 @@ export default function HomePage() {
         <RepeatWork />
         <WhatYouGetBack />
         <Testimonials />
-        {/* Pinned CTA stage */}
+        <CtaStage />
         <CustomerStories />
         <Faq />
       </main>
