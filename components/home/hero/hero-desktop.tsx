@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Fragment } from "react";
 
 import type { ReactNode } from "react";
@@ -22,6 +21,18 @@ import { HeroCategories } from "./hero-categories";
    sanctioned roles, none of which is a headline. The artboard sets the whole
    second line in lime and that is the hero's entire idea, so it ships as drawn
    and is logged as a knowing exception rather than silently corrected.
+
+   The TONE moved with the background. On the photographic hero the second line
+   was lime-500 (#12707A); on the grid's #12201F base that measures 2.89:1,
+   under even the 3.0 floor large text gets, because a mid petrol and a dark
+   petrol are the same hue at two lightnesses and the base is now the second of
+   those. forest-500 (#5698A1) is the next step up the same ramp and clears it
+   at 5.11:1.
+
+   The reference artboard reaches for #4FB4BD here, which is brighter again at
+   6.87:1. It is not a token, and forest-500 carries the idea - a lighter petrol,
+   because the surface underneath went petrol - without minting a colour the
+   system would then have to find a name for.
 ----------------------------------------------------------------------------- */
 
 const HEADLINE_LINES = [
@@ -37,7 +48,7 @@ const HEADLINE_LINES = [
     // The artboard's headline is two lines with the second in lime, and that
     // two-tone break is the hero's signature. The new single sentence is split
     // at its own clause boundary to keep it.
-    tone: "text-lime-500",
+    tone: "text-forest-500",
     words: [
       { word: "for", delay: 0.2 },
       { word: "scaling", delay: 0.245 },
@@ -47,35 +58,20 @@ const HEADLINE_LINES = [
 ];
 
 /* -----------------------------------------------------------------------------
-   Layers.
+   Layers, and why there are none left.
 
-   Long gradients are pulled out of the markup because a four-stop `linear-gradient`
-   written as an arbitrary value is unreadable at the call site. They stay single
-   string literals so Tailwind's scanner still sees a complete class.
+   This section used to carry two: a four-stop SCRIM washing the whole
+   photograph, and a VIGNETTE pooling extra ink behind the copy column alone.
+   Both existed for one reason - holding white copy at 4.5:1 over pixels that
+   changed from one crop to the next - and the grid background removes that
+   problem at the source. `#12201f` under white is 15.8:1 everywhere, so a scrim
+   would now be buying contrast the copy already has and costing the grid the
+   only thing it has to show.
+
+   The `[text-shadow]` on the headline and paragraph went with them, for the same
+   reason: a 18px black blur behind type is how you rescue it from a busy
+   photograph, and on a flat surface it just smears the edges.
 ----------------------------------------------------------------------------- */
-
-/* Four stops in oklab - srgb would bruise the mid-tones as the dark fades out.
-   The scrim is load-bearing rather than decorative: it is what holds white copy
-   at 4.5:1 over a photograph.
-
-   A NEUTRAL dark, deliberately, and not the brand petrol. This washes the whole
-   photograph, so tinting it would push the image towards the brand hue and turn
-   a photograph into a swatch. It was forest-900 when the palette was green and
-   read as a green photograph; it is #171A1B now and stays neutral through
-   palette changes. */
-const SCRIM =
-  "absolute inset-0 bg-[linear-gradient(to_top,rgb(23_26_27/0.88)_0%,rgb(23_26_27/0.74)_32%,rgb(23_26_27/0.34)_66%,transparent_92%)]";
-
-/* A second, softer pool of ink behind the copy column alone, so the headline
-   holds even where the photograph is bright. `-z-10` is load-bearing: this is
-   the only positioned element among static siblings, so without it the pool
-   paints on top of the very copy it exists to support. It bleeds 56px above the eyebrow
-   and 48px below the CTAs - asymmetric, because there is more photograph to
-   subdue above. rgba(13,15,16) is a one-off neutral ink darker than the scrim
-   above; like the scrim it is deliberately untinted, and it has no role in the
-   system to name, so it stays a literal. */
-const VIGNETTE =
-  "pointer-events-none absolute -z-10 -top-14 -bottom-12 left-1/2 w-[min(1180px,116%)] -translate-x-1/2 bg-[radial-gradient(ellipse_62%_58%_at_50%_46%,rgba(13,15,16,.74)_0%,rgba(13,15,16,.6)_58%,rgba(13,15,16,0)_100%)]";
 
 /**
  * The desktop hero, >=1024px.
@@ -104,33 +100,14 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
             the panel edge.
           */}
           <div className="relative mx-auto flex min-h-[88svh] w-full max-w-[1920px] flex-col items-center overflow-hidden pt-[88px] hero-short:min-h-[92svh] hero-short:pt-14">
-            {/* #171A1B is the paint-flash colour behind the photograph, and it
-                is the flat colour the photograph fades into, so it is a
-                NEUTRAL dark and not the brand petrol: tinting it would pull
-                the whole photograph towards the brand hue. Light enough that
-                the panel does not read as a black hole before the image
-                decodes. Not a token. It was #20361f when the dark panels were
-                green, which had this same problem. */}
-            <div className="absolute inset-0 z-0 overflow-hidden bg-[#171A1B]">
-              <Image
-                src="/images/hero-lifestyle.webp"
-                alt=""
-                fill
-                /* The LCP element. `priority` is deprecated in Next 16, so the
-                   two things it used to set are set directly. Quality 90 rather
-                   than the default 75: compression artefacts are visible
-                   against this photograph's flat sky. */
-                loading="eager"
-                fetchPriority="high"
-                quality={90}
-                /* Both heroes are in the DOM at every width, so the inactive
-                   one is told it renders at 1px and the browser picks the
-                   smallest candidate for it instead of a full-width plate. */
-                sizes="(min-width: 1024px) 100vw, 1px"
-                className="object-cover [object-position:center_62%]"
-              />
-              <div className={SCRIM} />
-            </div>
+            {/* The plate. Same box the photograph filled - `inset-0` inside the
+                panel, `z-0` under the copy - so nothing above it moves; only
+                what paints inside it changed. `aria-hidden` because it is now
+                decoration in the markup rather than an <img> with an empty alt,
+                and there is no longer an image to fail to load, so the flat
+                paint-flash colour underneath it is gone too: the class IS the
+                flat colour. See styles/hero-grid.css for the three layers. */}
+            <div aria-hidden="true" className="hero-grid absolute inset-0 z-0" />
 
             {/* px-6, matching the content rail's gutter. At widths below 1280 this
                 padding is what bounds the category strip rather than its 1232
@@ -140,9 +117,7 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                   1120px. The difference is intentional: the sentence wants a
                   readable measure, the figures want the full width. */}
               <div className="relative flex w-full max-w-[1000px] flex-1 flex-col items-center justify-center text-center">
-                <div aria-hidden="true" className={VIGNETTE} />
-
-                <h1 className="display display-1 text-balance text-pf-ink-100 [text-shadow:0_2px_18px_rgb(0_0_0/0.45)] hero-short:text-[4.25rem]">
+                <h1 className="display display-1 text-balance text-pf-ink-100 hero-short:text-[4.25rem]">
                   {HEADLINE_LINES.map((line) => (
                     <span key={line.words[0].word} className="block">
                       {line.words.map((entry, index) => (
@@ -169,7 +144,7 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                   anim="up-blur"
                   delay={0.32}
                   duration={0.5}
-                  className="mt-9 max-w-[720px] text-[16px] leading-[1.55] font-medium text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.5)] hero-short:mt-[26px]"
+                  className="mt-9 max-w-[720px] text-[16px] leading-[1.55] font-medium text-white hero-short:mt-[26px]"
                 >
                   Confyde is a technical consultancy for businesses that need expertise in AI,
                   software engineering, and strategy. We help plan where AI fits, build agents and

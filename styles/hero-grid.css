@@ -1,0 +1,59 @@
+/* -----------------------------------------------------------------------------
+   The hero's grid background.
+
+   Replaces the photograph both heroes used to carry. It is one class rather than
+   two because the desktop and mobile heroes are otherwise separate compositions
+   with separate plates, and the whole point of the change is that they now share
+   a single surface: a drawing grid is scale-independent in a way a photograph
+   never was, so there is nothing left to cut differently per breakpoint.
+
+   THREE LAYERS, and the order is load-bearing. CSS paints the first
+   `background-image` on top, so the two hairline gradients sit OVER the glow and
+   the glow reads as light coming from behind the grid rather than washed across
+   it. Swapping them puts the glow on top and the grid goes muddy under it.
+----------------------------------------------------------------------------- */
+
+@layer components {
+  .hero-grid {
+    /* 64px. Large enough that the grid reads as drafting paper rather than
+       graph paper, and an exact power of two, so the lines land on whole device
+       pixels at 1x and 2x alike - a 65px cell shimmers as it tiles. */
+    --hero-grid-cell: 64px;
+
+    /* #F4EFE4 at 5%. A warm cream rather than plain white: at this alpha the hue
+       barely registers on its own, but white would cool the whole surface a
+       degree away from the cream the rest of the page is built on. */
+    --hero-grid-line: rgb(244 239 228 / 0.05);
+
+    /* A dark desaturated petrol, and NOT the neutral #171A1B the photographic
+       hero used. That neutral existed to stop a flat colour tinting the
+       photograph behind it; with no photograph there is nothing left to tint,
+       and the surface is free to sit in the brand's own hue. Too far from
+       forest-900 (#003F47) to be that token at low light - this is a near-black
+       that happens to lean petrol, not the ramp's darkest step. */
+    background-color: #12201f;
+
+    background-image:
+      linear-gradient(var(--hero-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
+      /* The glow: forest-700, the palette primary, thrown from the top edge so
+         the nav capsule sits in the brightest part of it and the category strip
+         at the foot falls away into the base. 110%/70% overscans horizontally
+         on purpose, so the ellipse's left and right shoulders are cropped by the
+         viewport instead of drawing a visible arc across a wide panel.
+
+         The far stop is the base colour at zero alpha, not `transparent`.
+         `transparent` is rgba(0,0,0,0), so interpolating to it drags the midpoint
+         through black and leaves a dirty ring around the glow. */
+      radial-gradient(
+        110% 70% at 50% 0%,
+        rgb(18 112 122 / 0.28) 0%,
+        rgb(18 32 31 / 0) 70%
+      );
+
+    background-size:
+      var(--hero-grid-cell) var(--hero-grid-cell),
+      var(--hero-grid-cell) var(--hero-grid-cell),
+      100% 100%;
+  }
+}
