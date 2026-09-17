@@ -1,15 +1,46 @@
-import Image from "next/image";
+import type { Integration, IntegrationId } from "@/content/integrations";
 
-import { INTEGRATION_MARK, type Integration } from "@/content/integrations";
+import {
+  CustomMark,
+  GoogleMark,
+  HubSpotMark,
+  MicrosoftMark,
+  QuickBooksMark,
+  ShopifyMark,
+  SlackMark,
+  StripeMark,
+  WhatsAppMark,
+  XeroMark,
+} from "./brand-marks";
+
+/**
+ * `id` -> mark. A `Record` over the union rather than a lookup with a
+ * fallback, so adding an id to `IntegrationId` without drawing its mark is a
+ * type error here rather than a hole in the row at runtime.
+ */
+const MARKS: Record<IntegrationId, () => React.JSX.Element> = {
+  microsoft: MicrosoftMark,
+  google: GoogleMark,
+  xero: XeroMark,
+  quickbooks: QuickBooksMark,
+  stripe: StripeMark,
+  hubspot: HubSpotMark,
+  slack: SlackMark,
+  shopify: ShopifyMark,
+  whatsapp: WhatsAppMark,
+  custom: CustomMark,
+};
 
 /**
  * One partner tile: a 34px mark beside a name and a category.
  *
  * One component at both breakpoints. The two artboards draw the same tile at
- * two scales and the eight records exist once in the DOM, exactly as
+ * two scales and the records exist once in the DOM, exactly as
  * `LandscaperCard` does for section 04.
  */
 export function IntegrationTile({ integration }: { integration: Integration }) {
+  const Mark = MARKS[integration.id];
+
   return (
     /*
       Two different shadows, one per artboard: below 1024 the mobile board's two
@@ -22,60 +53,21 @@ export function IntegrationTile({ integration }: { integration: Integration }) {
       is still a card, not a panel, because it is a thing you read.
     */
     <div className="shadow-card-mobile flex items-center gap-[10px] rounded-xl bg-card px-3 py-[11px] desk:gap-3 desk:px-4 desk:py-[14px] desk:shadow-border-default">
-      {integration.mark ? (
-        <Image
-          src={integration.mark}
-          /* Decorative: the partner is named in text immediately beside it, so
-             a description here would be announced twice. */
-          alt=""
-          width={INTEGRATION_MARK.size}
-          height={INTEGRATION_MARK.size}
-          /* No `sizes`, and no `fill` - see INTEGRATION_MARK. */
-          className="size-[30px] flex-none rounded-full desk:size-[34px]"
-        />
-      ) : (
-        /*
-          A lettermark, not an image: type on a coloured circle. `aria-hidden`
-          is "true" where both artboards write the empty string, which is not a
-          valid value - so a screen reader currently reads "M MYOB"
-          (RULINGS.md §03/04 ruling 7).
+      {/*
+        A fixed box rather than a sized mark, so every logo lands on the same
+        baseline whatever shape it is. The disc marks fill it; the free-standing
+        ones (Microsoft, Google, Slack, HubSpot) carry their own inset inside
+        their 24x24 canvas, which is what keeps the row optically even without
+        the tile knowing which is which.
 
-          `font-ui` at both breakpoints, per the client's font decision at the
-          end of RULINGS.md: the desktop artboard sets these in Hanken Grotesk
-          and the mobile one lets them inherit Nunito Sans, and desktop is the
-          side the client confirmed.
-
-          [LOG - CONTRAST, RULED.] White on three of these seven discs measures
-          below WCAG AA on the composited pixels at 1280 and 390: QuickBooks
-          #2CA01C 3.41:1, Google Drive #F9AB00 1.93:1, WhatsApp #25D366 1.98:1,
-          where body text at these sizes would need 4.5:1. They ship unchanged.
-          WCAG 1.4.3 exempts text that is part of a logo or brand name, and a
-          partner's initial set on that partner's own brand colour is exactly
-          that - recolouring it would be an edit to someone else's mark. The
-          exemption is not load-bearing either way: the disc is `aria-hidden`
-          and the partner's full name sits beside it in passing ink, so the
-          letter carries nothing on its own.
-
-          Worth recording, because it constrains any future fix: QuickBooks
-          cannot be rescued by darkening the letter at all. #2CA01C measures
-          4.38:1 against charcoal-900, 4.17:1 against forest-900 and 4.08:1
-          against ink - nothing in the palette clears 4.5:1 on that green.
-        */
-        <span
-          aria-hidden="true"
-          // WCAG 1.4.3 exempts text that is part of a logo or brand name from
-          // contrast requirements, and that is what this is: a partner's initial
-          // standing in for their mark, on their own brand colour. Three of them
-          // do not clear 4.5:1 and are not meant to - QuickBooks' #2CA01C cannot
-          // be rescued by any ink in the palette. The attribute marks them for
-          // the audit's documented exclusion so the gate stays honest elsewhere.
-          data-brand-mark
-          className="grid size-[30px] flex-none place-items-center rounded-full font-ui text-[11.5px] font-bold text-white desk:size-[34px] desk:text-[13px]"
-          style={{ backgroundColor: integration.disc }}
-        >
-          {integration.initials}
-        </span>
-      )}
+        The whole box is `aria-hidden`: the product is named in text right
+        beside it, and the previous lettermark discs were read aloud as "Q
+        QuickBooks" because the artboards wrote `aria-hidden=""`, which is not a
+        valid value and does nothing (RULINGS.md §03/04 ruling 7).
+      */}
+      <span aria-hidden="true" className="block size-[30px] flex-none desk:size-[34px]">
+        <Mark />
+      </span>
 
       {/* `min-w-0` is load-bearing: without it this flex item will not shrink
           below its content width, so it would push the tile wider than its grid
@@ -86,11 +78,10 @@ export function IntegrationTile({ integration }: { integration: Integration }) {
           The name WRAPS below 1024 and truncates above it, where both artboards
           declare `text-overflow: ellipsis` and nothing ever reaches it anyway.
           Measured across 320-1440px: nothing clipped at 430px, the mobile
-          artboard's own width, or at any width above it - but "Google Calendar"
-          and "Gmail & Outlook" lose their second word at 360-390px, and five of
-          the eight do at 320px. Those are ordinary phone widths, so that is
-          content loss rather than a rendering choice: ruled a defect and fixed
-          the way section 04's organisation line was.
+          artboard's own width, or at any width above it - but the two-word
+          names lose their second word at 360-390px. Those are ordinary phone
+          widths, so that is content loss rather than a rendering choice: ruled
+          a defect and fixed the way section 04's organisation line was.
 
           `break-words` is the guard the ellipsis used to be. Every name here has
           a space to break at, but a future partner with one long word would

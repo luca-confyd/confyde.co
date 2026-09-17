@@ -1,65 +1,61 @@
 /**
- * The eight partners in the integrations card.
+ * The integrations row.
  *
- * Names and sub-labels are the client's, carried verbatim from both artboards -
- * which agree on all sixteen strings, including the ampersands in "Gmail &
- * Outlook" and "Plans & photos".
+ * Names and sub-labels are the client's, carried verbatim.
  *
- * The `disc` hexes are OTHER COMPANIES' brand colours. They are deliberately
- * not tokens: a token is a decision our design system has made, and none of
- * these is ours to change, reuse or darken. Keeping them here as commented
- * literals is the same call RULINGS.md §02 ruling 5 made for `#ACAFB1` - a
- * value with no role in the system stays a local constant.
+ * WHY THIS FILE HOLDS AN `id` AND NOT A COLOUR. It used to carry each
+ * partner's brand hex so a tile could draw a lettermark disc - an initial set
+ * on that company's colour, standing in for a mark we did not have. The marks
+ * now exist (components/home/integrations/brand-marks.tsx), so the disc, the
+ * initials and the eight foreign hexes are all gone. What is left here is
+ * content: a name, a category, and an `id` that selects the mark. Colour is the
+ * mark's own business, which is the right place for it - none of those hexes
+ * was ever ours to token, reuse or darken.
  *
- * The one exception is Gmail & Outlook. Neither of those products is green; the
- * artboard sets that disc to `#2C5539`, which is Confyde's own `forest-700`, so
- * it IS a token and is written as one. It reads as a deliberate choice - the
- * tile stands for two products at once and has no single brand mark to borrow.
+ * ORDER. The client's, and it is not alphabetical: the two suites that most
+ * businesses already live in come first, then the money, then the rest. The
+ * `custom` tile is last and is deliberately not a company - see below.
  */
+export type IntegrationId =
+  | "microsoft"
+  | "google"
+  | "xero"
+  | "quickbooks"
+  | "stripe"
+  | "hubspot"
+  | "slack"
+  | "shopify"
+  | "whatsapp"
+  | "custom";
+
 export type Integration = {
+  id: IntegrationId;
   name: string;
   /** The category line under the name. */
   sub: string;
-} & (
-  | {
-      /** A real partner mark, rendered as an image. */
-      mark: string;
-      disc?: never;
-      initials?: never;
-    }
-  | {
-      /** A lettermark disc: type on a coloured circle, never an image. */
-      initials: string;
-      /** CSS colour for the disc fill. */
-      disc: string;
-      mark?: never;
-    }
-);
+};
 
 export const INTEGRATIONS: readonly Integration[] = [
-  { name: "Xero", sub: "Accounting", mark: "/images/xero-mark.webp" },
-  { name: "QuickBooks", sub: "Accounting", initials: "Q", disc: "#2CA01C" },
-  { name: "Stripe", sub: "Payments", initials: "S", disc: "#635BFF" },
-  // Neither product is green. forest-700 is Confyde's own, and this tile stands
-  // for two products at once with no single mark to borrow - so it is a token
-  // where the rest are other companies' brand colours.
-  { name: "Gmail & Outlook", sub: "Email", initials: "G", disc: "var(--color-forest-700)" },
-  { name: "Slack", sub: "Team chat", initials: "S", disc: "#4A154B" },
-  { name: "WhatsApp", sub: "Client chat", initials: "W", disc: "#25D366" },
-  { name: "Google Drive", sub: "Files & documents", initials: "GD", disc: "#F9AB00" },
-  { name: "Google Sheets", sub: "Data & reporting", initials: "GS", disc: "#0F9D58" },
+  { id: "microsoft", name: "Microsoft 365", sub: "Email, files, Teams" },
+  { id: "google", name: "Google Workspace", sub: "Email, Drive, Sheets" },
+  { id: "xero", name: "Xero", sub: "Accounting" },
+  { id: "quickbooks", name: "QuickBooks", sub: "Accounting" },
+  { id: "stripe", name: "Stripe", sub: "Payments" },
+  { id: "hubspot", name: "HubSpot", sub: "CRM" },
+  { id: "slack", name: "Slack", sub: "Team chat" },
+  { id: "shopify", name: "Shopify", sub: "E-commerce" },
+  { id: "whatsapp", name: "WhatsApp", sub: "Client chat" },
+  /*
+    Not a company, and the tile it draws is visibly ours rather than a tenth
+    logo: the row exists to say "we work with what you already have", and a
+    closed list of nine says the opposite the moment someone runs something
+    that is not on it. Last in the order because it is the catch-all, and it
+    reads as one - "...and whatever else" only works at the end.
+  */
+  { id: "custom", name: "Something else", sub: "We'll work with it" },
 ];
 
-/**
- * The Xero mark's rendered geometry.
- *
- * It is the only `next/image` on the page that is NOT `fill` + `sizes`. The
- * source is a 160px square and the largest it ever draws is 34px, so the whole
- * requirement is a 1x/2x pair. Passing `sizes` would move Next onto the
- * width-descriptor path, where a non-`vw` value falls back to the full device
- * list and a 2x desktop fetches a 640px candidate for a 34px disc.
- */
+/** Disc diameter: 30px below 1024, 34px above. */
 export const INTEGRATION_MARK = {
-  /** Desktop disc diameter; mobile draws the same mark at 30px. */
   size: 34,
 } as const;

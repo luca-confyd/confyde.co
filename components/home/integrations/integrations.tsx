@@ -7,7 +7,7 @@ import { IntegrationTile } from "./integration-tile";
  * Section 06, integrations.
  *
  * One composition at two scales, like section 04: one component with `desk:`
- * forks rather than two subtrees, so the eight partner records exist once in
+ * forks rather than two subtrees, so the ten tile records exist once in
  * the DOM rather than twice behind `hidden`.
  *
  * HEADING LEVEL. `<h2>`. This band sits between the chapter 2 and chapter 3
@@ -51,8 +51,8 @@ export function Integrations() {
       {/*
         The panel. `card-muted` is the one tile tone that sits BELOW the canvas -
         the brand's "reach for it when something should recede, not separate" -
-        and it is what makes eight white tiles read as one group rather than
-        eight more cards on the page.
+        and it is what makes ten white tiles read as one group rather than
+        ten more cards on the page.
 
         `overflow-hidden` with a 12px radius is what clips the tiles' corners
         against the panel's.
@@ -100,10 +100,11 @@ export function Integrations() {
 
         {/*
           `auto-fit minmax(210px, 1fr)` is the desktop artboard's own track
-          definition and it does reflow here, unlike section 04's: eight items
-          across a 1104-1360px content box give four tracks from 1024px up and
-          five above ~1226px, so the grid is 4x2 at the switch width and 5+3
-          at 1280px and 1440px. That is what the artboard draws at 1280.
+          definition and it does reflow here, unlike section 04's: across a
+          1104-1360px content box it gives four tracks from 1024px up and five
+          above ~1226px. At ten tiles that is 4+4+2 at the switch width and 5+5
+          at 1280px and 1440px - the wide case now fills both rows exactly,
+          where eight tiles used to leave a 5+3 row with two gaps in it.
         */}
         <div className="grid gap-[10px] [grid-template-columns:repeat(2,minmax(0,1fr))] desk:gap-3 desk:[grid-template-columns:repeat(auto-fit,minmax(210px,1fr))]">
           {INTEGRATIONS.map((integration) => (
