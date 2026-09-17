@@ -1,0 +1,132 @@
+/* ---------------------------------------------------------------------------
+   The client list's status circles.
+
+   Confyde working through the list: every row starts as a spinner and resolves
+   to a tick, one row at a time, top to bottom. It runs ONCE, when the card
+   reaches the viewport, and then it is done - this is a thing that happened,
+   not a thing that keeps happening, and a list that kept re-doing its work
+   under the heading "a business that doesn't need chasing" would argue against
+   the sentence above it.
+
+   Five rows, one shared timeline. The only thing that differs per row is
+   `--rw-delay`, set by the component from the row index, so the stagger is data
+   and the choreography is here.
+
+   THE TRIGGER, AND WHY THERE IS NO JAVASCRIPT FOR IT. The grid holding both
+   cards is already a `Reveal`: it renders with `.reveal-idle` and lib/use-reveal
+   swaps that class off, once, when the element crosses into view, then
+   unobserves it. So "has this card been seen yet" is already in the DOM, and
+   these animations just read it - paused inside `.reveal-idle`, running as soon
+   as it goes. A paused animation holds at its current time, and these have
+   never advanced, so each one starts cleanly from its first frame rather than
+   joining a cycle already in progress. No observer of our own, no client
+   component, and the trigger point cannot drift from the entrance it belongs
+   to because it IS the entrance.
+
+   THE TIMELINE. Each row runs one 2s pass, offset 0.55s from the row above:
+
+     0 - 0.8s     spinner turning
+     0.8 - 1.3s   the swap: spinner fades, tick springs in past its size
+     1.3s on      held, ticked, `forwards`
+
+   The last row starts 2.2s in and has resolved by ~3.5s, so the whole list
+   settles inside four seconds of coming into view.
+--------------------------------------------------------------------------- */
+
+@keyframes rw-spin-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rw-spin-out {
+  0%,
+  40% {
+    opacity: 1;
+  }
+  /* Gone before the tick is at full size, so the two never read as one shape. */
+  65%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rw-tick-in {
+  0%,
+  40% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  /* The overshoot is what makes it land rather than appear. 1.15, matching the
+     ingest tick in chapter-1.css, which is the same gesture in the same app. */
+  65% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  85%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer components {
+  .rw-spin-arc {
+    /* About its own centre, not the SVG's origin, or it orbits instead of
+       spinning.
+
+       Four turns, not `infinite`. The longest-delayed row has resolved by 3.5s
+       and four turns cover 4.4s, so every spinner is hidden before this stops -
+       but it does stop, rather than leaving five compositor animations ticking
+       on a finished card for as long as the page is open. */
+    transform-origin: 50% 50%;
+    animation: rw-spin-turn 1.1s linear 4;
+  }
+
+  .rw-spin {
+    animation: rw-spin-out 2s linear both;
+    animation-delay: var(--rw-delay, 0s);
+  }
+
+  .rw-tick {
+    transform-origin: 50% 50%;
+    animation: rw-tick-in 2s cubic-bezier(0.19, 1, 0.22, 1) both;
+    animation-delay: var(--rw-delay, 0s);
+  }
+
+  /* Held at frame zero until the card has been seen. `.reveal-idle` is the
+     Reveal system's own pre-entrance class and it comes off exactly once, so
+     this needs nothing to turn it back on again. */
+  .reveal-idle .rw-spin,
+  .reveal-idle .rw-tick,
+  .reveal-idle .rw-spin-arc {
+    animation-play-state: paused;
+  }
+}
+
+/* The resting state, as every file in this directory ends with.
+
+   Resolved, not spinning. The sequence exists to say the work got done, so the
+   frame that carries the meaning is the finished one - a reader who has asked
+   for no motion should get the answer, not the question. Every row shows its
+   tick and no spinner, which is also a stable frame for the comparison harness
+   to diff.
+
+   `!important` on all of it because the rules above set the same three
+   properties, and a paused animation still applies its computed value. */
+@media (prefers-reduced-motion: reduce) {
+  .rw-spin,
+  .rw-spin-arc,
+  .rw-tick {
+    animation: none !important;
+  }
+
+  .rw-spin {
+    opacity: 0 !important;
+  }
+
+  .rw-tick {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

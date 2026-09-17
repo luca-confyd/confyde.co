@@ -5,13 +5,14 @@ import { QUOTE } from "./home";
  * copy, its two client lists and the figures on its stat card.
  *
  * TWO LISTS, NOT ONE WITH A SLICE. The artboards draw different compositions:
- * desktop shows four clients with a relationship note and an action chip;
- * mobile shows two, with no chips, a different photograph against
- * each name and - for Leah - a differently worded note. A mobile row that looks
- * like a shortened desktop twin is the client's own edit, and deriving one from
- * the other would quietly repair copy we were told not to touch
- * (docs/brand.md, RULINGS.md principle 3). Same reasoning as
- * `content/before-after.ts`.
+ * desktop shows five, mobile two. A mobile row that looks like a shortened
+ * desktop twin is the client's own edit, and deriving one from the other would
+ * quietly repair copy we were told not to touch (docs/brand.md, RULINGS.md
+ * principle 3). Same reasoning as `content/before-after.ts`.
+ *
+ * The rows no longer carry a photograph or an action chip. Both went when the
+ * list took the status-circle treatment: a row is now a title, one line of
+ * evidence and a circle that resolves from spinner to tick.
  *
  * Sarah Henderson and 14 Beach Rd come from `QUOTE`, not from a second typing:
  * she is the client whose quote the hero, the take-off demo and the proposal
@@ -20,20 +21,26 @@ import { QUOTE } from "./home";
  * Apostrophes are U+2019 and the arrow is U+2192, both as drawn.
  */
 
-/** A row in the "Worth a call this month" list. */
+/**
+ * A row in the "Where Confyde comes in" list.
+ *
+ * `title` is the thing Confyde did; `detail`, `client` and `place` are the
+ * evidence, set as one secondary line "<detail> - <client>, <place>". They stay
+ * three fields rather than one pre-joined string so the separator and the comma
+ * are the component's typography rather than something baked into content.
+ *
+ * There is no `photo` and no `action` any more. The rows carry a status circle
+ * instead, and the circle is the same for every row - so nothing about which
+ * state a row is in lives here. The sequence is presentation, and it is
+ * entirely in CSS (styles/motion/repeat-work.css).
+ */
 export type ClientRow = {
-  name: string;
-  /** The address or suburb that disambiguates the name. */
+  title: string;
+  /** Why Confyde surfaced it. */
+  detail: string;
+  client: string;
+  /** The address or suburb that disambiguates the client. */
   place: string;
-  /** Why Confyde surfaced them. */
-  note: string;
-  /**
-   * The action Confyde suggests. Text, never a control: it is a depiction of a
-   * button inside a depiction of the app, and rendering it as one would add
-   * four inert tab stops. Absent on mobile, where the artboard draws none.
-   */
-  action?: string;
-  photo: string;
 };
 
 export const REPEAT_WORK = {
@@ -50,6 +57,18 @@ export const REPEAT_WORK = {
   */
   listTitle: "Where Confyde comes in",
 
+  /*
+    The dark card's header. `caseStudy` is TEXT, never a control: no case study
+    page exists (RULINGS.md §01), and rendering it as a link or a button would
+    put an inert tab stop in the page. Same call the action chips used to make.
+  */
+  company: {
+    initials: "LL",
+    name: "Laurence Landscaping",
+    meta: "Byron Bay \u00b7 6 crew",
+    caseStudy: "View the case study \u2192",
+  },
+
   /** Desktop only. The mobile stat card carries no label. */
   statLabel: "Repeat work",
 
@@ -59,8 +78,15 @@ export const REPEAT_WORK = {
       label: "of jobs won this year were clients you’d worked for before",
     },
     {
+      /*
+        Shortened from "won back from past clients, without chasing a single
+        new lead". At 60 characters it ran to three lines against the first
+        label's two, which made the two halves of one claim look like a
+        headline and a footnote in a layout that had just been evened up. 46
+        characters sets two lines at the same measure.
+      */
       figure: "$412k",
-      label: "won back from past clients, without chasing a single new lead",
+      label: "won back from past clients, no new leads chased",
     },
   ],
 
@@ -90,85 +116,48 @@ export const REPEAT_WORK = {
 
 export const CLIENT_ROWS_DESKTOP: readonly ClientRow[] = [
   {
-    name: QUOTE.client,
+    title: "Fire pit and lighting",
+    detail: "Added at handover",
+    client: QUOTE.client,
     place: QUOTE.address,
-    note: "Wanted a fire pit and lighting at handover.",
-    action: "Call",
-    photo: "/images/photo-1.webp",
   },
   {
-    name: "Tom Ridgeway",
+    title: "Lower terrace, stage two",
+    detail: "Quoted for after winter",
+    client: "Tom Ridgeway",
     place: "112 Ridgeway Ave",
-    note: "Lower terrace quoted as stage two, after winter.",
-    action: "Draft quote",
-    photo: "/images/photo-2.webp",
   },
   {
-    name: "Leah Cortez",
+    title: "Turf maintenance visit",
+    detail: "Second summer on the turf",
+    client: "Leah Cortez",
     place: "Wattle Grove",
-    note: "Second summer on the turf. Due a maintenance visit.",
-    action: "Send offer",
-    photo: "/images/photo-3.webp",
   },
   {
-    name: "Jo Harcourt",
+    title: "Review requested",
+    detail: "Happy client, never asked",
+    client: "Jo Harcourt",
     place: "Harcourt St terrace",
-    note: "Happy client, never asked for a review.",
-    action: "Ask for review",
-    photo: "/images/photo-4.webp",
   },
-  /*
-    The fifth row exists for the composition, not for the copy. The left card
-    stretches to the dark card's height so the two columns keep level bottom
-    edges, and once the footer strip came off the list four rows left roughly a
-    row and a half of dead space under the last one. Five fills it.
-
-    It is the only row whose photograph is not one of photo-1..4 - those are all
-    spoken for above - so it borrows the hero's. At 48px it reads as one more
-    property and nothing else, but it is the seam to pull if the row count or
-    the photography changes.
-  */
   {
-    name: "Priya Raman",
+    title: "Annual maintenance booked",
+    detail: "Booked without being asked",
+    client: "Priya Raman",
     place: "Alexandra Parade",
-    note: "Annual maintenance due. Booked without being asked.",
-    action: "Confirm",
-    photo: "/images/hero-mobile-shower.webp",
   },
 ];
 
-/*
-  [LOG] The mobile artboard puts photo-2 against Leah and photo-1 against Jo,
-  where desktop uses photo-3 and photo-4 for the same two people. Both are
-  carried as drawn rather than unified: the photographs are stock faces reused
-  across the page with no name attached to any of them, so neither assignment is
-  more correct, and reproducing the render is the acceptance test
-  (RULINGS.md principle 1). Worth the tech lead's eye all the same.
-*/
 export const CLIENT_ROWS_MOBILE: readonly ClientRow[] = [
   {
-    name: "Leah Cortez",
-    place: "Wattle Grove",
-    note: "Turf and irrigation going into their second summer.",
-    photo: "/images/photo-2.webp",
+    title: "Fire pit and lighting",
+    detail: "Added at handover",
+    client: QUOTE.client,
+    place: QUOTE.address,
   },
   {
-    name: "Jo Harcourt",
-    place: "Harcourt St terrace",
-    note: "Happy client, never asked for a review.",
-    photo: "/images/photo-1.webp",
+    title: "Turf maintenance visit",
+    detail: "Second summer on the turf",
+    client: "Leah Cortez",
+    place: "Wattle Grove",
   },
 ];
-
-/**
- * The row avatar geometry.
- *
- * A fixed square at both breakpoints - 40px below 1024, 48px at and above it -
- * so `sizes` is a two-term switch. The intrinsic width is the larger of the
- * two; without `sizes` Next would generate a 1x/2x pair from it and hand the
- * 48px source to every 40px phone slot.
- */
-export const CLIENT_ROW_AVATAR = {
-  intrinsic: 48,
-  sizes: "(min-width: 1024px) 48px, 40px",
-} as const;

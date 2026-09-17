@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/primitives/reveal";
-import { CLIENT_ROWS_MOBILE, CLIENT_ROW_AVATAR, REPEAT_WORK } from "@/content/repeat-work";
+import { CLIENT_ROWS_MOBILE, REPEAT_WORK } from "@/content/repeat-work";
+
+import { StatusCircle } from "./status-circle";
 
 /**
  * The repeat-work panel, mobile composition.
@@ -87,33 +88,24 @@ export function RepeatWorkMobile() {
             </div>
 
             <ul className="m-0 list-none p-0">
-              {CLIENT_ROWS_MOBILE.map((row) => (
+              {CLIENT_ROWS_MOBILE.map((row, index) => (
                 <li
-                  key={row.name}
-                  className="flex items-start gap-[11px] border-t border-slate-100 px-[14px] py-3 first:border-t-0"
+                  key={row.title}
+                  className="flex items-center gap-3 border-t border-slate-100 px-[14px] py-3 first:border-t-0"
                 >
-                  {/* Decorative: the client is named in the text beside it. */}
-                  <Image
-                    src={row.photo}
-                    alt=""
-                    width={CLIENT_ROW_AVATAR.intrinsic}
-                    height={CLIENT_ROW_AVATAR.intrinsic}
-                    sizes={CLIENT_ROW_AVATAR.sizes}
-                    className="size-10 flex-none rounded-md object-cover"
-                  />
-
                   {/* `min-w-0`: without it the flex item will not shrink below
-                      its content width and the note pushes the row wider than
-                      the card. */}
+                      its content width and the detail line pushes the row wider
+                      than the card. */}
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="flex flex-wrap items-baseline gap-[7px]">
-                      <span className="font-ui text-[14px] font-semibold text-ink">{row.name}</span>
-                      <span className="font-ui text-[12px] text-slate-500">{row.place}</span>
-                    </span>
+                    <span className="font-ui text-[14px] font-semibold text-ink">{row.title}</span>
                     <span className="font-ui text-[12.5px] leading-[1.45] text-slate-500">
-                      {row.note}
+                      {row.detail} &middot; {row.client}, {row.place}
                     </span>
                   </span>
+
+                  {/* 26px rather than the desktop card's 30: the mobile row is
+                      a step down in every other dimension too. */}
+                  <StatusCircle index={index} size={26} />
                 </li>
               ))}
             </ul>
@@ -133,8 +125,8 @@ export function RepeatWorkMobile() {
                   <div
                     className={
                       index === 0
-                        ? "font-ui-serif text-[26px] leading-[1.14] font-semibold text-white"
-                        : "font-ui-serif text-[34px] leading-[1.14] font-semibold tracking-[-0.01em] text-lime-500 tabular-nums"
+                        ? "font-ui-serif text-[30px] leading-[1.1] font-semibold text-white"
+                        : "font-ui-serif text-[30px] leading-[1.1] font-semibold tracking-[-0.01em] text-white tabular-nums"
                     }
                   >
                     {stat.figure}

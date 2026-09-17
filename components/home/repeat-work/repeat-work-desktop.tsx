@@ -1,12 +1,9 @@
-import Image from "next/image";
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/primitives/reveal";
-import {
-  CLIENT_ROWS_DESKTOP,
-  CLIENT_ROW_AVATAR,
-  REPEAT_WORK,
-} from "@/content/repeat-work";
+import { CLIENT_ROWS_DESKTOP, REPEAT_WORK } from "@/content/repeat-work";
+
+import { StatusCircle } from "./status-circle";
 
 /**
  * The repeat-work panel, desktop composition.
@@ -119,54 +116,44 @@ export function RepeatWorkDesktop() {
               </h3>
             </div>
 
-            <ul className="m-0 list-none p-0">
-              {CLIENT_ROWS_DESKTOP.map((row) => (
+            {/*
+                `flex-1` + rows that grow. The card is stretched to the dark
+                card's height, and with a fixed row height that surplus all
+                collected under the last row as dead space - about 145px of it
+                once the company header made the dark card taller again. Letting
+                the five rows share it instead spreads the same space between
+                them, so the list fills its card and the two columns read as a
+                pair rather than as one full card beside one half-empty one.
+              */}
+            <ul className="m-0 flex flex-1 list-none flex-col p-0">
+              {CLIENT_ROWS_DESKTOP.map((row, index) => (
                 /* The hairline between rows is slate-100 and NOT the warmer
-                   `--color-hairline` the card's own header and footer use.
-                   That is the app's own list rule, drawn as drawn. */
+                   `--color-hairline` the card's own header uses. That is the
+                   app's own list rule, drawn as drawn. */
                 <li
-                  key={row.name}
-                  className="flex items-center gap-[13px] border-t border-slate-100 px-5 py-3 first:border-t-0"
+                  key={row.title}
+                  className="flex flex-1 items-center gap-4 border-t border-slate-100 px-5 py-[15px] first:border-t-0"
                 >
-                  {/* Decorative: the client is named in the text beside it. */}
-                  <Image
-                    src={row.photo}
-                    alt=""
-                    width={CLIENT_ROW_AVATAR.intrinsic}
-                    height={CLIENT_ROW_AVATAR.intrinsic}
-                    sizes={CLIENT_ROW_AVATAR.sizes}
-                    className="size-12 flex-none rounded-lg object-cover"
-                  />
-
                   {/* `min-w-0` is load-bearing: without it this flex item will
-                      not shrink below its content width and the note wraps the
-                      row instead of itself. */}
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="flex flex-wrap items-baseline gap-2">
-                      <span className="font-ui text-[14.5px] font-medium text-charcoal-900">
-                        {row.name}
-                      </span>
-                      <span className="font-ui text-[12.5px] text-slate-500">{row.place}</span>
+                      not shrink below its content width and the detail line
+                      wraps the row instead of itself. */}
+                  <span className="flex min-w-0 flex-1 flex-col gap-1">
+                    <span className="font-ui text-[15px] font-medium text-charcoal-900">
+                      {row.title}
                     </span>
+                    {/*
+                      One line, three fields. The middle dot separates what
+                      Confyde did from who it was for; the comma inside the
+                      second half is the client's own address. Both live here
+                      rather than in the content file so the punctuation stays a
+                      typographic decision.
+                    */}
                     <span className="font-ui text-[13px] leading-[1.4] text-slate-500">
-                      {row.note}
+                      {row.detail} &middot; {row.client}, {row.place}
                     </span>
                   </span>
 
-                  {/* One child now the status word above the chip is gone, so
-                      the column, its end-alignment and its gap have nothing
-                      left to arrange. */}
-                  <span className="flex-none">
-                    {/*
-                      Text, never a control: this is a depiction of a button
-                      inside a depiction of the app, and rendering it as one
-                      would add four inert tab stops to the page. Same call as
-                      the before/after phones' green action lines.
-                    */}
-                    <span className="inline-flex items-center rounded-md bg-well px-[13px] py-1.5 font-ui text-[12.5px] font-semibold whitespace-nowrap text-slate-700 shadow-[0_0_0_1px_var(--color-hairline),0_1px_2px_rgb(51_56_58/0.08)]">
-                      {row.action}
-                    </span>
-                  </span>
+                  <StatusCircle index={index} />
                 </li>
               ))}
             </ul>
@@ -174,47 +161,93 @@ export function RepeatWorkDesktop() {
           </div>
 
           <div className="flex h-full flex-col gap-5 overflow-hidden rounded-xl bg-forest-900 px-[22px] py-6">
+            {/*
+              The company header, above a rule. The initials tile is a
+              lettermark on the panel's own lighter tone rather than a
+              photograph: this names the business the numbers below belong to,
+              and a face would read as one of the clients in the list opposite.
+            */}
+            <div className="flex items-center gap-3.5 border-b border-cream/[0.18] pb-5">
+              <span
+                aria-hidden="true"
+                className="grid size-12 flex-none place-items-center rounded-lg bg-cream/[0.12] font-ui text-[15px] font-bold text-white"
+              >
+                {REPEAT_WORK.company.initials}
+              </span>
+
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="font-ui text-[15.5px] font-semibold text-white">
+                  {REPEAT_WORK.company.name}
+                </span>
+                <span className="font-ui text-[13px] text-forest-200">
+                  {REPEAT_WORK.company.meta}
+                </span>
+              </span>
+
+              {/*
+                Text, never a control: no case study page exists (RULINGS.md
+                §01), and rendering this as a link or a button would put an
+                inert tab stop in the page. Same call the row action chips made
+                before them.
+              */}
+              <span className="inline-flex flex-none items-center rounded-lg bg-cream/[0.12] px-[15px] py-2 font-ui text-[13.5px] font-semibold whitespace-nowrap text-white">
+                {REPEAT_WORK.company.caseStudy}
+              </span>
+            </div>
+
             <div>
               <div className="font-ui text-[11.5px] font-semibold tracking-[0.1em] text-forest-200 uppercase">
                 {REPEAT_WORK.statLabel}
               </div>
 
-              <div className="mt-[14px] flex flex-wrap items-start gap-x-[22px] gap-y-[18px]">
+              {/*
+                A two-track grid, not a wrapping flex row. The two stats used to
+                carry different flex bases (130px and 150px) with different
+                min-widths, so the tracks never came out the same width and the
+                first stat sat in a visibly wider column than its own text - the
+                "big gap on the left". Equal tracks are the whole fix, and they
+                also mean the divider lands centred between the two rather than
+                wherever the flex algorithm left it.
+              */}
+              <div className="mt-[14px] grid grid-cols-2 items-start gap-x-[22px]">
                 {REPEAT_WORK.stats.map((stat, index) => (
                   /*
-                    The second stat is the one the panel is arguing for, so it
-                    is set half again as large, in lime, and behind a rule. The
-                    rule is a left border on the second item rather than a
-                    separator element, so it disappears by itself if the two
-                    ever wrap onto separate lines.
+                    The rule is a left border on the second item rather than a
+                    separator element, so there is nothing to keep in sync with
+                    the track count.
                   */
                   <div
                     key={stat.figure}
-                    className={
-                      index === 0
-                        ? "min-w-[120px] flex-[1_1_130px]"
-                        : "min-w-[135px] flex-[1_1_150px] border-l border-cream/[0.18] pl-[22px]"
-                    }
+                    className={index === 0 ? "" : "border-l border-cream/[0.18] pl-[22px]"}
                   >
                     {/*
-                      `tabular-nums` on the money figure only - docs/brand.md
-                      allows tabular numerals in a column of money, and this is
-                      the only figure on the panel that is one.
+                      ONE SIZE AND ONE COLOUR FOR BOTH FIGURES. The second was
+                      set half again as large (46px against 30px) and in
+                      lime-500, back when lime was the accent and meant forward
+                      motion. Retiring the accent turned lime-500 into the
+                      petrol primary, which put a dark figure on a dark petrol
+                      panel: $412k measured 2.01:1 against forest-900, where
+                      even large text needs 3.0. White is 11.65:1.
 
-                      Lime here means forward motion on the page's single
-                      loudest number, which is one of the four roles the brand
-                      reserves it for.
+                      So the emphasis had to move somewhere, and evening the two
+                      up is what the panel wanted anyway - they are two halves of
+                      one claim, not a headline and a footnote.
+
+                      `tabular-nums` stays on the money figure only:
+                      docs/brand.md allows tabular numerals in a column of
+                      money, and this is the only figure on the panel that is
+                      one.
                     */}
                     <div
                       className={
                         index === 0
-                          ? "font-ui-serif text-[30px] leading-none font-semibold text-white"
-                          : "font-ui-serif text-[46px] leading-[0.95] font-semibold tracking-[-0.01em] text-lime-500 tabular-nums"
+                          ? "font-ui-serif text-[36px] leading-[1.05] font-semibold text-white"
+                          : "font-ui-serif text-[36px] leading-[1.05] font-semibold tracking-[-0.01em] text-white tabular-nums"
                       }
                     >
                       {stat.figure}
                     </div>
-                    <div className="mt-1.5 font-ui text-[13px] leading-[1.4] text-forest-200">
+                    <div className="mt-2 font-ui text-[13px] leading-[1.4] text-forest-200">
                       {stat.label}
                     </div>
                   </div>
