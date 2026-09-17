@@ -54,7 +54,7 @@ export function CustomerStories() {
           duration={0.5}
           className="display display-2-mobile mb-4 text-center text-[26px] text-ink desk:mb-9 desk:text-[3rem] desk:leading-[1.2] desk:tracking-[-0.008em] desk:text-pf-ink-900"
         >
-          Client stories
+          Where we’ve worked
         </Reveal>
 
         {/*

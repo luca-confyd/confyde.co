@@ -24,7 +24,7 @@ export const GET_BACK = {
     and mobile sets it as one run, so where the break falls stays a composition
     decision in the component that draws it.
   */
-  headingFirst: "Clarity in the first few weeks.",
+  headingFirst: "Clarity in the first few days.",
   headingSecond: "Hours and savings from there on.",
 } as const;
 
