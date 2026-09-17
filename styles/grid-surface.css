@@ -15,6 +15,13 @@
 ----------------------------------------------------------------------------- */
 
 @layer components {
+  /* CONTRACT: apply to a POSITIONED element. The hairlines are drawn by a
+     `::before` with `inset: 0` rather than by the element's own background, so
+     that they can be masked independently of the base colour and the glow -
+     see the fade modifier below. All three call sites are already positioned
+     (`absolute inset-0` on the hero and footer plates, `relative` on the mobile
+     hero's stage), so nothing sets `position` here: doing so would overwrite
+     the `absolute` two of them depend on. */
   .grid-surface {
     /* 64px. Large enough that the grid reads as drafting paper rather than
        graph paper, and an exact power of two, so the lines land on whole device
@@ -27,46 +34,78 @@
     --grid-surface-line: rgb(244 239 228 / 0.05);
 
     /* A dark desaturated petrol, and NOT the neutral #171A1B and #121516 the
-       photographic hero and footer used. That neutral existed to stop a flat colour tinting the
-       photograph behind it; with no photograph there is nothing left to tint,
-       and the surface is free to sit in the brand's own hue. Too far from
-       forest-900 (#003F47) to be that token at low light - this is a near-black
-       that happens to lean petrol, not the ramp's darkest step. */
+       photographic hero and footer used. That neutral existed to stop a flat
+       colour tinting the photograph behind it; with no photograph there is
+       nothing left to tint, and the surface is free to sit in the brand's own
+       hue. Too far from forest-900 (#003F47) to be that token at low light -
+       this is a near-black that happens to lean petrol, not the ramp's darkest
+       step. */
     background-color: #12201f;
+
+    /* The glow: forest-700, the palette primary, thrown from the top edge so
+       the nav capsule sits in the brightest part of it on the hero and the
+       column headings do on the footer. 110%/70% overscans horizontally on
+       purpose, so the ellipse's left and right shoulders are cropped by the
+       viewport instead of drawing a visible arc across a wide panel.
+
+       The far stop is the base colour at zero alpha, not `transparent`.
+       `transparent` is rgba(0,0,0,0), so interpolating to it drags the midpoint
+       through black and leaves a dirty ring around the glow. */
+    background-image: radial-gradient(
+      110% 70% at 50% 0%,
+      rgb(18 112 122 / 0.28) 0%,
+      rgb(18 32 31 / 0) 70%
+    );
+  }
+
+  .grid-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
 
     background-image:
       linear-gradient(var(--grid-surface-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-surface-line) 1px, transparent 1px),
-      /* The glow: forest-700, the palette primary, thrown from the top edge so
-         the nav capsule sits in the brightest part of it and the category strip
-         at the foot falls away into the base. 110%/70% overscans horizontally
-         on purpose, so the ellipse's left and right shoulders are cropped by the
-         viewport instead of drawing a visible arc across a wide panel.
-
-         The far stop is the base colour at zero alpha, not `transparent`.
-         `transparent` is rgba(0,0,0,0), so interpolating to it drags the midpoint
-         through black and leaves a dirty ring around the glow. */
-      radial-gradient(
-        110% 70% at 50% 0%,
-        rgb(18 112 122 / 0.28) 0%,
-        rgb(18 32 31 / 0) 70%
-      );
+      linear-gradient(90deg, var(--grid-surface-line) 1px, transparent 1px);
 
     background-size:
       var(--grid-surface-cell) var(--grid-surface-cell),
-      var(--grid-surface-cell) var(--grid-surface-cell),
-      100% 100%;
+      var(--grid-surface-cell) var(--grid-surface-cell);
 
     /* Offset half a cell, which is the difference between a grid and a border.
        Each hairline gradient draws its line at the START of every cell, so an
        unshifted grid puts one at x=0 and one at y=0 - flush against the panel's
        own top and left edges, where it stops reading as ruling and starts
-       reading as a 1px frame someone drew round the box. It is invisible on the
-       hero, whose top edge is the top of the page; it was unmistakable on the
-       footer. Half a cell puts the first line at 32px and never at 0. */
+       reading as a 1px frame someone drew round the box. */
     background-position:
       calc(var(--grid-surface-cell) / 2) calc(var(--grid-surface-cell) / 2),
-      calc(var(--grid-surface-cell) / 2) calc(var(--grid-surface-cell) / 2),
-      0 0;
+      calc(var(--grid-surface-cell) / 2) calc(var(--grid-surface-cell) / 2);
+  }
+
+  /* Half a cell is not enough on its own where the panel's top edge is also a
+     hard colour boundary. On the footer the cream band above stops dead and the
+     dark surface begins, and a full-width hairline 32px below that seam reads as
+     a rule under the join - the same "border" the unshifted grid drew, moved
+     down by 32px rather than removed.
+
+     So the lines are held off entirely for the first cell and then FADE IN.
+     Fully transparent to 64px kills the hairline at 32px outright - attenuating
+     it was not enough, because a 20%-strength line one cell under a hard colour
+     seam is still a line under a seam - and the ramp from there to 200px brings
+     the one at 96px in at a quarter, the one at 160px at seven tenths, and
+     everything from 224px down at full strength. The base colour and the glow
+     are untouched, which is the whole reason the lines live on their own
+     pseudo-element.
+
+     The hero does not take this: its top edge is the top of the page, with no
+     seam for a line to underline. */
+  .grid-surface-fade-top::before {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 64px,
+      #000 200px
+    );
+    mask-image: linear-gradient(to bottom, transparent 0, transparent 64px, #000 200px);
   }
 }

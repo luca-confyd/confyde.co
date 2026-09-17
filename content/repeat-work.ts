@@ -1,6 +1,6 @@
 /**
- * "A business that doesn’t need chasing." - the day-to-day operations panel's
- * copy, its two client lists and the figures on its stat card.
+ * "Unlock the value of AI for your business." - the day-to-day operations
+ * panel's copy, its two client lists and the figures on its stat card.
  *
  * TWO LISTS, NOT ONE WITH A SLICE. The artboards draw different compositions:
  * desktop shows five, mobile two. A mobile row that looks like a shortened
@@ -35,10 +35,10 @@ export type ClientRow = {
 
 export const REPEAT_WORK = {
   eyebrow: "Day-to-day operations",
-  heading: "A business that doesn’t need chasing.",
+  heading: "Unlock the value of AI for your business.",
   intro:
-    "The routine work runs to schedule, information sits where people expect it, and nothing " +
-    "waits on one person being free.",
+    "Confyde can help you identify the use cases that will genuinely improve business " +
+    "performance.",
 
   /*
     The white card's header, and now its only chrome: the "4 of 62 clients"

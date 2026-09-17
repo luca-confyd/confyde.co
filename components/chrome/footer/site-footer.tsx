@@ -38,8 +38,12 @@ export function SiteFooter() {
           under both layouts - so nothing above it moves. The glow inside the
           surface is thrown from the top edge, which on this panel is where the
           footer's own headings sit; on the hero it lands behind the nav. One
-          rule, and it flatters whatever is at the top of the panel it is on. */}
-      <div aria-hidden="true" className="grid-surface absolute inset-0 z-0" />
+          rule, and it flatters whatever is at the top of the panel it is on.
+
+          `grid-surface-fade-top` because this panel's top edge is a hard seam
+          against the cream band above it, and a hairline sitting just under
+          that seam reads as a rule drawn under the join rather than as grid. */}
+      <div aria-hidden="true" className="grid-surface grid-surface-fade-top absolute inset-0 z-0" />
 
       <FooterDesktop />
       <FooterMobile />

@@ -5,7 +5,18 @@ import Image from "next/image";
 import { useFloatingBars } from "@/lib/use-floating-bars";
 import { NavItem } from "./nav-item";
 
-const BAR = "shadow-overlay flex items-center rounded-xl bg-card";
+/* WHITE, not `bg-card`, and the difference is no longer cosmetic. The old
+   palette set `--color-card` to #FFFFFF under a stated rule - "white = a thing
+   you read or act on, beige = the space between things" - and this bar is as
+   much a thing to act on as anything on the page. The cream-and-petrol palette
+   redefined that token to #F1EEE6, which is the same value as `pf-surface-500`,
+   the hero panel and the marquee band; the bar went beige with it and started
+   reading as the page surface floating on top of itself.
+
+   Pinned here rather than fixed in the token, because `bg-card` has eighteen
+   other call sites that DO want the warm surface. This is the one that wanted
+   the original rule. */
+const BAR = "shadow-overlay flex items-center rounded-xl bg-white";
 
 /**
  * The mid-page quiz teaser. Shown once the reader is a full screen down and

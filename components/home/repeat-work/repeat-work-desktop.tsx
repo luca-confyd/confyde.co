@@ -78,7 +78,10 @@ export function RepeatWorkDesktop() {
             anim="up-blur"
             delay={0.1}
             duration={0.5}
-            className="mt-1.5 max-w-[64ch] text-[16px] leading-[1.6] text-pf-ink-900"
+            /* `text-pretty` for the orphan: the new intro sets two lines in a
+               64ch measure and leaves "performance." alone on the second. The
+               browser's orphan avoidance pulls a word down to join it. */
+            className="mt-1.5 max-w-[64ch] text-[16px] leading-[1.6] text-pretty text-pf-ink-900"
           >
             {REPEAT_WORK.intro}
           </Reveal>

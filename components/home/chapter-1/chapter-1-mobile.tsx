@@ -30,7 +30,7 @@ export function Chapter1Mobile() {
   return (
     <ChapterShellMobile
       dataSection="chapter-1-mobile"
-      image="/images/photo-2.webp"
+      image="/images/studio-plans.webp"
       heading="Everyone’s telling you to use AI. Fewer people can tell you what for."
     >
       {/* `.m-h3` at 19px - see the take-off card for why the shared Fraunces

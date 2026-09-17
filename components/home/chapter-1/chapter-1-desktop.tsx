@@ -29,7 +29,7 @@ export function Chapter1Desktop() {
   return (
     <ChapterShell
       dataSection="chapter-1-desktop"
-      image="/images/photo-2.webp"
+      image="/images/studio-plans.webp"
       objectPosition="center 40%"
       /* pb-24 is ours, not the artboard's. Chapter 1 drew no bottom padding
          because chapter 2 followed it with its own pt-24, and integrations -
