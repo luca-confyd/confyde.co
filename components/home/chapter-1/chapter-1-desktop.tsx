@@ -31,7 +31,12 @@ export function Chapter1Desktop() {
       dataSection="chapter-1-desktop"
       image="/images/photo-2.webp"
       objectPosition="center 40%"
-      sectionClassName="pt-8"
+      /* pb-24 is ours, not the artboard's. Chapter 1 drew no bottom padding
+         because chapter 2 followed it with its own pt-24, and integrations -
+         which follows now - deliberately has no top padding at all, taking the
+         gap from whatever precedes it. Removing chapter 2 left those two zeroes
+         adjacent and collapsed the gap to nothing. */
+      sectionClassName="pt-8 pb-24"
       headingMaxWidth={760}
       /* The two lines are spans, as the artboard writes them. They carry no
          styling - a bare <br> renders identically - but giving each line its own
