@@ -1,110 +1,60 @@
 /**
- * The eleven FAQ entries.
+ * The five FAQ entries.
  *
- * Both artboards ask the same eleven questions in the same order, and ten of
- * the eleven answers are byte-identical between them - so this is one list with
- * a per-breakpoint override on the one entry that differs, rather than two.
- *
- * COPY IS THE CLIENT'S (RULINGS.md principle 3). Nothing here is tidied: the
- * exclamation mark in "Excellent news!" stays although docs/brand.md bans them,
- * "AI-powered" keeps its hyphen, and the sentence-as-a-question headings
- * ("My quoting is fine. I just have too much of it.") keep their full stops.
- * There are no apostrophes anywhere in this copy, so the standing curly-quote
- * normalisation has nothing to do here.
+ * COPY IS THE CLIENT'S (RULINGS.md principle 3). Nothing here is tidied - the
+ * contractions, the sentence-as-a-question headings and the direct second person
+ * are all theirs. Apostrophes are normalised to curly, which is the standing
+ * typographic convention and not a copy edit.
  */
 export type FaqEntry = {
   question: string;
   /**
-   * The answer, split at the artboard's `<br><br>` breaks.
+   * The answer, as blocks rather than paragraphs.
    *
-   * Blocks, not paragraphs: the artboards set each answer as ONE `<p>` with
-   * hard breaks inside it, and two real `<p>` elements would collapse to a
-   * different vertical rhythm. The renderer joins these back with `<br><br>`.
+   * The artboard sets each answer as ONE `<p>` with hard breaks inside it, and
+   * two real `<p>` elements would collapse to a different vertical rhythm. The
+   * renderer joins these back with `<br><br>`. Every current answer is a single
+   * block; the array shape stays because the renderer and the artboard both
+   * assume it.
    */
   answer: readonly string[];
   /**
-   * The mobile artboard's wording, where it differs. Preserved rather than
-   * unified, for the same reason RULINGS.md §02 rulings 12-14 preserve the
-   * hero's two CTA labels: the two boards are two moments, and picking a winner
-   * is the client's call, not ours.
+   * The mobile wording, where it differs. Unused at present - the five answers
+   * are the same on both breakpoints - but kept because the renderer reads it
+   * and the artboard's own copy diverged per breakpoint in three other places.
    */
   answerMobile?: readonly string[];
 };
 
 export const FAQ: readonly FaqEntry[] = [
   {
-    question: "What is Confyde?",
-    // [LOG] The only copy divergence in the section. Desktop capitalises
-    // "Landscapers" and ends on a non-breaking space; mobile does neither. Both
-    // ship as drawn. The   is the artboard's own trailing `&nbsp;`.
+    question: "How do you work with us? Is this a project or ongoing?",
     answer: [
-      "A complete AI-powered sales system for landscape businesses. It scopes and prices the work off your own rates, wins you more of the jobs you quote, and gets faster the more you put through it.",
-      "Designed specifically for Landscapers who want to build a bigger business, with less admin. ",
-    ],
-    answerMobile: [
-      "A complete AI-powered sales system for landscape businesses. It scopes and prices the work off your own rates, wins you more of the jobs you quote, and gets faster the more you put through it.",
-      "Designed specifically for landscapers who want to build a bigger business, with less admin.",
+      "Both. Some clients bring us a defined piece of work: an AI system to build, an integration to sort out, a technical review before a funding round. Others keep us on a regular basis, a day or two a month, as the senior technical voice they don’t have in-house. We’ll tell you which one your situation actually needs.",
     ],
   },
   {
-    question: "Who is it for?",
+    question: "How do you charge?",
     answer: [
-      "Busy residential landscapers, pool builders, and builders who are drowning in quotes, losing jobs they never followed up, and know they need a proper sales system but do not have a spare month to build one.",
-      "If you write a scope of works and price off your own rates, you are in the right place. Whether you quote on your own, run a team, or have an estimator in the seat, Confyde is built for the way you already work.",
+      "Project work is quoted upfront against a fixed scope, so you know the number before we start. Ongoing support is a monthly retainer based on the days you need. No long tie-ins.",
     ],
   },
   {
-    question: "Will it guess my prices wrong?",
+    question: "Do you build it yourselves, or do we still need developers?",
     answer: [
-      "No. Confyde does not price from a national cost database. Every line is priced off your own supplier pricelists and your own past quotes, so the number is yours, and you can see which supplier and which rate it came from. You set the margin, and nothing goes to a client until you send it.",
+      "We build. If you already have a development team, we work alongside them and give them direction. If you don’t, we handle it end to end. The answer depends on what you’ve already got, and we’ll be straight with you about whether hiring is the better option.",
     ],
   },
   {
-    question: "How long does it take to set up?",
+    question: "We don’t really know what we need. Is that a problem?",
     answer: [
-      "Signing up is instant. Setting up is about 30 minutes: drop in a few old quotes and a supplier pricelist, and Confyde builds your price library from them. Most landscapers send their first quote in the same sitting. If you would rather walk through it with someone, book a demo and we will help you get set up.",
+      "No, that’s usually the starting point. Most clients come to us knowing something isn’t working or that they should be doing more with AI, without knowing what that means in practice. Working that out is the first part of the job.",
     ],
   },
   {
-    question: "Will my trades actually use it?",
+    question: "What happens once you’re gone?",
     answer: [
-      "Your sparkie or plumber gets one message with one requirement and one price field, and answers it in two minutes from their phone. You get the prices back side by side, and every trade is told where the job is at without you chasing.",
-    ],
-  },
-  {
-    question: "Can I use Confyde with my team?",
-    answer: [
-      "Absolutely. Confyde keeps everyone on the same page, so nobody has to ask where a job is at. You can see who is quoting what and who is closing the most, or give one person the job of running Confyde and closing the work while the rest of the crew stays on the tools.",
-    ],
-  },
-  {
-    question: "My quoting is fine. I just have too much of it.",
-    answer: [
-      "Then volume is exactly what Confyde is for. Once it knows your prices, it measures the plan and prices the lines faster than anyone can type them, so the pile clears in an afternoon rather than a weekend. And every one you send tells you what the client read, so you also know which ones to chase.",
-    ],
-  },
-  {
-    question: "Is it too expensive for what I do?",
-    answer: [
-      "It usually pays for itself on the first job. One variation billed instead of eaten, or one client who says yes without asking for a discount, covers the month.",
-    ],
-  },
-  {
-    question: "I already have a spreadsheet and a way of doing things.",
-    answer: [
-      "Excellent news! Upload it straight into Confyde, your spreadsheet becomes your price library on day one, and from then on, every job, price, client and conversation lands in one place as a by-product of quoting. It stays current because the work put it there, not because someone remembered to update it.",
-    ],
-  },
-  {
-    question: "Does it work with Xero?",
-    answer: [
-      "Yes. Milestones are set on the quote and invoiced in Xero as each one falls due. Variations are billed the same way. No re-keying.",
-    ],
-  },
-  {
-    question: "What happens to my data?",
-    answer: [
-      "Your quotes, prices and clients are yours. Confyde learns from your own files to price your own jobs.",
+      "You own everything we build. We document it, hand it over properly, and make sure someone on your side knows how it runs. If you’d rather we stayed on to maintain it, we can, but that should be your choice and not because you’re stuck.",
     ],
   },
 ];

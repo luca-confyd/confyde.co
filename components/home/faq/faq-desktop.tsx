@@ -77,6 +77,10 @@ export function FaqDesktop() {
             Frequently asked questions
           </h2>
 
+          <p className="m-0 text-[16px] leading-[1.6] text-pf-ink-700">
+            Confyde delivers AI Strategy, Agentic Workflows and Automation, Software Engineering, and Data and Security Services through a structured approach that combines senior technical expertise with clear governance and accountability.
+          </p>
+
           {/*
             The artboard's `href="#"`. Ships inert per RULINGS.md §01: the
             homepage is the only page in scope and the client declined wiring

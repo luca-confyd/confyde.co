@@ -44,6 +44,10 @@ export function FaqMobile() {
         Frequently asked questions
       </h2>
 
+      <p className="mb-5 text-[14.5px] leading-[1.6] text-slate-700">
+        Confyde delivers AI Strategy, Agentic Workflows and Automation, Software Engineering, and Data and Security Services through a structured approach that combines senior technical expertise with clear governance and accountability.
+      </p>
+
       {/*
         The artboard's own three-layer warm shadow. It is NOT `.shadow-card-mobile`
         - that recipe is this one's first two layers without the wide
