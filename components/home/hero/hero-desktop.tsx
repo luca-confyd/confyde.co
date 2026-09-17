@@ -28,20 +28,20 @@ const HEADLINE_LINES = [
   {
     tone: "",
     words: [
-      { word: "Confyde", delay: 0 },
-      { word: "builds", delay: 0.045 },
-      { word: "your", delay: 0.09 },
-      { word: "quotes.", delay: 0.135 },
+      { word: "Clear", delay: 0 },
+      { word: "technical", delay: 0.045 },
+      { word: "direction", delay: 0.09 },
     ],
   },
   {
+    // The artboard's headline is two lines with the second in lime, and that
+    // two-tone break is the hero's signature. The new single sentence is split
+    // at its own clause boundary to keep it.
     tone: "text-lime-500",
     words: [
-      { word: "Then", delay: 0.2 },
-      { word: "helps", delay: 0.245 },
-      { word: "you", delay: 0.29 },
-      { word: "win", delay: 0.335 },
-      { word: "them.", delay: 0.38 },
+      { word: "for", delay: 0.2 },
+      { word: "scaling", delay: 0.245 },
+      { word: "businesses.", delay: 0.29 },
     ],
   },
 ];

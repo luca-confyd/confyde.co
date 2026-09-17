@@ -94,8 +94,8 @@ export function HeroMobile() {
             per-word, because mobile has no reveals.
           */}
           <h1 className="display mt-3 text-[clamp(30px,8.84vw,38px)] leading-[1.06] tracking-[-0.01em] text-white [text-shadow:0_2px_18px_rgb(0_0_0/0.45)]">
-            {"Confyde builds your quotes. "}
-            <span className="text-lime-500">Then helps you win them.</span>
+            {"Clear technical direction "}
+            <span className="text-lime-500">for scaling businesses.</span>
           </h1>
 
           {/* Not the desktop paragraph re-cut - a different, shorter piece of

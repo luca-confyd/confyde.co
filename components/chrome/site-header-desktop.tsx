@@ -1,4 +1,4 @@
-import { ChevronDown, MoveRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { NavItem } from "./nav-item";
 import { DesktopNavHeader } from "./nav-theme-header";
@@ -40,28 +40,6 @@ const NAV_LINK =
   "group-data-[nav-state=dark]:text-pf-ink-100 group-data-[nav-state=dark]:hover:bg-white/8 " +
   "group-data-[nav-state=light]:text-pf-ink-900 group-data-[nav-state=light]:hover:bg-pf-ink-100";
 
-/*
- * The signup button is the one element that swaps component across the flip:
- * glass on dark, ink on light. Only the fill moves - radius, size, padding and
- * type are identical in both states, matching the brand's "press is colour
- * only".
- *
- * It does not reach for `.btn-glass` / `.btn-ink` because the swap is per-state
- * and those are plain classes. Reproducing them here costs nothing: the inline
- * shadow below outranks both classes' shadows in the artboard, so the only
- * rendered difference between the two components on this button is the fill and
- * its hover.
- */
-const SIGNUP =
-  "inline-flex h-[30px] items-center justify-center gap-2 rounded-xl bg-bottom bg-no-repeat px-4 " +
-  "text-[14px] font-bold whitespace-nowrap text-pf-ink-100 " +
-  "shadow-[0_6px_16px_-8px_rgb(0_0_0/0.4)] " +
-  "transition-[background-color,background-size,box-shadow] duration-200 " +
-  "group-data-[nav-state=dark]:bg-none group-data-[nav-state=dark]:bg-white/8 group-data-[nav-state=dark]:hover:bg-white/12 " +
-  "group-data-[nav-state=light]:bg-pf-ink-700 group-data-[nav-state=light]:bg-linear-to-t " +
-  "group-data-[nav-state=light]:from-pf-ink-800 group-data-[nav-state=light]:to-pf-ink-700 " +
-  "group-data-[nav-state=light]:bg-size-[100%_100%] group-data-[nav-state=light]:hover:bg-size-[100%_50%]";
-
 /**
  * The floating capsule header, >=1024px.
  *
@@ -75,7 +53,7 @@ const SIGNUP =
 export function SiteHeaderDesktop() {
   return (
     <DesktopNavHeader className="group fixed top-5 left-1/2 z-50 hidden w-[1320px] max-w-[calc(100%-16px)] -translate-x-1/2 desk:block">
-      <nav aria-label="Main" className="flex items-center justify-between gap-3">
+      <nav aria-label="Main" className="flex items-center gap-3">
         {/* Left pill: brand + sections. 5px left / 6px right padding is the
             artboard's own asymmetry, not a typo. */}
         <div className={`${PILL} gap-2`}>
@@ -100,22 +78,6 @@ export function SiteHeaderDesktop() {
           </span>
         </div>
 
-        {/* Right pill: same box, 4px gap rather than 8px. */}
-        <div className={`${PILL} gap-1`}>
-          <NavItem className={`${NAV_LINK} px-3 whitespace-nowrap`}>Book a Demo</NavItem>
-
-          <span aria-hidden="true" className={DIVIDER} />
-
-          <NavItem className={`${NAV_LINK} gap-1.5 px-3`}>
-            Login
-            <ChevronDown size={14} strokeWidth={2} aria-hidden="true" focusable="false" />
-          </NavItem>
-
-          <NavItem className={SIGNUP}>
-            Get started
-            <MoveRight size={16} strokeWidth={2} aria-hidden="true" focusable="false" />
-          </NavItem>
-        </div>
       </nav>
     </DesktopNavHeader>
   );

@@ -540,3 +540,20 @@ The mobile sticky bottom bar and the nav still read "Try Confyde free" and
 the client's instruction, so they are unchanged - but if the hero's move to
 "Book a discovery call" is a positioning change rather than a hero-only one,
 they are the next things to align.
+
+### Further client changes (same day)
+
+| Change | Notes |
+|---|---|
+| Hero headline is now **"Clear technical direction for scaling businesses."** | Split at its clause boundary so the artboard's two-tone break survives - "Clear technical direction" in ink, "for scaling businesses." in lime. That split is a judgement call, not instruction: one line in `HEADLINE_LINES` makes it all one tone. |
+| `<title>` and the Open Graph title follow the headline. | "Confyde \| Clear technical direction for scaling businesses". |
+| **The desktop nav's right-hand pill is removed** - Book a Demo, Login and Get started. | `SIGNUP` and `DIVIDER` and the `MoveRight` import went with it, and the nav row's `justify-between` became meaningless with one child. The nav now carries no CTA at all on desktop; the floating bars still do. |
+
+### The page's copy no longer matches its headline
+
+Worth stating plainly: the hero now positions Confyde as technical direction for
+scaling businesses, while every other section on the page is still the
+landscaper-quoting story - take-offs, supplier pricelists, paving quotes, the
+Xero integration, twelve FAQ answers about trades. The build is correct and the
+sections are independent, so replacing copy is cheap; but the page currently
+reads as two different products, and no amount of engineering fixes that.
