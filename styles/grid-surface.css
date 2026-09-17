@@ -109,3 +109,67 @@
     mask-image: linear-gradient(to bottom, transparent 0, transparent 64px, #000 200px);
   }
 }
+
+/* -----------------------------------------------------------------------------
+   The light colourway, for a panel rather than a plate.
+
+   Same drafting grid as the hero and footer, inverted for a surface that is
+   nearly white: cream hairlines at 5% would be invisible on #FAF8F3, so these
+   are ink at 5% instead. The cell is the same 64px, which is what makes the two
+   read as one system rather than as two grids that happen to be square.
+
+   It carries NO base colour and NO glow - it is a texture laid over whatever
+   surface the panel already has, where `.grid-surface` IS the surface.
+
+   FULL BLEED, where `.canvas-botanical` - which this replaces on the day-to-day
+   operations panel - was a 420px box down the right margin fading left. The
+   watercolour had to be confined: it is an image with a subject, and running it
+   across the panel would have put a painting behind the copy. A grid has no
+   subject and no focal point, so the reason for the inset does not survive the
+   swap, and covering the card is what makes it read as ruled paper rather than
+   as a decoration parked in the corner. The `> *` rule is the z-index lift
+   `.canvas-botanical` also needed: the texture is `z-index: 0` and everything
+   real has to sit above it.
+----------------------------------------------------------------------------- */
+
+@layer components {
+  .grid-panel {
+    position: relative;
+    --grid-panel-line: rgb(35 40 42 / 0.05);
+  }
+
+  .grid-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+
+    background-image:
+      linear-gradient(var(--grid-panel-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-panel-line) 1px, transparent 1px);
+
+    background-size:
+      var(--grid-surface-cell, 64px) var(--grid-surface-cell, 64px),
+      var(--grid-surface-cell, 64px) var(--grid-surface-cell, 64px);
+
+    /* Anchored to the RIGHT edge and offset half a cell off it, for the reason
+       the plates are offset off their top-left: a hairline flush to the panel's
+       own edge stops reading as ruling and starts reading as a border. Anchoring
+       right rather than left means the panel absorbs a change of width at its
+       LEFT edge, where the copy column starts and a partial cell is invisible,
+       instead of at the right where the card edges are. */
+    background-position:
+      right calc(var(--grid-surface-cell, 64px) / 2) top
+        calc(var(--grid-surface-cell, 64px) / 2),
+      right calc(var(--grid-surface-cell, 64px) / 2) top
+        calc(var(--grid-surface-cell, 64px) / 2);
+
+  }
+
+  .grid-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+}

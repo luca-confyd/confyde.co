@@ -30,7 +30,7 @@ export function RepeatWorkMobile() {
     >
       {/* `overflow-hidden` clips the botanical wash to the panel's radius; the
           wash runs to the panel edge without it. */}
-      <div className="canvas-botanical overflow-hidden rounded-xl bg-card-muted px-4 pt-6 pb-5">
+      <div className="grid-panel overflow-hidden rounded-xl bg-card-muted px-4 pt-6 pb-5">
         {/*
           `--color-eyebrow-mobile`, the corrected tone, not the artboard's
           #7E9A2B: that measures ~2.8:1 on this surface where AA needs 4.5:1.

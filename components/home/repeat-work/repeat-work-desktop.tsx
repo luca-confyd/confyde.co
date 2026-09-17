@@ -38,7 +38,7 @@ export function RepeatWorkDesktop() {
         hairline the artboard does not draw. rgb(51 56 58) is the body-text warm grey #33383A - shadows tint
      to the text family, not to the raspberry primary.
       */}
-      <div className="canvas-botanical rounded-xl bg-pf-surface-300 p-12 shadow-[0_18px_40px_-24px_rgb(51_56_58/0.4)]">
+      <div className="grid-panel rounded-xl bg-pf-surface-300 p-12 shadow-[0_18px_40px_-24px_rgb(51_56_58/0.4)]">
         <div className="flex flex-col items-center gap-1.5 text-center">
           {/*
             `--color-eyebrow`, the accessibility-corrected tone, not the
