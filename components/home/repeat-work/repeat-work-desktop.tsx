@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/primitives/reveal";
@@ -162,17 +163,26 @@ export function RepeatWorkDesktop() {
 
           <div className="flex h-full flex-col gap-5 overflow-hidden rounded-xl bg-forest-900 px-[22px] py-6">
             {/*
-              The company header, above a rule. The initials tile is a
-              lettermark on the panel's own lighter tone rather than a
-              photograph: this names the business the numbers below belong to,
-              and a face would read as one of the clients in the list opposite.
+              The case study header, above a rule. The tile holds the client's
+              own logo rather than a lettermark or a photograph: a face would
+              read as one of the clients in the list opposite, and initials are
+              what you draw when you do not have the logo.
+
+              No plate behind it. This logo is already a filled rounded square
+              with its own background, so a white tile under it would just be a
+              second, brighter square framing the first. It draws at the tile
+              size directly and brings its own shape.
             */}
             <div className="flex items-center gap-3.5 border-b border-cream/[0.18] pb-5">
-              <span
-                aria-hidden="true"
-                className="grid size-12 flex-none place-items-center rounded-lg bg-cream/[0.12] font-ui text-[15px] font-bold text-white"
-              >
-                {REPEAT_WORK.company.initials}
+              <span className="relative size-12 flex-none overflow-hidden rounded-lg">
+                <Image
+                  src={REPEAT_WORK.company.logo}
+                  /* Decorative: the company is named immediately beside it. */
+                  alt=""
+                  fill
+                  sizes="48px"
+                  className="object-contain"
+                />
               </span>
 
               <span className="flex min-w-0 flex-1 flex-col">
@@ -259,24 +269,29 @@ export function RepeatWorkDesktop() {
               {REPEAT_WORK.ticks.map((tick) => (
                 <li
                   key={tick}
-                  className="flex items-start gap-2.5 font-ui text-[13.5px] leading-[1.5] text-cream"
+                  className="flex items-start gap-2.5 font-ui text-[13.5px] leading-[1.5] text-forest-200"
                 >
                   {/*
                     Lucide `Check`, not the artboard's hand-inlined path - the
                     path data is the same glyph, and Lucide is the only icon
-                    system on the page. `currentColor` would inherit cream, so
-                    the lime is set on the icon itself, as drawn: a completed
-                    tick in lime contradicts docs/brand.md, which reserves lime
-                    for forward motion and wants completion in forest. [LOG]
-                    These are not completed states, though - they are the
-                    argument for doing the thing - so it ships as drawn.
+                    system on the page.
+
+                    WHITE TICK, PALE PETROL TEXT. The tick used to be lime-500
+                    against cream text. Retiring the accent turned lime-500
+                    into the petrol primary, which put a dark tick on a dark
+                    petrol card at 2.01:1, where a non-text graphic needs 3.0.
+                    The line is now forest-200 - the pale petrol the rest of
+                    this card's secondary text uses, at 8.19:1 - and the tick
+                    is white, at 11.65:1, so it stays the brightest thing in
+                    the bullet and the eye still reads down the column of
+                    ticks first.
+
+                    That also retires the [LOG] this block used to carry, about
+                    a lime tick contradicting docs/brand.md's reservation of
+                    lime for forward motion. There is no lime left to argue
+                    about.
                   */}
-                  <Check
-                    aria-hidden="true"
-                    size={15}
-                    strokeWidth={3}
-                    className="mt-[3px] flex-none text-lime-500"
-                  />
+                  <Check aria-hidden="true" size={15} strokeWidth={3} className="mt-[3px] flex-none text-white" />
                   {tick}
                 </li>
               ))}

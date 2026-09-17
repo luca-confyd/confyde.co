@@ -58,14 +58,25 @@ export const REPEAT_WORK = {
   listTitle: "Where Confyde comes in",
 
   /*
-    The dark card's header. `caseStudy` is TEXT, never a control: no case study
-    page exists (RULINGS.md §01), and rendering it as a link or a button would
-    put an inert tab stop in the page. Same call the action chips used to make.
+    The case study's subject. The card was "Laurence Landscaping, Byron Bay - 6
+    crew" with an LL lettermark - an invented business, and a placeholder for a
+    real one. It is Plann, and it draws Plann's own logo.
+
+    THE SUB-LINE IS YOUR OWN COPY, NOT AN INVENTED ONE. It was "Byron Bay - 6
+    crew", which was safe to make up about a business that does not exist; the
+    equivalent line about a real company is not. So it borrows the line already
+    written for Plann in content/customer-stories.ts rather than asserting a
+    location or a headcount nobody has checked. Swap it for the real sub-line
+    when there is one - it is a placeholder, just not a fabricated one.
+
+    `caseStudy` is TEXT, never a control: no case study page exists
+    (RULINGS.md §01), and rendering it as a link or a button would put an inert
+    tab stop in the page. Same call the action chips used to make.
   */
   company: {
-    initials: "LL",
-    name: "Laurence Landscaping",
-    meta: "Byron Bay \u00b7 6 crew",
+    logo: "/images/logo-plann.png",
+    name: "Plann",
+    meta: "The business behind the exit",
     caseStudy: "View the case study \u2192",
   },
 

@@ -6,26 +6,31 @@ import { Reveal } from "@/components/primitives/reveal";
  * These replaced four vanity figures, and the change matters structurally: a
  * figure is two or three words and a category is a sentence, so nothing here can
  * assume one line any more. The subgrid below is what makes that safe.
+ *
+ * The four blurbs are held to within three characters of each other - 62 to 65 -
+ * which is what keeps them setting the same number of lines across the row. They
+ * ran 45 to 56 before and the short one visibly under-filled its column. Worth
+ * checking the count if any of them is rewritten.
  */
 export const CATEGORIES = [
   {
     title: "Agentic workflows",
-    blurb: "Payments, inventory, data. Your business, made AI-native.",
+    blurb: "Payments, inventory and data. The everyday work, made AI-native.",
     delay: 0.6,
   },
   {
     title: "AI automations",
-    blurb: "Your existing processes, running without you.",
+    blurb: "Your existing processes, running on their own without supervision.",
     delay: 0.68,
   },
   {
     title: "Cyber security",
-    blurb: "The systems you rely on, made secure and dependable.",
+    blurb: "The systems you rely on, made secure, monitored and dependable.",
     delay: 0.76,
   },
   {
     title: "Technical strategy",
-    blurb: "What to build, what to buy, what to stop paying for.",
+    blurb: "What to build, what to buy, and what to stop paying for entirely.",
     delay: 0.84,
   },
 ] as const;

@@ -142,17 +142,16 @@ export function RepeatWorkMobile() {
               {REPEAT_WORK.ticks.map((tick) => (
                 <li
                   key={tick}
-                  className="flex items-start gap-[9px] font-ui text-[13.5px] leading-[1.5] text-cream"
+                  className="flex items-start gap-[9px] font-ui text-[13.5px] leading-[1.5] text-forest-200"
                 >
                   {/* `aria-hidden="true"`, where the artboard writes
                       `aria-hidden=""` - not a valid value, so the four ticks
-                      are currently announced (RULINGS.md §03/04 ruling 7). */}
-                  <Check
-                    aria-hidden="true"
-                    size={15}
-                    strokeWidth={3}
-                    className="mt-[3px] flex-none text-lime-500"
-                  />
+                      are currently announced (RULINGS.md §03/04 ruling 7).
+
+                      No colour of its own: the tick inherits the line's pale
+                      petrol. See the desktop card for why it is no longer
+                      lime. */}
+                  <Check aria-hidden="true" size={15} strokeWidth={3} className="mt-[3px] flex-none text-white" />
                   {tick}
                 </li>
               ))}
