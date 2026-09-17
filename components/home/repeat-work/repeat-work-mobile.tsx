@@ -77,13 +77,13 @@ export function RepeatWorkMobile() {
             different job.
           */}
           <div className="overflow-hidden rounded-xl bg-card shadow-[0_1px_2px_rgb(51_56_58/0.05),0_6px_14px_-6px_rgb(51_56_58/0.14),0_18px_30px_-18px_rgb(51_56_58/0.18)]">
-            <div className="flex items-baseline justify-between gap-2.5 border-b border-hairline px-[14px] py-3">
+            {/* One child now the count is gone - see the desktop card. */}
+            <div className="border-b border-hairline px-[14px] py-3">
               {/* `<h3>` under this composition's `<h2>`; the artboard writes
                   `<h4>` (RULINGS.md §03/04 ruling 8). */}
               <h3 className="m-0 font-ui-serif text-[16px] font-semibold text-ink">
                 {REPEAT_WORK.listTitle}
               </h3>
-              <span className="font-ui text-[12px] text-slate-500">{REPEAT_WORK.countMobile}</span>
             </div>
 
             <ul className="m-0 list-none p-0">
@@ -103,7 +103,8 @@ export function RepeatWorkMobile() {
                   />
 
                   {/* `min-w-0`: without it the flex item will not shrink below
-                      its content width and the note pushes the status off. */}
+                      its content width and the note pushes the row wider than
+                      the card. */}
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="flex flex-wrap items-baseline gap-[7px]">
                       <span className="font-ui text-[14px] font-semibold text-ink">{row.name}</span>
@@ -112,10 +113,6 @@ export function RepeatWorkMobile() {
                     <span className="font-ui text-[12.5px] leading-[1.45] text-slate-500">
                       {row.note}
                     </span>
-                  </span>
-
-                  <span className="flex-none font-ui text-[11.5px] whitespace-nowrap text-slate-500">
-                    {row.status}
                   </span>
                 </li>
               ))}

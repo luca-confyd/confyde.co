@@ -5,8 +5,8 @@ import { QUOTE } from "./home";
  * copy, its two client lists and the figures on its stat card.
  *
  * TWO LISTS, NOT ONE WITH A SLICE. The artboards draw different compositions:
- * desktop shows four clients with a relationship note, a status word and an
- * action chip; mobile shows two, with no chips, a different photograph against
+ * desktop shows four clients with a relationship note and an action chip;
+ * mobile shows two, with no chips, a different photograph against
  * each name and - for Leah - a differently worded note. A mobile row that looks
  * like a shortened desktop twin is the client's own edit, and deriving one from
  * the other would quietly repair copy we were told not to touch
@@ -27,8 +27,6 @@ export type ClientRow = {
   place: string;
   /** Why Confyde surfaced them. */
   note: string;
-  /** The status word on the right of the row. */
-  status: string;
   /**
    * The action Confyde suggests. Text, never a control: it is a depiction of a
    * button inside a depiction of the app, and rendering it as one would add
@@ -38,13 +36,6 @@ export type ClientRow = {
   photo: string;
 };
 
-/**
- * How many clients Confyde is said to be watching. Written three times in the
- * desktop panel - the header count, the footer sentence and the footer link -
- * so it is one constant; three hand-typed numbers are how a number drifts.
- */
-export const CLIENT_COUNT = 62;
-
 export const REPEAT_WORK = {
   eyebrow: "Day-to-day operations",
   heading: "A business that doesn’t need chasing.",
@@ -52,14 +43,12 @@ export const REPEAT_WORK = {
     "The routine work runs to schedule, information sits where people expect it, and nothing " +
     "waits on one person being free.",
 
-  /** The white card's header. Desktop names the noun, mobile does not. */
-  listTitle: "Worth a call this month",
-  countDesktop: `4 of ${CLIENT_COUNT} clients`,
-  countMobile: `4 of ${CLIENT_COUNT}`,
-
-  /** Desktop only - the mobile card ends at the last row. */
-  footerNote: `Confyde checks all ${CLIENT_COUNT} every month and tells you who is worth a call.`,
-  footerLink: `See all ${CLIENT_COUNT} →`,
+  /*
+    The white card's header, and now its only chrome: the "4 of 62 clients"
+    count opposite it and the whole footer strip below the list have both gone,
+    so the card is a heading and four rows.
+  */
+  listTitle: "Where Confyde comes in",
 
   /** Desktop only. The mobile stat card carries no label. */
   statLabel: "Repeat work",
@@ -104,7 +93,6 @@ export const CLIENT_ROWS_DESKTOP: readonly ClientRow[] = [
     name: QUOTE.client,
     place: QUOTE.address,
     note: "Wanted a fire pit and lighting at handover.",
-    status: "5 months",
     action: "Call",
     photo: "/images/photo-1.webp",
   },
@@ -112,7 +100,6 @@ export const CLIENT_ROWS_DESKTOP: readonly ClientRow[] = [
     name: "Tom Ridgeway",
     place: "112 Ridgeway Ave",
     note: "Lower terrace quoted as stage two, after winter.",
-    status: "Stage two due",
     action: "Draft quote",
     photo: "/images/photo-2.webp",
   },
@@ -120,7 +107,6 @@ export const CLIENT_ROWS_DESKTOP: readonly ClientRow[] = [
     name: "Leah Cortez",
     place: "Wattle Grove",
     note: "Second summer on the turf. Due a maintenance visit.",
-    status: "Seasonal",
     action: "Send offer",
     photo: "/images/photo-3.webp",
   },
@@ -128,9 +114,26 @@ export const CLIENT_ROWS_DESKTOP: readonly ClientRow[] = [
     name: "Jo Harcourt",
     place: "Harcourt St terrace",
     note: "Happy client, never asked for a review.",
-    status: "Won in June",
     action: "Ask for review",
     photo: "/images/photo-4.webp",
+  },
+  /*
+    The fifth row exists for the composition, not for the copy. The left card
+    stretches to the dark card's height so the two columns keep level bottom
+    edges, and once the footer strip came off the list four rows left roughly a
+    row and a half of dead space under the last one. Five fills it.
+
+    It is the only row whose photograph is not one of photo-1..4 - those are all
+    spoken for above - so it borrows the hero's. At 48px it reads as one more
+    property and nothing else, but it is the seam to pull if the row count or
+    the photography changes.
+  */
+  {
+    name: "Priya Raman",
+    place: "Alexandra Parade",
+    note: "Annual maintenance due. Booked without being asked.",
+    action: "Confirm",
+    photo: "/images/hero-mobile-shower.webp",
   },
 ];
 
@@ -147,14 +150,12 @@ export const CLIENT_ROWS_MOBILE: readonly ClientRow[] = [
     name: "Leah Cortez",
     place: "Wattle Grove",
     note: "Turf and irrigation going into their second summer.",
-    status: "Seasonal",
     photo: "/images/photo-2.webp",
   },
   {
     name: "Jo Harcourt",
     place: "Harcourt St terrace",
     note: "Happy client, never asked for a review.",
-    status: "Won in June",
     photo: "/images/photo-1.webp",
   },
 ];

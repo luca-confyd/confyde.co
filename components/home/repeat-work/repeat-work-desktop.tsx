@@ -101,17 +101,22 @@ export function RepeatWorkDesktop() {
           className="mx-auto mt-7 grid w-full max-w-[1024px] items-stretch gap-5 [grid-template-columns:minmax(0,1.15fr)_minmax(320px,1fr)]"
         >
           {/* `overflow-hidden` is what clips the list's own rows to the card's
-              radius; the footer strip's well tone runs to the corner. */}
+              radius.
+
+              `h-full` + `flex-col` stay although the footer strip that used
+              `mt-auto` is gone: they are what still stretches this card to the
+              dark one's height, so the two columns keep level bottom edges. */}
           <div className="flex h-full flex-col overflow-hidden rounded-xl bg-card">
-            <div className="flex items-baseline justify-between gap-3 border-b border-hairline px-5 py-[14px]">
+            {/* One child now the count is gone, so there is nothing left to
+                space apart: `justify-between` and the gap would do nothing, and
+                `items-baseline` only mattered for aligning the count's smaller
+                type against the heading's. */}
+            <div className="border-b border-hairline px-5 py-[14px]">
               {/* `<h3>`: this titles the card inside the section the `<h2>`
                   above opens. The artboard writes `<h4>`. */}
               <h3 className="m-0 font-ui-serif text-[19px] font-semibold text-ink">
                 {REPEAT_WORK.listTitle}
               </h3>
-              <span className="font-ui text-[12.5px] text-slate-500">
-                {REPEAT_WORK.countDesktop}
-              </span>
             </div>
 
             <ul className="m-0 list-none p-0">
@@ -148,10 +153,10 @@ export function RepeatWorkDesktop() {
                     </span>
                   </span>
 
-                  <span className="flex flex-none flex-col items-end gap-1.5">
-                    <span className="font-ui text-[11.5px] whitespace-nowrap text-slate-400">
-                      {row.status}
-                    </span>
+                  {/* One child now the status word above the chip is gone, so
+                      the column, its end-alignment and its gap have nothing
+                      left to arrange. */}
+                  <span className="flex-none">
                     {/*
                       Text, never a control: this is a depiction of a button
                       inside a depiction of the app, and rendering it as one
@@ -166,18 +171,6 @@ export function RepeatWorkDesktop() {
               ))}
             </ul>
 
-            {/* `mt-auto` pins the footer to the bottom of the stretched card,
-                which is what keeps the two columns' bottom edges level when the
-                dark card is the taller of the two. */}
-            <div className="mt-auto flex items-center justify-between gap-3 border-t border-hairline bg-well px-5 py-[14px]">
-              <span className="font-ui text-[13px] leading-[1.45] text-slate-500">
-                {REPEAT_WORK.footerNote}
-              </span>
-              {/* Also text. No destination exists for it (RULINGS.md §01). */}
-              <span className="flex-none font-ui text-[13.5px] font-semibold whitespace-nowrap text-forest-700">
-                {REPEAT_WORK.footerLink}
-              </span>
-            </div>
           </div>
 
           <div className="flex h-full flex-col gap-5 overflow-hidden rounded-xl bg-forest-900 px-[22px] py-6">
