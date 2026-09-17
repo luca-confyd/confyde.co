@@ -5,39 +5,26 @@ import { TestimonialScroller } from "./carousel";
 import { DESKTOP_CARD } from "./geometry";
 import { TestimonialCard } from "./testimonial-card";
 
-/**
- * The lead-in that puts the first card's left edge on the page's 1280px measure.
- *
- * `(100vw - 1200px) / 2 + 20px` is the artboard's own expression and it is kept
- * verbatim, including the 1200 where every other band on the page uses 1280 -
- * it is what makes the strip start 40px inside the heading rather than flush
- * with it. Two things worth knowing about it:
- *
- *   - Below 1160px the calc goes negative and CSS clamps padding to zero, so
- *     the strip runs flush to the left edge from 1024 to 1160. That is the
- *     artboard's rendered behaviour at those widths, not a fallback we chose.
- *   - `100vw` includes the classic scrollbar's width, so on a scrollbar-taking
- *     browser the lead-in is ~8px wider than the heading's own inset. Also the
- *     artboard's, and invisible without a ruler.
- */
-/* The lead-in puts the first card on the same rail as every other band - 1232px
-   centred, so a 24px gutter at 1280 and wider margins above that - rather than
-   the artboard's 1200/20, which no longer matches anything around it. */
-const RAIL_INSET = "max(24px, calc((100vw - 1232px) / 2))";
+/* FULL BLEED, AND OPENING MID-STRIP.
 
-/* Both halves are needed. The padding puts the first card on the rail; the
-   scroll-padding makes the SNAP positions respect it, and without that the
-   scroller snaps the first card flush to its own left edge and clips its
-   rounded corners flat - which is what made the cards read as "some rounded,
-   some square" depending where you had scrolled to. */
-const LEAD_IN = {
-  paddingLeft: RAIL_INSET,
-  /* The scroll-padding is the half that matters: without it the scroller snaps
-     the first card flush to its own left edge, clipping its rounded corners
-     flat, which is what made the cards read as "some rounded, some square"
-     depending where you had scrolled to. */
-  scrollPaddingLeft: RAIL_INSET,
-} as const;
+   The strip used to carry a lead-in that put the first card on the page's
+   content rail, so at 1440 the cards began 104px in and the band read as a
+   narrower column than the viewport. It now runs edge to edge: no left padding,
+   no scroll-padding, so a card can sit against either edge and the six of them
+   use the whole width.
+
+   `START_OFFSET` is the other half. Opening at scrollLeft 0 puts a card flush
+   to the left edge and the strip looks like it begins there - a static row that
+   happens to be cut off on the right. Opening part-way in means the left edge
+   cuts THROUGH a card, which is what tells you at a glance that the strip runs
+   in both directions. Half a pitch is deliberate: it lands between two snap
+   points, so the first thing a drag or an arrow does is settle onto one.
+
+   The scroll-padding that used to be here is gone rather than zeroed - with no
+   lead-in there is nothing for the snap positions to respect, and the corner
+   clipping it was guarding against was never what caused the square corners
+   (that was the grain overlay - see styles/base.css `.grain::after`). */
+const START_OFFSET = (DESKTOP_CARD.width + DESKTOP_CARD.gap) / 2;
 
 /**
  * Section 06, >=1024px.
@@ -79,7 +66,7 @@ export function TestimonialsDesktop() {
         arrows
         drift
         viewportClassName="relative w-full overflow-hidden"
-        scrollerStyle={LEAD_IN}
+        initialOffset={START_OFFSET}
         trackClassName="gap-[var(--testi-gap)]"
       >
         {TESTIMONIALS_DESKTOP.map((testimonial, index) => (

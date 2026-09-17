@@ -1,7 +1,15 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { type KeyboardEvent, type ReactNode, useCallback, useEffect, useId, useRef } from "react";
+import {
+  type KeyboardEvent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+} from "react";
 
 import { Reveal } from "@/components/primitives/reveal";
 
@@ -42,6 +50,12 @@ type TestimonialScrollerProps = {
   arrows?: boolean;
   /** Scroll-linked horizontal drift on the track. Desktop only, as drawn. */
   drift?: boolean;
+  /**
+   * px to open the scroller at, so the strip starts part-way in rather than
+   * with a card flush to the left edge. See the note on the effect below -
+   * this one write must not be mistaken for the reader taking over.
+   */
+  initialOffset?: number;
   viewportClassName?: string;
   scrollerClassName?: string;
   scrollerStyle?: React.CSSProperties;
@@ -88,6 +102,7 @@ export function TestimonialScroller({
   geometry,
   arrows = false,
   drift = false,
+  initialOffset,
   viewportClassName,
   scrollerClassName,
   scrollerStyle,
@@ -97,6 +112,11 @@ export function TestimonialScroller({
   const scrollerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const scrollerId = useId();
+  /* Raised while the opening offset is being applied, and lowered a frame
+     later. The drift yields on the container's first scroll, and without this
+     the opening write IS that first scroll - the drift would retire before
+     anyone had touched anything. */
+  const openingRef = useRef(false);
 
   const pitch = cardPitch(geometry);
 
@@ -150,6 +170,32 @@ export function TestimonialScroller({
     event.preventDefault();
   };
 
+  /*
+    The opening offset.
+
+    `useLayoutEffect` rather than `useEffect` so it lands before the browser
+    paints - otherwise the strip is visibly at 0 for a frame and jumps. It is
+    also why this runs before the drift effect below attaches its listener.
+
+    `behavior: "instant"` because this is a starting position, not a movement:
+    a smooth scroll here would animate the strip sideways on load, which is
+    both a motion nobody asked for and a second writer fighting the drift.
+  */
+  useLayoutEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || !initialOffset) return;
+    openingRef.current = true;
+    scroller.scrollTo({ left: initialOffset, behavior: "instant" });
+    /* Two frames, not one: the scroll event from the write above is dispatched
+       asynchronously, so the flag has to outlive the frame that set it. */
+    const frame = requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        openingRef.current = false;
+      }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [initialOffset]);
+
   useEffect(() => {
     const scroller = scrollerRef.current;
     const track = trackRef.current;
@@ -185,18 +231,24 @@ export function TestimonialScroller({
        with a delay in it. `data-drift` is what gives the return trip its
        easing - see styles/motion/testimonials.css. */
     const release = () => {
+      /* The opening write is not the reader arriving. */
+      if (openingRef.current) return;
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
       track.dataset.drift = "yielded";
       track.style.setProperty("--testi-drift", "0px");
+      scroller.removeEventListener("scroll", release);
     };
 
     read();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule, { passive: true });
-    scroller.addEventListener("scroll", release, { passive: true, once: true });
+    /* Not `once`: `release` can now decline to act (the opening write), and a
+       one-shot listener would be spent on that call and never fire again. It
+       removes itself below instead. */
+    scroller.addEventListener("scroll", release, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", schedule);
