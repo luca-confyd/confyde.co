@@ -10,15 +10,21 @@ import { TakeoffCard } from "./takeoff-card";
  * panel, then the price library and the proposal card side by side beneath it.
  *
  * EYEBROW COLOUR. All three eyebrows take `--color-eyebrow-muted`, not
- * `--color-eyebrow`. The panel wears `.canvas-botanical`, which multiplies at
- * opacity .5 over its right 420px and drops the surface under the
- * `Premium proposals` eyebrow from #FAF8F3 to a measured #F4F1E9 - where
- * `--color-eyebrow` reaches only 4.40:1, exactly the thin-headroom trap
+ * `--color-eyebrow`, and the reason they were chosen has since gone away.
+ *
+ * The panel used to wear `.canvas-botanical`, which multiplied at opacity .5
+ * over its right 420px and dropped the surface under the `Premium proposals`
+ * eyebrow from #FAF8F3 to a measured #F4F1E9 - the thin-headroom trap
  * RULINGS.md warns about ("anything that composites them through an opacity
- * will fail"). The muted tone was computed against a darker surface still and
- * clears comfortably here. The rule generalises: an eyebrow takes the muted
- * pair whenever it sits on `card-muted` or on a botanical wash, which is what
- * the integrations band established and what this section inherits.
+ * will fail"). The panel now wears `.grid-panel`, which composites nothing:
+ * the surface is #FAF8F3 across the whole card and `--color-eyebrow` would
+ * clear AA on it at 5.46:1.
+ *
+ * The muted pair stays anyway. It measures 8.36:1 on the new surface against
+ * 7.86 on the old, so the change only gave it headroom, and swapping three
+ * eyebrows back to the brighter tone is a colour decision rather than a
+ * correction. Worth knowing the constraint is lifted if anyone wants them
+ * brighter.
  *
  * THE SPLIT'S 97px GUTTER. The grid is `1fr 1px 1fr` with `gap: 48px`, so the
  * bare 1px column in the middle has 48px on each side and the visual gutter is

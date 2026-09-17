@@ -143,19 +143,30 @@ export function ChapterShell({
         </div>
 
         {/*
-          `.canvas-botanical` is NOT authored in either artboard's inline
-          `<style>`; it ships in the design system's effects sheet and is
-          already ported into styles/base.css. A port that copies only the
-          artboard's own CSS loses the watercolour wash from all three chapter
-          panels and nobody notices until the page is beside the design
-          (docs/specs/06-chapter-1.md D3).
+          `.grid-panel` is the same drafting grid the hero, the footer and the
+          day-to-day operations panel wear, in the light colourway: ink
+          hairlines at 5% on a 64px cell, full bleed, anchored half a cell off
+          the right edge so none sits flush to the panel's own.
 
-          It multiplies at opacity .5 over the right 420px of the panel, which
-          means the surface behind anything in that column is no longer
-          `pf-surface-300`. That is why every eyebrow in this panel takes the
-          muted eyebrow pair - see the take-off card.
+          It replaces `.canvas-botanical`, the watercolour wash that used to run
+          down the right 420px of this panel. That was a real port detail - the
+          wash ships in the design system's effects sheet rather than in either
+          artboard's inline <style>, and a port that copied only the artboard's
+          own CSS lost it from every chapter panel without anyone noticing
+          (docs/specs/06-chapter-1.md D3). It is still in styles/base.css and
+          still correct; this panel just no longer asks for it.
+
+          WHICH MOVES THE EYEBROWS' GROUND. See the note on the eyebrow colour
+          in chapter-1-desktop.tsx: the muted pair was chosen because the
+          watercolour multiplied the surface under the `Premium proposals`
+          eyebrow from #FAF8F3 down to #F4F1E9. The grid neither multiplies nor
+          darkens - it is hairlines on transparency - so that surface is
+          #FAF8F3 again and the constraint is gone. Measured on the two
+          surfaces: eyebrow-muted 7.86 -> 8.36:1, eyebrow 5.13 -> 5.46:1. Both
+          improve, so the muted pair is kept rather than reverted; changing it
+          would be a colour edit nobody asked for.
         */}
-        <div className="canvas-botanical relative z-30 flex flex-col rounded-xl bg-pf-surface-300 p-12">
+        <div className="grid-panel relative z-30 flex flex-col rounded-xl bg-pf-surface-300 p-12">
           {children}
         </div>
       </div>

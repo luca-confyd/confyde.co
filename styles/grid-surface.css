@@ -154,17 +154,26 @@
       var(--grid-surface-cell, 64px) var(--grid-surface-cell, 64px),
       var(--grid-surface-cell, 64px) var(--grid-surface-cell, 64px);
 
-    /* Anchored to the RIGHT edge and offset half a cell off it, for the reason
-       the plates are offset off their top-left: a hairline flush to the panel's
-       own edge stops reading as ruling and starts reading as a border. Anchoring
-       right rather than left means the panel absorbs a change of width at its
-       LEFT edge, where the copy column starts and a partial cell is invisible,
-       instead of at the right where the card edges are. */
+    /* The two layers are positioned INDEPENDENTLY, because each one only has
+       structure in one axis and anchoring both the same way is what made the
+       part-cells lopsided.
+
+       Vertical lines: `center`. Anchoring them off the right edge looked
+       reasonable and measured wrong - the desktop chapter panel is 1184px, which
+       is 18.5 cells, so lines fell at 1152, 1088 ... and all the way down to
+       exactly 0, putting a hairline flush against the panel's left edge and the
+       entire half-cell remainder against its right. Centred, the remainder
+       splits evenly: 16px of part-cell on each side and no line on either edge.
+
+       Horizontal lines: half a cell off the TOP, which is the same offset the
+       plates use and for the same reason - it keeps a line off the top edge.
+       They are not centred because these panels have fractional heights (the
+       chapter panel is 1505.92px), and centring against an odd remainder lands
+       every line on a half pixel, where a 1px hairline renders as two grey ones.
+       Anchoring to an integer edge keeps them crisp. */
     background-position:
-      right calc(var(--grid-surface-cell, 64px) / 2) top
-        calc(var(--grid-surface-cell, 64px) / 2),
-      right calc(var(--grid-surface-cell, 64px) / 2) top
-        calc(var(--grid-surface-cell, 64px) / 2);
+      left top calc(var(--grid-surface-cell, 64px) / 2),
+      calc(50% + var(--grid-surface-cell, 64px) / 2) top;
 
   }
 

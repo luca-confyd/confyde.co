@@ -93,7 +93,7 @@ export function ChapterShellMobile({
           </h2>
         </div>
 
-        <div className="canvas-botanical bg-card-muted px-4 pt-[22px] pb-6 min-[560px]:px-6">
+        <div className="grid-panel bg-card-muted px-4 pt-[22px] pb-6 min-[560px]:px-6">
           {children}
         </div>
       </div>
