@@ -11,7 +11,6 @@ import { LogoMarqueeDesktop } from "@/components/home/logo-marquee/logo-marquee-
 import { LogoMarqueeMobile } from "@/components/home/logo-marquee/logo-marquee-mobile";
 import { PullQuotes } from "@/components/home/proof/pull-quotes";
 import { RepeatWork } from "@/components/home/repeat-work/repeat-work";
-import { SocialProof } from "@/components/home/social-proof/social-proof";
 import { Testimonials } from "@/components/home/testimonials/testimonials";
 import { WhatYouGetBack } from "@/components/home/what-you-get-back/what-you-get-back";
 import { PageEffects } from "@/components/primitives/page-effects";
@@ -37,7 +36,7 @@ export default function HomePage() {
         */}
         <Hero cardFooter={<LogoMarqueeDesktop />} />
         <LogoMarqueeMobile />
-        <SocialProof />
+        <CustomerStories />
         <BeforeAfter />
         <Chapter1 />
         <Chapter2 />
@@ -48,7 +47,6 @@ export default function HomePage() {
         <WhatYouGetBack />
         <Testimonials />
         <CtaStage />
-        <CustomerStories />
         <Faq />
       </main>
     </>

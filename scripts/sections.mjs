@@ -38,19 +38,6 @@ export const SECTIONS = {
     siteWeb: "[data-section='marquee-desktop']",
     siteMobile: "[data-section='marquee-mobile']",
   },
-  "social-proof": {
-    title: "Social proof",
-    site: null,
-    // The only web section whose heading block - eyebrow span then h2 - is a
-    // direct grandchild; the other pf-h2 bands nest theirs a level deeper.
-    web: "#dc-root section:has(> div > span + h2.pf-h2)",
-    // The eyebrow-then-heading pair also opens the "What you get back" band;
-    // the photo grid is what distinguishes this one.
-    mobile: "#dc-root section:has(> .m-eyebrow + h2.m-h2 + div img)",
-    // One composition at both scales, so both sides point at the same root.
-    siteWeb: "[data-section='social-proof']",
-    siteMobile: "[data-section='social-proof']",
-  },
   "before-after": {
     title: "Before / after",
     site: null,
