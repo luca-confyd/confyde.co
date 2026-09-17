@@ -42,10 +42,8 @@ export function LogoMarqueeMobile() {
         gutters, which is what puts this heading's left edge on the hero copy's
         left edge at every width above the artboard's 430px.
       */}
-      <h2 className="marquee-heading-mobile mx-auto mb-[18px] max-w-[600px] px-5 text-center text-[19px] text-ink sm:max-w-[624px] sm:px-8">
-        Engineering leadership for ambitious businesses.
-        <br />
-        Plan it, build it, keep it running.
+      <h2 className="marquee-heading-mobile mx-auto mb-[14px] max-w-[600px] px-5 text-center text-[17px] text-ink sm:max-w-[624px] sm:px-8">
+        Engineering leadership for ambitious businesses. Plan it, build it, keep it running.
       </h2>
 
       {/*
