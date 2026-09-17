@@ -106,8 +106,8 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                 decoration in the markup rather than an <img> with an empty alt,
                 and there is no longer an image to fail to load, so the flat
                 paint-flash colour underneath it is gone too: the class IS the
-                flat colour. See styles/hero-grid.css for the three layers. */}
-            <div aria-hidden="true" className="hero-grid absolute inset-0 z-0" />
+                flat colour. See styles/grid-surface.css for the three layers. */}
+            <div aria-hidden="true" className="grid-surface absolute inset-0 z-0" />
 
             {/* px-6, matching the content rail's gutter. At widths below 1280 this
                 padding is what bounds the category strip rather than its 1232
@@ -144,11 +144,18 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                   anim="up-blur"
                   delay={0.32}
                   duration={0.5}
-                  className="mt-9 max-w-[720px] text-[16px] leading-[1.55] font-medium text-white hero-short:mt-[26px]"
+                  /* `text-pretty` earns its place here rather than being
+                     decoration: "maintain" is five characters longer than the
+                     "fix" it replaced, which at 1440 tipped the paragraph to a
+                     fourth line carrying the single word "answers.". The
+                     browser's orphan avoidance pulls a word down with it
+                     instead. The headline above takes `text-balance` for the
+                     different job of evening out two lines it already has. */
+                  className="mt-9 max-w-[720px] text-[16px] leading-[1.55] font-medium text-pretty text-white hero-short:mt-[26px]"
                 >
                   Confyde is a technical consultancy for businesses that need expertise in AI,
                   software engineering, and strategy. We help plan where AI fits, build agents and
-                  automations that take on real work, fix the software behind them, and connect
+                  automations that take on real work, maintain the software behind them, and connect
                   your data so your people and customers get better answers.
                 </Reveal>
 

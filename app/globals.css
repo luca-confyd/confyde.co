@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @import "../styles/base.css";
-@import "../styles/hero-grid.css";
+@import "../styles/grid-surface.css";
 @import "../styles/motion/reveal.css";
 @import "../styles/motion/chrome.css";
 @import "../styles/motion/marquee.css";

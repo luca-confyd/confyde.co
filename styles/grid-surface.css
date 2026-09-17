@@ -1,11 +1,12 @@
 /* -----------------------------------------------------------------------------
-   The hero's grid background.
+   The drafting-grid surface.
 
-   Replaces the photograph both heroes used to carry. It is one class rather than
-   two because the desktop and mobile heroes are otherwise separate compositions
-   with separate plates, and the whole point of the change is that they now share
-   a single surface: a drawing grid is scale-independent in a way a photograph
-   never was, so there is nothing left to cut differently per breakpoint.
+   Replaces the photographs the two heroes and the footer used to carry. Named
+   for what it is rather than where it first landed: it started as the hero's
+   background and the footer wanted the same thing a moment later, which is the
+   argument for the class existing at all. A drawing grid is scale-independent in
+   a way a photograph never was, so there is nothing to cut per breakpoint and
+   nothing to re-crop per panel - three plates collapse into one rule.
 
    THREE LAYERS, and the order is load-bearing. CSS paints the first
    `background-image` on top, so the two hairline gradients sit OVER the glow and
@@ -14,19 +15,19 @@
 ----------------------------------------------------------------------------- */
 
 @layer components {
-  .hero-grid {
+  .grid-surface {
     /* 64px. Large enough that the grid reads as drafting paper rather than
        graph paper, and an exact power of two, so the lines land on whole device
        pixels at 1x and 2x alike - a 65px cell shimmers as it tiles. */
-    --hero-grid-cell: 64px;
+    --grid-surface-cell: 64px;
 
     /* #F4EFE4 at 5%. A warm cream rather than plain white: at this alpha the hue
        barely registers on its own, but white would cool the whole surface a
        degree away from the cream the rest of the page is built on. */
-    --hero-grid-line: rgb(244 239 228 / 0.05);
+    --grid-surface-line: rgb(244 239 228 / 0.05);
 
-    /* A dark desaturated petrol, and NOT the neutral #171A1B the photographic
-       hero used. That neutral existed to stop a flat colour tinting the
+    /* A dark desaturated petrol, and NOT the neutral #171A1B and #121516 the
+       photographic hero and footer used. That neutral existed to stop a flat colour tinting the
        photograph behind it; with no photograph there is nothing left to tint,
        and the surface is free to sit in the brand's own hue. Too far from
        forest-900 (#003F47) to be that token at low light - this is a near-black
@@ -34,8 +35,8 @@
     background-color: #12201f;
 
     background-image:
-      linear-gradient(var(--hero-grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
+      linear-gradient(var(--grid-surface-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-surface-line) 1px, transparent 1px),
       /* The glow: forest-700, the palette primary, thrown from the top edge so
          the nav capsule sits in the brightest part of it and the category strip
          at the foot falls away into the base. 110%/70% overscans horizontally
@@ -52,8 +53,20 @@
       );
 
     background-size:
-      var(--hero-grid-cell) var(--hero-grid-cell),
-      var(--hero-grid-cell) var(--hero-grid-cell),
+      var(--grid-surface-cell) var(--grid-surface-cell),
+      var(--grid-surface-cell) var(--grid-surface-cell),
       100% 100%;
+
+    /* Offset half a cell, which is the difference between a grid and a border.
+       Each hairline gradient draws its line at the START of every cell, so an
+       unshifted grid puts one at x=0 and one at y=0 - flush against the panel's
+       own top and left edges, where it stops reading as ruling and starts
+       reading as a 1px frame someone drew round the box. It is invisible on the
+       hero, whose top edge is the top of the page; it was unmistakable on the
+       footer. Half a cell puts the first line at 32px and never at 0. */
+    background-position:
+      calc(var(--grid-surface-cell) / 2) calc(var(--grid-surface-cell) / 2),
+      calc(var(--grid-surface-cell) / 2) calc(var(--grid-surface-cell) / 2),
+      0 0;
   }
 }

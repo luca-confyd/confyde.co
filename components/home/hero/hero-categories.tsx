@@ -7,10 +7,12 @@ import { Reveal } from "@/components/primitives/reveal";
  * figure is two or three words and a category is a sentence, so nothing here can
  * assume one line any more. The subgrid below is what makes that safe.
  *
- * The four blurbs are held to within three characters of each other - 62 to 65 -
- * which is what keeps them setting the same number of lines across the row. They
- * ran 45 to 56 before and the short one visibly under-filled its column. Worth
- * checking the count if any of them is rewritten.
+ * The four blurbs are held close in length - 63 to 67 characters - which is what
+ * keeps them setting the same number of lines across the row. They ran 45 to 56
+ * before and the short one visibly under-filled its column. Worth checking the
+ * count if any of them is rewritten: the ceiling is whatever still sets two
+ * lines in a 252px column at 1024px, which is the narrowest the cells ever get,
+ * and 67 is measured as clearing it rather than assumed to.
  */
 export const CATEGORIES = [
   {
@@ -19,8 +21,8 @@ export const CATEGORIES = [
     delay: 0.6,
   },
   {
-    title: "AI automations",
-    blurb: "Your existing processes, running on their own without supervision.",
+    title: "AI consulting",
+    blurb: "Where AI actually fits, what it’ll cost, and whether it’s worth it.",
     delay: 0.68,
   },
   {

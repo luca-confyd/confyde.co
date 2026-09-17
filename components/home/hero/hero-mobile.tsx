@@ -9,7 +9,7 @@ import { NavItem } from "@/components/chrome/nav-item";
    92/76/34 against the desktop scrim's 88/74/34 because the mobile copy block
    sat lower in a taller frame and the dark end had to reach further up. With a
    flat surface there is no gradient of brightness left to chase, and the two
-   heroes share one background for the first time - see styles/hero-grid.css.
+   heroes share one background for the first time - see styles/grid-surface.css.
 
    The 56px seam goes with it. The photograph started below the nav rather than
    at the top of the stage, leaving a strip where the translucent nav sat over
@@ -52,7 +52,7 @@ export function HeroMobile() {
         tablet. It kept the photograph's proportions before; now it is simply how
         much grid the hero is worth on a short screen.
       */}
-      <div className="hero-grid relative [--nav-h:64px] mt-[calc(-1*var(--nav-h))] min-h-[max(620px,78svh)] px-5 pt-[calc(var(--nav-h)+40px)] pb-5 sm:px-8">
+      <div className="grid-surface relative [--nav-h:64px] mt-[calc(-1*var(--nav-h))] min-h-[max(620px,78svh)] px-5 pt-[calc(var(--nav-h)+40px)] pb-5 sm:px-8">
         {/*
           Bottom-aligned inside a 512px floor. That used to be about sitting on
           the darkest part of the scrim; with a flat surface it is about sitting
@@ -90,7 +90,7 @@ export function HeroMobile() {
           <p className="mt-4 text-[15.5px] leading-[1.55] text-white">
             Confyde is a technical consultancy for businesses that need expertise in AI, software
             engineering, and strategy. We help plan where AI fits, build agents and automations that
-            take on real work, fix the software behind them, and connect your data so your people
+            take on real work, maintain the software behind them, and connect your data so your people
             and customers get better answers.
           </p>
 
