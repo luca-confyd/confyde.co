@@ -54,8 +54,15 @@ export function SiteHeaderDesktop() {
   return (
     <DesktopNavHeader /* 1232/48, not the artboard's 1320/16: the nav floats over the page and
          reads as part of it, so its edges want to sit on the same rail every
-         content band uses rather than 16px further out. */
-      className="group fixed top-5 left-1/2 z-50 hidden w-[1232px] max-w-[calc(100%-48px)] -translate-x-1/2 desk:block">
+         content band uses rather than 16px further out.
+
+         `absolute`, not `fixed`: the nav sits over the top of the page and
+         scrolls away with it rather than following the reader down. It is
+         positioned against the initial containing block - the header is a
+         direct child of `<body>` and nothing above it establishes a containing
+         block - so `top-5` still means 20px from the top of the PAGE, which is
+         where it already sat. Nothing else about the capsule changes. */
+      className="group absolute top-5 left-1/2 z-50 hidden w-[1232px] max-w-[calc(100%-48px)] -translate-x-1/2 desk:block">
       <nav aria-label="Main" className="flex items-center gap-3">
         {/* Left pill: brand + sections. 5px left / 6px right padding is the
             artboard's own asymmetry, not a typo. */}
