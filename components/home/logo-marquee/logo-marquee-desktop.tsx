@@ -60,7 +60,7 @@ export function LogoMarqueeDesktop() {
             wght 420, SOFT 100, WONK 0, opsz 10 - so no override is needed.
           */}
           <h2 className="display display-4 text-center text-pf-ink-900">
-            Engineering leadership for ambitious businesses. Plan it, build it, keep it running.
+            Expert guidance to modernise, secure and connect your business
           </h2>
         </div>
 

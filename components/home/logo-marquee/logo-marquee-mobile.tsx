@@ -43,7 +43,7 @@ export function LogoMarqueeMobile() {
         left edge at every width above the artboard's 430px.
       */}
       <h2 className="marquee-heading-mobile mx-auto mb-[14px] max-w-[600px] px-5 text-center text-[17px] text-ink sm:max-w-[624px] sm:px-8">
-        Engineering leadership for ambitious businesses. Plan it, build it, keep it running.
+        Expert guidance to modernise, secure and connect your business
       </h2>
 
       {/*
