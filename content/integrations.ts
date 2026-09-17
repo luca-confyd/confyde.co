@@ -38,19 +38,16 @@ export type Integration = {
 
 export const INTEGRATIONS: readonly Integration[] = [
   { name: "Xero", sub: "Accounting", mark: "/images/xero-mark.webp" },
-  { name: "MYOB", sub: "Accounting", initials: "M", disc: "#6100A5" },
   { name: "QuickBooks", sub: "Accounting", initials: "Q", disc: "#2CA01C" },
-  { name: "Google Calendar", sub: "Site visits", initials: "GC", disc: "#1A73E8" },
-  {
-    name: "Gmail & Outlook",
-    sub: "Client email",
-    initials: "G",
-    // Confyde's forest-700, not a partner colour - see the note above.
-    disc: "var(--color-forest-700)",
-  },
-  { name: "Stripe", sub: "Card payments", initials: "S", disc: "#635BFF" },
-  { name: "Google Drive", sub: "Plans & photos", initials: "GD", disc: "#F9AB00" },
+  { name: "Stripe", sub: "Payments", initials: "S", disc: "#635BFF" },
+  // Neither product is green. forest-700 is Confyde's own, and this tile stands
+  // for two products at once with no single mark to borrow - so it is a token
+  // where the rest are other companies' brand colours.
+  { name: "Gmail & Outlook", sub: "Email", initials: "G", disc: "var(--color-forest-700)" },
+  { name: "Slack", sub: "Team chat", initials: "S", disc: "#4A154B" },
   { name: "WhatsApp", sub: "Client chat", initials: "W", disc: "#25D366" },
+  { name: "Google Drive", sub: "Files & documents", initials: "GD", disc: "#F9AB00" },
+  { name: "Google Sheets", sub: "Data & reporting", initials: "GS", disc: "#0F9D58" },
 ];
 
 /**

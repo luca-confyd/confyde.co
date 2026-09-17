@@ -7,11 +7,15 @@ import { Reveal } from "@/components/primitives/reveal";
 
 import { type CardGeometry, cardPitch, cardVars } from "./geometry";
 
-/* The drift's two endpoints, from the artboard: the track sits 40px right of
-   rest as the section enters the viewport and travels 160px left across the
-   whole pass. */
+/* The drift's two endpoints. The artboard travels 160px left from a +40px
+   start, which takes the track 120px PAST its lead-in and clips the first card's
+   left corners flat against the section's overflow - the cards read as "some
+   rounded, some square" depending where you have scrolled to.
+   Travelling 40px instead means the drift settles exactly onto the content rail
+   rather than through it: the first card starts 40px right of the rail and lands
+   on it, and no card is ever clipped. */
 const DRIFT_FROM = 40;
-const DRIFT_TRAVEL = 160;
+const DRIFT_TRAVEL = 40;
 
 /* Forest on a light surface, per docs/brand.md - the artboard draws no focus
    style anywhere. */
@@ -40,6 +44,7 @@ type TestimonialScrollerProps = {
   drift?: boolean;
   viewportClassName?: string;
   scrollerClassName?: string;
+  scrollerStyle?: React.CSSProperties;
   trackClassName?: string;
   /** The cards. Server-rendered and passed through - see the note below. */
   children: ReactNode;
@@ -85,6 +90,7 @@ export function TestimonialScroller({
   drift = false,
   viewportClassName,
   scrollerClassName,
+  scrollerStyle,
   trackClassName,
   children,
 }: TestimonialScrollerProps) {
@@ -215,7 +221,7 @@ export function TestimonialScroller({
           role="group"
           aria-label={label}
           onKeyDown={onKeyDown}
-          style={cardVars(geometry)}
+          style={{ ...cardVars(geometry), ...scrollerStyle }}
           className={`no-scrollbar snap-x snap-mandatory overflow-x-auto ${FOCUS_RING} ${scrollerClassName ?? ""}`}
         >
           <div ref={trackRef} className={`testi-drift flex w-max ${trackClassName ?? ""}`}>

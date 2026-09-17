@@ -37,7 +37,7 @@ const SCRIM_DESKTOP =
  */
 export function SiteFooter() {
   return (
-    <footer className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-t-xl desk:h-[660px]">
+    <footer className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden desk:h-[660px]">
       <div className="absolute inset-0 z-0">
         {/*
           Full-bleed background, so the rendered width is the viewport width up

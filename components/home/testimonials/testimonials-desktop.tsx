@@ -20,7 +20,24 @@ import { TestimonialCard } from "./testimonial-card";
  *     browser the lead-in is ~8px wider than the heading's own inset. Also the
  *     artboard's, and invisible without a ruler.
  */
-const LEAD_IN = "pl-[calc((100vw-1200px)/2+20px)]";
+/* The lead-in puts the first card on the same rail as every other band - 1232px
+   centred, so a 24px gutter at 1280 and wider margins above that - rather than
+   the artboard's 1200/20, which no longer matches anything around it. */
+const RAIL_INSET = "max(24px, calc((100vw - 1232px) / 2))";
+
+/* Both halves are needed. The padding puts the first card on the rail; the
+   scroll-padding makes the SNAP positions respect it, and without that the
+   scroller snaps the first card flush to its own left edge and clips its
+   rounded corners flat - which is what made the cards read as "some rounded,
+   some square" depending where you had scrolled to. */
+const LEAD_IN = {
+  paddingLeft: RAIL_INSET,
+  /* The scroll-padding is the half that matters: without it the scroller snaps
+     the first card flush to its own left edge, clipping its rounded corners
+     flat, which is what made the cards read as "some rounded, some square"
+     depending where you had scrolled to. */
+  scrollPaddingLeft: RAIL_INSET,
+} as const;
 
 /**
  * Section 06, >=1024px.
@@ -62,7 +79,7 @@ export function TestimonialsDesktop() {
         arrows
         drift
         viewportClassName="relative w-full overflow-hidden"
-        scrollerClassName={LEAD_IN}
+        scrollerStyle={LEAD_IN}
         trackClassName="gap-[var(--testi-gap)]"
       >
         {TESTIMONIALS_DESKTOP.map((testimonial, index) => (

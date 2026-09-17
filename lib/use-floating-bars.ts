@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type BarPhase = "hidden" | "trailer";
 
@@ -18,13 +18,9 @@ type BarPhase = "hidden" | "trailer";
  * ResizeObserver on the document element does that exactly, and only when the
  * page actually changes height.
  */
-export function useFloatingBars(): { phase: BarPhase; dismiss: () => void } {
+export function useFloatingBars(): { phase: BarPhase } {
   const [phase, setPhase] = useState<BarPhase>("hidden");
 
-  // Sticky and global: once dismissed, every later phase is forced to hidden, so
-  // dismissing the trailer also suppresses the CTA bar. Memory only - it resets
-  // on reload, and the artboard deliberately stores nothing.
-  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -59,7 +55,6 @@ export function useFloatingBars(): { phase: BarPhase; dismiss: () => void } {
     };
   }, []);
 
-  const dismiss = useCallback(() => setDismissed(true), []);
 
-  return { phase: dismissed ? "hidden" : phase, dismiss };
+  return { phase };
 }

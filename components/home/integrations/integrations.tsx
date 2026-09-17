@@ -86,24 +86,15 @@ export function Integrations() {
             this heading, and at 24px over a 390px measure it does not need to.
           */}
           <h2 className="display display-2-mobile mt-[10px] mb-2 text-[24px] text-ink desk:mt-0 desk:mb-0 desk:text-[3rem] desk:leading-[1.2] desk:tracking-[-0.008em] desk:text-balance desk:text-pf-ink-900">
-            Works with the tools you already use.
+            We work with what you already have.
           </h2>
 
-          {/*
-            [LOG] The two artboards write DIFFERENT sub-paragraphs here, and
-            neither is a truncation of the other - desktop talks about
-            accountants, mobile about the calendar. Both ship, gated by
-            breakpoint, per the standing call on the hero's split CTAs and fine
-            print (RULINGS.md §02 rulings 12-14). `hidden` is display:none, so
-            only one is ever announced. The client's to unify, not ours.
-          */}
-          <p className="mb-4 text-[14px] leading-[1.55] text-slate-700 desk:hidden">
-            Nothing to migrate and nothing to re-key. Invoices land in your accounting, site
-            visits land in your calendar.
-          </p>
-          <p className="m-0 hidden max-w-[52ch] text-[16px] leading-[1.6] text-pf-ink-700 desk:block">
-            Nothing to migrate, works out of the box. Invoices land in your accounting
-            software for your accountants.
+          {/* One paragraph now. The two artboards wrote different sentences
+              here and both shipped, gated by breakpoint; the replacement copy is
+              the same on both, so the split has nothing left to carry. */}
+          <p className="m-0 mb-4 max-w-[52ch] text-[14px] leading-[1.55] text-slate-700 desk:mb-0 desk:text-[16px] desk:leading-[1.6] desk:text-pf-ink-700">
+            No rip and replace. We build on the systems your business already runs on, so nothing
+            has to move.
           </p>
         </div>
 

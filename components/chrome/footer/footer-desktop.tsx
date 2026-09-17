@@ -16,6 +16,10 @@ import { InstagramMark, LinkedInMark, XMark, YouTubeMark } from "./social-marks"
      rgb(220 232 223)  #DCE8DF - the column-heading tint. Same reasoning.
 ----------------------------------------------------------------------------- */
 
+/* SOCIALS and SOCIAL_LINK are deliberately unreferenced: the markup that used
+   them is commented out further down at the client's request, and deleting these
+   would turn "uncomment one block" into "rewrite the block". */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const SOCIALS = [
   { label: "X", Mark: XMark },
   { label: "Instagram", Mark: InstagramMark },
@@ -30,6 +34,7 @@ const SOCIALS = [
 const SOCIAL_LINK =
   "relative inline-flex text-[rgb(255_253_252/0.6)] transition-colors duration-150 " +
   "before:absolute before:-inset-[14px] before:content-[''] hover:text-[rgb(255_253_252/0.9)]";
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 const COLUMN_LINK =
   "inline-flex items-center gap-2 text-[14px] font-semibold text-[rgb(255_253_252/0.7)] " +
@@ -57,19 +62,24 @@ export function FooterDesktop() {
 
             <p className="m-0 text-[14px] leading-[1.6] text-[rgb(255_253_252/0.72)]">{FOOTER_BLURB}</p>
 
-            {/* A list, because it is one. The artboard's extra 4px sits on this
-                row alone rather than in the column's gap. */}
-            <ul className="m-0 mt-1 flex list-none gap-[14px] p-0">
+            {/*
+              Social links, commented out at the client's request rather than
+              deleted. `SOCIALS`, `SOCIAL_LINK` and ./social-marks are all still
+              here, so restoring this is uncommenting the block below. The inner
+              JSX comments were stripped on the way in - a JSX comment cannot
+              nest, and the first inner comment terminator would close this one
+              early.
+
+              <ul className="m-0 mt-1 flex list-none gap-[14px] p-0">
               {SOCIALS.map(({ label, Mark }) => (
-                <li key={label}>
-                  {/* Icon-only, so the name lives in `aria-label` and the mark
-                      is decorative. */}
-                  <NavItem tone="dark" aria-label={label} className={SOCIAL_LINK}>
-                    <Mark />
-                  </NavItem>
-                </li>
+              <li key={label}>
+              <NavItem tone="dark" aria-label={label} className={SOCIAL_LINK}>
+              <Mark />
+              </NavItem>
+              </li>
               ))}
-            </ul>
+              </ul>
+            */}
           </div>
 
           <div className="flex gap-20">

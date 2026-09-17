@@ -79,7 +79,12 @@ export function ChapterShell({
          to hide it would be one keystroke from shipping two chapters at once.
          `display: none` below the breakpoint also keeps the whole banner out
          of layout and out of the accessibility tree. */
-      className={`mx-auto hidden w-full max-w-[1280px] desk:block ${sectionClassName}`}
+      /* px-6 here, not just on the panel below, so the BANNER sits on the
+         same 1232px rail as every other band. Without it the banner ran the
+         full 1280 while the cards in neighbouring sections stopped at 1232, and
+         the chapter read as wider than everything around it. The panel keeps
+         its own px-6, which is the gutter the blurred mirror fills. */
+      className={`mx-auto hidden w-full max-w-[1280px] px-6 desk:block ${sectionClassName}`}
     >
       <div className="relative z-20 h-[520px] overflow-visible pt-14 pl-14">
         {/*

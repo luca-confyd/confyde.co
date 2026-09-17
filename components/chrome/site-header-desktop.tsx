@@ -52,7 +52,10 @@ const NAV_LINK =
  */
 export function SiteHeaderDesktop() {
   return (
-    <DesktopNavHeader className="group fixed top-5 left-1/2 z-50 hidden w-[1320px] max-w-[calc(100%-16px)] -translate-x-1/2 desk:block">
+    <DesktopNavHeader /* 1232/48, not the artboard's 1320/16: the nav floats over the page and
+         reads as part of it, so its edges want to sit on the same rail every
+         content band uses rather than 16px further out. */
+      className="group fixed top-5 left-1/2 z-50 hidden w-[1232px] max-w-[calc(100%-48px)] -translate-x-1/2 desk:block">
       <nav aria-label="Main" className="flex items-center gap-3">
         {/* Left pill: brand + sections. 5px left / 6px right padding is the
             artboard's own asymmetry, not a typo. */}

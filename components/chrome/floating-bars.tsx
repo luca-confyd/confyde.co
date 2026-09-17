@@ -1,6 +1,5 @@
 "use client";
 
-import { X } from "lucide-react";
 import Image from "next/image";
 
 import { useFloatingBars } from "@/lib/use-floating-bars";
@@ -12,7 +11,7 @@ const BAR = "shadow-overlay flex items-center rounded-xl bg-card";
  * The mid-page quiz teaser. Shown once the reader is a full screen down and
  * there is still more than 1700px of document below the fold.
  */
-function TrailerBar({ onDismiss }: { onDismiss: () => void }) {
+function TrailerBar() {
   return (
     <div className={`${BAR} gap-4 p-2.5`}>
       <span className="relative block h-11 w-16 flex-none overflow-hidden rounded-lg">
@@ -24,7 +23,7 @@ function TrailerBar({ onDismiss }: { onDismiss: () => void }) {
             desktop override (wght 420 / SOFT 100 / opsz 10). Bar-specific, so it
             is set here rather than pulled from the type scale. */}
         <span className="font-display text-[16px] whitespace-nowrap text-pf-ink-900 [font-variation-settings:'wght'_600,'SOFT'_60,'opsz'_24]">
-          Not sure where AI actually fits?
+          Not sure where to start?
         </span>
         {/* Hanken Grotesk, the app's own face: the artboard sets --font-sans
             here and on the CTA below, which resolves through its linked token
@@ -41,17 +40,6 @@ function TrailerBar({ onDismiss }: { onDismiss: () => void }) {
         Book a discovery call
       </NavItem>
 
-      {/* The artboard draws no hover and a bare 28px target. The hover wash
-          matches the nav's own light-state link hover, and the ::before pad
-          takes the hit area to 44x44 without moving the glyph. */}
-      <button
-        type="button"
-        aria-label="Dismiss"
-        onClick={onDismiss}
-        className="relative flex h-7 w-7 flex-none cursor-pointer items-center justify-center rounded-lg border-0 bg-none text-pf-ink-500 transition-colors duration-200 before:absolute before:-inset-2 before:content-[''] hover:bg-pf-ink-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700"
-      >
-        <X size={15} strokeWidth={2} aria-hidden="true" focusable="false" />
-      </button>
     </div>
   );
 }
@@ -64,11 +52,11 @@ function TrailerBar({ onDismiss }: { onDismiss: () => void }) {
  * reader mid-sentence.
  *
  * The wrapper is `inert` as well as `pointer-events: none` while hidden -
- * without it the CTA and the dismiss button stay in the tab order while
+ * without it the CTA stays in the tab order while
  * invisible.
  */
 export function FloatingBars() {
-  const { phase, dismiss } = useFloatingBars();
+  const { phase } = useFloatingBars();
   const hidden = phase === "hidden";
 
   return (
@@ -78,7 +66,7 @@ export function FloatingBars() {
       className="fixed bottom-5 left-1/2 z-[60] hidden -translate-x-1/2 desk:block"
     >
       <div className="bars-wrapper" data-shown={!hidden} inert={hidden} aria-hidden={hidden}>
-        <TrailerBar onDismiss={dismiss} />
+        <TrailerBar />
       </div>
     </div>
   );

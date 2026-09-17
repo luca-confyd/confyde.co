@@ -122,7 +122,10 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
               <div className={SCRIM} />
             </div>
 
-            <div className="relative z-20 flex w-full flex-1 flex-col items-center px-5">
+            {/* px-6, matching the content rail's gutter. At widths below 1280 this
+                padding is what bounds the category strip rather than its 1232
+                cap, so px-5 put the strip 4px outside every band beneath it. */}
+            <div className="relative z-20 flex w-full flex-1 flex-col items-center px-6">
               {/* The copy column is 1000px and the stat strip below it is
                   1120px. The difference is intentional: the sentence wants a
                   readable measure, the figures want the full width. */}
@@ -190,7 +193,10 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
               {/* The copy above takes `flex-1`, so this sits at the foot on its
                   own and the free space goes to centring the copy rather than
                   collecting under the button. */}
-              <div className="relative w-full max-w-[1120px] pb-[18px]">
+              {/* 1232 is the shared content rail - 1280 less a 24px gutter - so the
+                  category strip's dividers line up with the edges of every band
+                  below it. The artboard's 1120 predated that rail. */}
+              <div className="relative w-full max-w-[1232px] pb-[18px]">
                 <HeroCategories />
               </div>
             </div>
