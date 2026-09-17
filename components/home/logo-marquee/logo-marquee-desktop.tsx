@@ -47,7 +47,7 @@ export function LogoMarqueeDesktop() {
         1440px, deliberately wider than the 1280px content container every other
         band uses - the strip is meant to run past the page's measure.
       */}
-      <section className="marquee mx-auto flex w-full max-w-[1440px] flex-col items-center gap-5 pt-8 pb-6 [--marquee-duration:60s]">
+      <section className="marquee mx-auto flex w-full max-w-[1440px] flex-col items-center gap-7 pt-14 pb-8 [--marquee-duration:60s]">
         <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center px-4">
           {/*
             `<h2>`, not the artboard's `<h4>`. The artboard skips straight from
@@ -56,11 +56,20 @@ export function LogoMarqueeDesktop() {
             tag does none of it. `.display-4` keeps the size identical, so the
             fix is semantics-only (RULINGS.md §03/04 ruling 8).
 
-            `.display` at >=1024 already computes to .pf-h4's exact axes -
+            `.display` at >=1024 already computes to the artboard's exact axes -
             wght 420, SOFT 100, WONK 0, opsz 10 - so no override is needed.
+
+            Stepped up from the artboard's 20px. That size was set for one long
+            sentence reading as a caption across the band; this copy is two short
+            declarative lines, and at 20px they sat two-thirds the size of the
+            30px trade terms below, which are meant to be background texture. The
+            band's padding and gap opened up with it.
           */}
-          <h2 className="display display-4 text-center text-pf-ink-900">
-            AI Software for Exceptional Landscapers. Build a bigger business, in half the time.
+          {/* Two sentences, two lines - the break is in the copy, not a wrap. */}
+          <h2 className="display display-3 text-center text-pf-ink-900">
+            Engineering leadership for ambitious businesses.
+            <br />
+            Plan it, build it, keep it running.
           </h2>
         </div>
 
