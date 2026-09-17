@@ -1,8 +1,8 @@
 import { QUOTE } from "./home";
 
 /**
- * "The easiest job to win is the one you’ve already done." - the repeat-work
- * panel's copy, its two client lists and the figures on its stat card.
+ * "A business that doesn’t need chasing." - the day-to-day operations panel's
+ * copy, its two client lists and the figures on its stat card.
  *
  * TWO LISTS, NOT ONE WITH A SLICE. The artboards draw different compositions:
  * desktop shows four clients with a relationship note, a status word and an
@@ -46,11 +46,11 @@ export type ClientRow = {
 export const CLIENT_COUNT = 62;
 
 export const REPEAT_WORK = {
-  eyebrow: "Customer CRM with smart reminders",
-  heading: "The easiest job to win is the one you’ve already done.",
+  eyebrow: "Day-to-day operations",
+  heading: "A business that doesn’t need chasing.",
   intro:
-    "Confyde remembers every past client and what you built for them, then nudges you before " +
-    "they go looking for someone else.",
+    "The routine work runs to schedule, information sits where people expect it, and nothing " +
+    "waits on one person being free.",
 
   /** The white card's header. Desktop names the noun, mobile does not. */
   listTitle: "Worth a call this month",
