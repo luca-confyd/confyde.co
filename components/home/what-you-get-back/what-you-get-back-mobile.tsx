@@ -43,14 +43,15 @@ export function WhatYouGetBackMobile() {
 
             A hairline plus one soft warm drop: neither of the four
             `.shadow-border-*` recipes and not `.shadow-card-mobile` either,
-            which has two layers and no hairline. rgb(21 48 31) is forest-900.
+            which has two layers and no hairline. rgb(51 56 58) is the body-text warm grey #33383A - shadows tint
+     to the text family, not to the raspberry primary.
           */
           <Reveal
             key={card.lead}
             anim="up-blur"
             delay={index * 0.08}
             duration={0.5}
-            className="flex flex-col gap-2 rounded-[14px] bg-card px-[18px] py-[22px] shadow-[0_0_0_1px_var(--color-hairline),0_6px_14px_-10px_rgb(21_48_31/0.2)]"
+            className="flex flex-col gap-2 rounded-[14px] bg-card px-[18px] py-[22px] shadow-[0_0_0_1px_var(--color-hairline),0_6px_14px_-10px_rgb(51_56_58/0.2)]"
           >
             <span className="text-[10.5px] font-extrabold tracking-[0.12em] text-eyebrow-mobile uppercase">
               {card.eyebrow}

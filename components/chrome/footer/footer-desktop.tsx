@@ -13,7 +13,8 @@ import { InstagramMark, LinkedInMark, XMark, YouTubeMark } from "./social-marks"
                        on the page, so it stays local rather than becoming a
                        token (§02 ruling 5). The mobile artboard draws the same
                        text in plain #fff; both ship as drawn.
-     rgb(220 232 223)  #DCE8DF - the column-heading tint. Same reasoning.
+     rgb(238 220 224)  #EEDCE0 - the column-heading tint. Same reasoning. It
+                       was #DCE8DF, a green tint, under the old palette.
 ----------------------------------------------------------------------------- */
 
 /* SOCIALS and SOCIAL_LINK are deliberately unreferenced: the markup that used
@@ -89,7 +90,7 @@ export function FooterDesktop() {
                     words are what makes the link lists navigable by heading.
                     Level and type size are independent (§03/04 ruling 8), so the
                     12px bold cut is untouched. */}
-                <h2 className="m-0 text-[12px] font-bold text-[rgb(220_232_223/0.8)]">{column.heading}</h2>
+                <h2 className="m-0 text-[12px] font-bold text-[rgb(238_220_224/0.8)]">{column.heading}</h2>
 
                 <ul className="m-0 flex list-none flex-col gap-2 p-0">
                   {column.links.map((link) => (

@@ -23,18 +23,24 @@ export function WhatYouGetBackDesktop() {
           className="mx-auto mb-14 flex max-w-[760px] flex-col items-center gap-4 text-center"
         >
           {/*
-            [CONTRAST - tech lead to rule.] The artboard sets this eyebrow in
-            lime-700 (#95B225), NOT the bright lime-500 the before/after band's
-            eyebrow uses on the same forest tone. Measured against the rendered
-            plate it lands below AA for 12px text. `--color-eyebrow` is not the
-            fix: that token darkens lime-700 for LIGHT surfaces and would make
-            this worse. The smallest change that clears the threshold is
-            lime-500, which is also what every other on-forest eyebrow on the
-            page already uses - see the section's report for the measured
-            ratios. Shipped as drawn pending the ruling, because switching it is
-            a visible colour change on the design.
+            PALE PETROL, on the dark dappled panel.
+
+            This eyebrow is the one piece of text on the page that sits on a
+            dark plate rather than the cream, so it takes forest-100 (#EAF4F4,
+            the palette's pale petrol) rather than either eyebrow token - both
+            of those are darkened FOR light surfaces and would be close to
+            invisible here.
+
+            It also closes the "[CONTRAST - tech lead to rule]" note this block
+            used to carry. The artboard set it in lime-700 and that measured
+            below AA for 12px text on the plate; under the petrol palette
+            lime-700 is the DEEP petrol, which would have been dark-on-dark and
+            worse again. Pale petrol clears AA everywhere on the panel - 10.40
+            on the forest-900 base, and still 5.17 at the lightest point of the
+            forest-500 veil, against AA's 4.5. No ruling needed: there is no
+            longer a trade-off to rule on.
           */}
-          <span className="text-[12px] font-extrabold tracking-[0.14em] text-lime-700 uppercase">
+          <span className="text-[12px] font-extrabold tracking-[0.14em] text-forest-100 uppercase">
             {GET_BACK.eyebrow}
           </span>
 

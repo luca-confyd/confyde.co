@@ -18,7 +18,7 @@ import { IntegrationTile } from "./integration-tile";
  * COLOUR. This IS one of the lime-700-on-light eyebrow call sites the corrected
  * tokens were made for - unlike section 05's, which is lime-500 on forest and
  * passes at 10.24:1 (RULINGS.md §05 ruling 6). But it is the first one that
- * sits on `card-muted` (#E6E0CC) rather than the canvas or surface-300 the
+ * sits on `card-muted` (#E7E2D8) rather than the canvas or surface-300 the
  * original pair was computed against, and that darker surface eats the
  * headroom: measured on the composited pixels, `--color-eyebrow` reaches only
  * 3.70:1 here and `--color-eyebrow-mobile` 3.91:1, where 11-12px needs 4.5:1.

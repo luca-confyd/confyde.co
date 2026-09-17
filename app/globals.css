@@ -57,100 +57,143 @@
    dark olive used for uppercase eyebrows, matching tokens/colors.css.
 --------------------------------------------------------------------------- */
 @theme {
-  /* Forest: the primary. Dark panels, action text, selected and complete. */
-  --color-forest-100: #cddfd3;
-  --color-forest-200: #b9c7b0;
-  --color-forest-300: #8fa886;
-  --color-forest-500: #4d8f6c;
-  --color-forest-700: #2c5539;
-  --color-forest-800: #1f4934;
-  --color-forest-900: #15301f;
+  /* ---------------------------------------------------------------------
+     CREAM AND PETROL. The names below are LEGACY and describe the palette this
+     page shipped with (forest green + a lime accent + warm greige). The VALUES
+     are the current palette and the names no longer describe them:
 
-  /* Lime: the single accent. Means forward motion, nothing else. */
-  --color-lime-100: #ecf6bd;
-  --color-lime-500: #c8e84a;
-  --color-lime-700: #95b225;
+       forest-*   is the PETROL ramp. forest-700 #12707A is the primary -
+                  buttons, bands, figures. forest-800 #0C5259 is the deep
+                  petrol - hover states and dark fills. forest-100 #EAF4F4 is
+                  the pale petrol used for tints and highlights.
+       lime-*     is no longer an accent - the accent was retired, so a CTA is
+                  petrol like everything else.
+       canvas     is the cream page base #FAF8F3
+       card       is the warm off-white card surface #F1EEE6
+       slate-*    and pf-ink-* are the warm grey text family, anchored #33383A
 
-  /* Sage: form focus and ordinal markers. Never a fill, never a CTA. */
-  --color-sage: #7fa05a;
+     Names were kept deliberately: they are consumed at ~800 call sites and
+     remapping values here changes the whole page from one file. Renaming is a
+     separate job. Until then, read these names as scale positions, not hues.
+
+     The intermediate steps are stepped in OKLCH from the given anchors, so the
+     ramp is perceptually even rather than hand-mixed.
+
+     CONTRAST. Unlike the palettes tried before it, petrol clears WCAG AA in
+     every role on this page with real headroom, so nothing here is fudged:
+
+       body #33383A on cream / card / pale petrol   11.19 / 10.25 / 10.61
+       petrol as text on cream / card               5.46 / 5.00
+       white label on a petrol fill                 5.79
+       white label on a deep-petrol fill            8.87
+       deep petrol as text on cream                 8.36
+
+     Petrol on the MUTED card (#E7E2D8) is 4.49 - a hair under 4.5 - which is
+     why the two `eyebrow-muted` tokens take the deep petrol (6.87) rather than
+     the primary. That is the only place the two differ.
+  --------------------------------------------------------------------- */
+
+  /* Petrol: the primary. Buttons, bands, figures, action text. forest-800 is
+     the deep petrol the brief names for hover states and dark fills; the
+     button hover in styles/base.css uses it directly rather than a filter. */
+  --color-forest-100: #eaf4f4;
+  --color-forest-200: #c3dde1;
+  --color-forest-300: #97c0c6;
+  --color-forest-500: #5698a1;
+  --color-forest-700: #12707a;
+  --color-forest-800: #0c5259;
+  --color-forest-900: #003f47;
+
+  /* The retired accent. Was lime, the page's one bright note; the palette is
+     now strictly two-tone, so these hold petrol and carry no separate
+     meaning. Kept as names only because 30 call sites still reference them. */
+  --color-lime-100: #eaf4f4;
+  --color-lime-500: #12707a;
+  --color-lime-700: #0c5259;
+
+  /* Form focus and ordinal markers. Never a fill, never a CTA. Was sage green;
+     now the mid petrol, so focus reads as the primary rather than a hue the
+     palette no longer contains. */
+  --color-sage: #5698a1;
 
   /* Rust: the single warning/destructive tone. Umber: a data tone only. */
   --color-rust: #96602b;
   --color-rust-deep: #7e4f22;
   --color-umber: #6e4119;
 
-  /* Warm greige surfaces, one hue family. White = a thing you read or act on,
-     beige = the space between things. */
-  --color-canvas: #f3f0e6;
-  --color-rail: #ece8de;
-  --color-well: #f6f4ec;
-  --color-card-muted: #e6e0cc;
-  --color-card: #ffffff;
-  --color-hairline: #dfd8c8;
-  --color-cream: #e8e4d2;
+  /* The cream surface family, one hue. NOTE the relationship is INVERTED from
+     what shipped before: the page base #FAF8F3 is now LIGHTER than the card
+     surface #F1EEE6, so cards sit slightly recessed into the page rather than
+     lifted off it. That is the brief - cream page, warm off-white cards - and
+     it is why `card` is no longer #FFFFFF. */
+  --color-canvas: #faf8f3;
+  --color-rail: #f1eee6;
+  --color-well: #faf8f3;
+  --color-card-muted: #e7e2d8;
+  --color-card: #f1eee6;
+  --color-hairline: #ded7cc;
+  --color-cream: #e7e2d8;
 
-  /* Green-tinted ink family: warm-dark rather than neutral grey. */
-  --color-ink: #16321e;
-  --color-charcoal-900: #1d2a20;
-  --color-slate-700: #35402f;
-  --color-slate-600: #4a5245;
-  /* 2% darker than the design system's #6E7669. On white it measured 4.71:1 and
-     passed, but on the desktop page surface (#F8F7F2) it fell to 4.39 and failed
-     AA - the same thin-headroom trap the eyebrow corrections hit. Darkening the
-     token itself rather than patching one call site fixes every use at once, and
-     at this magnitude the change is not perceptible. */
-  --color-slate-500: #6c7467;
-  --color-slate-400: #8a9082;
-  --color-slate-300: #a2a899;
-  --color-slate-100: #e5e8e5;
+  /* The body-text family, anchored on #3A332F. Warm dark grey, not green-
+     tinted and not neutral: it carries the cream's hue so text sits in the
+     same family as the surfaces. */
+  --color-ink: #33383a;
+  --color-charcoal-900: #23282a;
+  --color-slate-700: #33383a;
+  --color-slate-600: #565b5d;
+  /* Re-derived for the cream palette and deliberately given headroom: 5.09 on
+     the #FAF8F3 page base and 4.66 on the #F1EEE6 card, against AA's 4.5. The
+     tone this replaced sat at 4.39 on the old page surface and failed, which is
+     the thin-headroom trap this scale keeps falling into - hence the margin. */
+  --color-slate-500: #666b6d;
+  --color-slate-400: #82878a;
+  --color-slate-300: #b9bdbe;
+  --color-slate-100: #e4e7e7;
 
   /* The marketing layer's own oklch ramp, carried verbatim. The .shadow-border-*
      stacks color-mix() against these, so approximating them would visibly shift
      every card edge on the page. */
-  --color-pf-ink-100: oklch(95.8% 0.007 98);
-  --color-pf-ink-200: #edeae4;
-  --color-pf-ink-300: oklch(87.6% 0.011 98);
-  --color-pf-ink-400: oklch(71.4% 0.009 98);
-  --color-pf-ink-500: oklch(67.6% 0.012 98);
-  --color-pf-ink-600: oklch(57.6% 0.008 98);
-  --color-pf-ink-700: oklch(38% 0.008 98);
-  --color-pf-ink-800: oklch(29% 0.005 98);
-  --color-pf-ink-900: oklch(23% 0.002 98);
-  --color-pf-surface-50: oklch(99.3% 0.004 96);
-  --color-pf-surface-300: oklch(97.5% 0.007 96);
-  --color-pf-surface-500: oklch(96.3% 0.012 96);
-  --color-pf-overlay-50: oklch(97.9% 0.004 91);
-  --color-pf-overlay-100: oklch(96.1% 0.01 87);
-  --color-pf-overlay-200: oklch(95% 0.013 97);
+  --color-pf-ink-100: #f0ede7;
+  --color-pf-ink-200: #e4e1da;
+  --color-pf-ink-300: #bdb9b2;
+  --color-pf-ink-400: #82878a;
+  --color-pf-ink-500: #666b6d;
+  --color-pf-ink-600: #565b5d;
+  --color-pf-ink-700: #33383a;
+  --color-pf-ink-800: #2b3032;
+  --color-pf-ink-900: #23282a;
+  --color-pf-surface-50: #fdfcf9;
+  --color-pf-surface-300: #faf8f3;
+  --color-pf-surface-500: #f1eee6;
+  --color-pf-overlay-50: #faf8f3;
+  --color-pf-overlay-100: #f1eee6;
+  --color-pf-overlay-200: #ede9df;
 
   /* ---------------------------------------------------------------------
      Accessibility-corrected text tones.
 
-     Four pieces of text in the artboards fail WCAG AA against their own
-     backgrounds. Measured on the rendered artboards, then darkened by the
-     smallest amount that clears the threshold:
+     Re-measured against the cream surfaces when the palette changed. The
+     originals were olive and grey corrections against the old green palette
+     and none of them survived the move, so all four are re-derived:
 
-       eyebrow          #95B225 -> #657919   2.26 -> 4.54  (needs 4.5)
-       marquee-term     #A4A39D -> #8D8C87   2.27 -> 3.02  (needs 3.0, large)
-       eyebrow-mobile   #7E9A2B -> #607521   2.81 -> 4.53  (needs 4.5)
-       marquee-mobile   #8A9082 -> #6A6F64   2.88 -> 4.53  (needs 4.5)
+       eyebrow / eyebrow-mobile         -> petrol, 5.46 on the page base
+       eyebrow-muted (on #E7E2D8)       -> deep petrol, 6.87 on the muted card
+       marquee-term       #82878A       -> 3.42 / 3.13, large text, needs 3.0
+       marquee-term-mobile #62676A      -> 5.39 / 4.94, needs 4.5
 
-     These are separate tokens rather than edits to lime-700, pf-ink-400 and
-     slate-400, because those three are used elsewhere at sizes and on surfaces
-     where they already pass, and darkening them there would be a change nobody
-     asked for.
+     The eyebrow pair no longer differs by breakpoint - petrol clears AA on the
+     page base and the card at both sizes, which the olive did not. They stay
+     four tokens so the call sites do not have to change.
   --------------------------------------------------------------------- */
-  --color-eyebrow: #657919;
-  --color-eyebrow-mobile: #607521;
-  --color-marquee-term: #8d8c87;
-  --color-marquee-term-mobile: #6a6f64;
+  --color-eyebrow: #12707a;
+  --color-eyebrow-mobile: #12707a;
+  --color-marquee-term: #82878a;
+  --color-marquee-term-mobile: #62676a;
 
-  /* The corrections above were computed against the canvas and surface-300 page
-     tones. card-muted (#E6E0CC) is darker, and they do not survive the move -
-     #657919 drops to 3.70:1 on it. Eyebrows sitting on a muted card need their
-     own step down. */
-  --color-eyebrow-muted: #596a16;
-  --color-eyebrow-muted-mobile: #576a1e;
+  /* card-muted (#E7E2D8) is darker than the page base, so eyebrows sitting on
+     one take the deep petrol instead of the primary. 6.87:1 there. */
+  --color-eyebrow-muted: #0c5259;
+  --color-eyebrow-muted-mobile: #0c5259;
 
   /* Scope-of-works category dots, from the app's default-categories taxonomy. */
   --color-cat-demolition: #8a7a65;

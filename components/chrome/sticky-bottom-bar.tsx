@@ -37,7 +37,7 @@ export function StickyBottomBar() {
       <div className="mx-auto flex w-full max-w-[430px] flex-col gap-[7px]">
         <NavItem
           tone="light"
-          className="btn-lime flex h-[50px] items-center justify-center gap-[9px] rounded-xl bg-lime-500 text-[16px] font-bold text-forest-900 shadow-[0_8px_20px_-12px_rgb(21_48_31/0.5)]"
+          className="btn-lime flex h-[50px] items-center justify-center gap-[9px] rounded-xl bg-lime-500 text-[16px] font-bold text-white shadow-[0_8px_20px_-12px_rgb(51_56_58/0.5)]"
         >
           Try Confyde free
           {/* Heavier than any other stroke on the page, and a different arrow

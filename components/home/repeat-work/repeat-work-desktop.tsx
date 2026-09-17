@@ -37,9 +37,10 @@ export function RepeatWorkDesktop() {
         The shadow is a single soft warm drop, not one of the four layered
         `.shadow-border-*` recipes: this panel is a raised plate on the page
         surface rather than a card, and borrowing a recipe would add the
-        hairline the artboard does not draw. rgb(21 48 31) is forest-900.
+        hairline the artboard does not draw. rgb(51 56 58) is the body-text warm grey #33383A - shadows tint
+     to the text family, not to the raspberry primary.
       */}
-      <div className="canvas-botanical rounded-xl bg-pf-surface-300 p-12 shadow-[0_18px_40px_-24px_rgb(21_48_31/0.4)]">
+      <div className="canvas-botanical rounded-xl bg-pf-surface-300 p-12 shadow-[0_18px_40px_-24px_rgb(51_56_58/0.4)]">
         <div className="flex flex-col items-center gap-1.5 text-center">
           {/*
             `--color-eyebrow`, the accessibility-corrected tone, not the
@@ -157,7 +158,7 @@ export function RepeatWorkDesktop() {
                       would add four inert tab stops to the page. Same call as
                       the before/after phones' green action lines.
                     */}
-                    <span className="inline-flex items-center rounded-md bg-well px-[13px] py-1.5 font-ui text-[12.5px] font-semibold whitespace-nowrap text-slate-700 shadow-[0_0_0_1px_var(--color-hairline),0_1px_2px_rgb(21_48_31/0.08)]">
+                    <span className="inline-flex items-center rounded-md bg-well px-[13px] py-1.5 font-ui text-[12.5px] font-semibold whitespace-nowrap text-slate-700 shadow-[0_0_0_1px_var(--color-hairline),0_1px_2px_rgb(51_56_58/0.08)]">
                       {row.action}
                     </span>
                   </span>

@@ -11,8 +11,8 @@ import type { ReactNode } from "react";
  * heading, and a botanical panel carrying the chapter's sub-blocks.
  *
  * THE PANEL SURFACE IS NOT THE DESKTOP ONE. Mobile draws `card-muted`
- * (#E6E0CC), the recessed tile tone, where desktop draws `pf-surface-300`
- * (#F8F7F2), the page surface. Both ship as drawn, and the difference matters
+ * (#E7E2D8), the recessed tile tone, where desktop draws `pf-surface-300`
+ * (#FAF8F3), the page surface. Both ship as drawn, and the difference matters
  * for contrast: the botanical wash multiplies over a surface two steps darker
  * here, so anything set on this panel is measured against `card-muted`, never
  * against the desktop numbers.
@@ -80,11 +80,13 @@ export function ChapterShellMobile({
             sizes="(min-width: 640px) 560px, 100vw"
             className="object-cover"
           />
-          {/* Top-heavy forest veil: the heading sits at the top of the band, so
-              the dark end goes there and the photograph opens up beneath it. */}
+          {/* Top-heavy veil: the heading sits at the top of the band, so the
+              dark end goes there and the photograph opens up beneath it. A
+              neutral dark rather than the brand petrol - it washes a
+              photograph, and tinting it would turn the image into a swatch. */}
           <span
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--color-forest-900)_92%,transparent)_0%,color-mix(in_oklab,var(--color-forest-900)_74%,transparent)_42%,color-mix(in_oklab,var(--color-forest-900)_46%,transparent)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(23_26_27/0.92)_0%,rgb(23_26_27/0.74)_42%,rgb(23_26_27/0.46)_100%)]"
           />
           <h2 className="display display-2-mobile relative text-[clamp(22px,6.51vw,28px)] text-white">
             {heading}

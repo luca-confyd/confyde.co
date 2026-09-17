@@ -35,7 +35,7 @@ function TrailerBar() {
 
       <NavItem
         tone="light"
-        className="btn-lime inline-flex h-10 flex-none items-center rounded-xl bg-lime-500 px-5 font-ui text-[14px] font-semibold whitespace-nowrap text-forest-900 shadow-[0_8px_20px_-10px_rgb(21_48_31/0.4)]"
+        className="btn-lime inline-flex h-10 flex-none items-center rounded-xl bg-lime-500 px-5 font-ui text-[14px] font-semibold whitespace-nowrap text-white shadow-[0_8px_20px_-10px_rgb(51_56_58/0.4)]"
       >
         Book a discovery call
       </NavItem>

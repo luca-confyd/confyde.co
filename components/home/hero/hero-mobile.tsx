@@ -9,9 +9,12 @@ import { NavItem } from "@/components/chrome/nav-item";
 /* Four stops like the desktop scrim but not the same four: 92/76/34 at
    0/34/72/96 against desktop's 88/74/34 at 0/32/66/92. The mobile copy block is
    taller relative to its stage and sits lower in it, so the dark end has to
-   start higher and reach further. The two are not shared for that reason. */
+   start higher and reach further. The two are not shared for that reason.
+
+   Neutral #171A1B, matching desktop: this washes a photograph, so it is not
+   tinted with the brand colour. See the note on the desktop SCRIM. */
 const SCRIM =
-  "absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--color-forest-900)_92%,transparent)_0%,color-mix(in_oklab,var(--color-forest-900)_76%,transparent)_34%,color-mix(in_oklab,var(--color-forest-900)_34%,transparent)_72%,transparent_96%)]";
+  "absolute inset-0 bg-[linear-gradient(to_top,rgb(23_26_27/0.92)_0%,rgb(23_26_27/0.76)_34%,rgb(23_26_27/0.34)_72%,transparent_96%)]";
 
 const CTA = "flex h-[52px] items-center justify-center gap-2.5 rounded-xl text-[16.5px] font-bold";
 
@@ -112,7 +115,7 @@ export function HeroMobile() {
           {/* One action, full width - the primary thing to do on a phone. */}
           <NavItem
             tone="dark"
-            className={`btn-lime ${CTA} mt-[22px] bg-lime-500 text-forest-900 shadow-[0_8px_20px_-10px_rgb(21_48_31/0.5)]`}
+            className={`btn-lime ${CTA} mt-[22px] bg-lime-500 text-white shadow-[0_8px_20px_-10px_rgb(51_56_58/0.5)]`}
           >
             Book a discovery call
             <ArrowRight size={18} strokeWidth={2.4} aria-hidden="true" focusable="false" />

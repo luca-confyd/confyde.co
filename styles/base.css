@@ -203,7 +203,8 @@
 
      Two warm layers with no hairline, so it is none of the four
      .shadow-border-* recipes and porting it to one would add an edge the
-     artboard does not draw. rgb(21 48 31) is forest-900.
+     artboard does not draw. rgb(51 56 58) is the body-text warm grey #33383A - shadows tint
+     to the text family, not to the raspberry primary.
 
      Scoped below 1024 because the DESKTOP card has no shadow at all - that is a
      real difference between the artboards, not a rounding error, and both ship
@@ -212,8 +213,8 @@
   @media (width < 1024px) {
     .shadow-card-mobile {
       box-shadow:
-        0 1px 2px rgb(21 48 31 / 0.05),
-        0 6px 14px -6px rgb(21 48 31 / 0.14);
+        0 1px 2px rgb(51 56 58 / 0.05),
+        0 6px 14px -6px rgb(51 56 58 / 0.14);
     }
   }
 
@@ -242,13 +243,25 @@
 
   /* -------------------------------------------------------------------------
      Buttons. Motion is never on the action you want someone to pause on, so
-     only the lime and ink fills move; glass just changes tint.
+     only the primary and ink fills move; glass just changes tint.
   ------------------------------------------------------------------------- */
+
+  /* The primary fill. `.btn-lime` is a legacy name - the lime accent was
+     retired and this is the petrol button (see the palette note in
+     app/globals.css).
+
+     Hover goes to the DEEP petrol rather than `brightness(1.06)`. The filter
+     was a hue-agnostic trick that lightened whatever the fill happened to be;
+     the palette now names a deep petrol for exactly this, and a declared
+     colour is both what the brief asks for and legible in the file. It also
+     goes the right way: brightening a mid petrol washes it out, where the
+     deep step reads as pressed. White labels clear AA on both - 5.79 on the
+     rest fill, 8.87 on the hover one. */
   .btn-lime {
-    transition: filter 0.2s;
+    transition: background-color 0.2s;
   }
   .btn-lime:hover {
-    filter: brightness(1.06);
+    background-color: var(--color-forest-800);
   }
 
   .btn-ink {
@@ -258,7 +271,7 @@
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% 100%;
-    box-shadow: 0 8px 20px -10px rgb(21 48 31 / 0.4);
+    box-shadow: 0 8px 20px -10px rgb(51 56 58 / 0.4);
     transition:
       background-size 0.2s,
       box-shadow 0.2s;
@@ -362,9 +375,13 @@
          against a 3.0 large-text threshold - the veil is underpowered at the one
          job it exists to do. These two stops are the smallest change that clears
          all three chapters, which are the only consumers of this class. */
-      color-mix(in srgb, var(--color-forest-900) 92%, transparent),
-      color-mix(in srgb, var(--color-forest-900) 86%, transparent) 45%,
-      color-mix(in srgb, var(--color-forest-900) 30%, transparent) 75%,
+      /* A NEUTRAL dark, not the brand petrol: this washes a photograph, and a
+         tinted wash pulls the whole image towards the brand hue. It was
+         forest-900 when the palette was green, and the chapter photographs
+         read green because of it. */
+      rgb(23 26 27 / 0.92),
+      rgb(23 26 27 / 0.86) 45%,
+      rgb(23 26 27 / 0.3) 75%,
       transparent
     );
   }

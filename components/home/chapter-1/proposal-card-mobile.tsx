@@ -118,7 +118,7 @@ export function ProposalCardMobile() {
             Sent to {CLIENT_FIRST_NAME} · opened {READING.opens} times
           </span>
         </span>
-        <span className="inline-flex h-[30px] flex-none items-center rounded-lg bg-lime-500 px-3 text-[12px] font-bold text-forest-900">
+        <span className="inline-flex h-[30px] flex-none items-center rounded-lg bg-lime-500 px-3 text-[12px] font-bold text-white">
           Accept quote
         </span>
       </div>

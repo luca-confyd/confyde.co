@@ -76,7 +76,7 @@ export function RepeatWorkMobile() {
             the shared utility, which has exactly one other call site and a
             different job.
           */}
-          <div className="overflow-hidden rounded-xl bg-card shadow-[0_1px_2px_rgb(21_48_31/0.05),0_6px_14px_-6px_rgb(21_48_31/0.14),0_18px_30px_-18px_rgb(21_48_31/0.18)]">
+          <div className="overflow-hidden rounded-xl bg-card shadow-[0_1px_2px_rgb(51_56_58/0.05),0_6px_14px_-6px_rgb(51_56_58/0.14),0_18px_30px_-18px_rgb(51_56_58/0.18)]">
             <div className="flex items-baseline justify-between gap-2.5 border-b border-hairline px-[14px] py-3">
               {/* `<h3>` under this composition's `<h2>`; the artboard writes
                   `<h4>` (RULINGS.md §03/04 ruling 8). */}

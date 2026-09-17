@@ -55,13 +55,14 @@ export function FaqMobile() {
         `.shadow-border-*` stacks either, which all lead with a hairline this
         card does not draw. Written as a local value rather than invented as a
         token, the same call RULINGS.md §02 ruling 5 made for `#ACAFB1`.
-        rgb(21 48 31) is forest-900.
+        rgb(51 56 58) is the body-text warm grey #33383A - shadows tint
+     to the text family, not to the raspberry primary.
 
         [FOR THE TECH LEAD] If a second band turns out to want the same stack it
         belongs in styles/base.css next to `.shadow-card-mobile`; one call site
         did not justify reaching into a file another engineer owns.
       */}
-      <div className="overflow-hidden rounded-xl bg-card shadow-[0_1px_2px_rgb(21_48_31/0.05),0_6px_14px_-6px_rgb(21_48_31/0.14),0_18px_30px_-18px_rgb(21_48_31/0.18)]">
+      <div className="overflow-hidden rounded-xl bg-card shadow-[0_1px_2px_rgb(51_56_58/0.05),0_6px_14px_-6px_rgb(51_56_58/0.14),0_18px_30px_-18px_rgb(51_56_58/0.18)]">
         {FAQ.map((entry, index) => (
           /* No `name`: these are independent, exactly as the board draws them.
              The first opens on load and can be closed again. */

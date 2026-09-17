@@ -54,21 +54,28 @@ const HEADLINE_LINES = [
    string literals so Tailwind's scanner still sees a complete class.
 ----------------------------------------------------------------------------- */
 
-/* Four stops in oklab - srgb would bruise the mid-tones as forest fades out. The
-   scrim is load-bearing rather than decorative: it is what holds white copy at
-   4.5:1 over a photograph. */
+/* Four stops in oklab - srgb would bruise the mid-tones as the dark fades out.
+   The scrim is load-bearing rather than decorative: it is what holds white copy
+   at 4.5:1 over a photograph.
+
+   A NEUTRAL dark, deliberately, and not the brand petrol. This washes the whole
+   photograph, so tinting it would push the image towards the brand hue and turn
+   a photograph into a swatch. It was forest-900 when the palette was green and
+   read as a green photograph; it is #171A1B now and stays neutral through
+   palette changes. */
 const SCRIM =
-  "absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--color-forest-900)_88%,transparent)_0%,color-mix(in_oklab,var(--color-forest-900)_74%,transparent)_32%,color-mix(in_oklab,var(--color-forest-900)_34%,transparent)_66%,transparent_92%)]";
+  "absolute inset-0 bg-[linear-gradient(to_top,rgb(23_26_27/0.88)_0%,rgb(23_26_27/0.74)_32%,rgb(23_26_27/0.34)_66%,transparent_92%)]";
 
 /* A second, softer pool of ink behind the copy column alone, so the headline
    holds even where the photograph is bright. `-z-10` is load-bearing: this is
    the only positioned element among static siblings, so without it the pool
    paints on top of the very copy it exists to support. It bleeds 56px above the eyebrow
    and 48px below the CTAs - asymmetric, because there is more photograph to
-   subdue above. rgba(14,24,15) is a one-off ink darker than forest-900; it has
-   no role in the system to name, so it stays a literal. */
+   subdue above. rgba(13,15,16) is a one-off neutral ink darker than the scrim
+   above; like the scrim it is deliberately untinted, and it has no role in the
+   system to name, so it stays a literal. */
 const VIGNETTE =
-  "pointer-events-none absolute -z-10 -top-14 -bottom-12 left-1/2 w-[min(1180px,116%)] -translate-x-1/2 bg-[radial-gradient(ellipse_62%_58%_at_50%_46%,rgba(14,24,15,.74)_0%,rgba(14,24,15,.6)_58%,rgba(14,24,15,0)_100%)]";
+  "pointer-events-none absolute -z-10 -top-14 -bottom-12 left-1/2 w-[min(1180px,116%)] -translate-x-1/2 bg-[radial-gradient(ellipse_62%_58%_at_50%_46%,rgba(13,15,16,.74)_0%,rgba(13,15,16,.6)_58%,rgba(13,15,16,0)_100%)]";
 
 /**
  * The desktop hero, >=1024px.
@@ -97,11 +104,14 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
             the panel edge.
           */}
           <div className="relative mx-auto flex min-h-[88svh] w-full max-w-[1920px] flex-col items-center overflow-hidden pt-[88px] hero-short:min-h-[92svh] hero-short:pt-14">
-            {/* #20361f is the paint-flash colour behind the photograph, and it
-                is deliberately a touch lighter than forest-900 - close enough
-                that the swap is invisible, light enough that the panel does not
-                read as a black hole before the image decodes. Not a token. */}
-            <div className="absolute inset-0 z-0 overflow-hidden bg-[#20361f]">
+            {/* #171A1B is the paint-flash colour behind the photograph, and it
+                is the flat colour the photograph fades into, so it is a
+                NEUTRAL dark and not the brand petrol: tinting it would pull
+                the whole photograph towards the brand hue. Light enough that
+                the panel does not read as a black hole before the image
+                decodes. Not a token. It was #20361f when the dark panels were
+                green, which had this same problem. */}
+            <div className="absolute inset-0 z-0 overflow-hidden bg-[#171A1B]">
               <Image
                 src="/images/hero-lifestyle.webp"
                 alt=""
@@ -180,7 +190,7 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                 >
                   <NavItem
                     tone="dark"
-                    className="btn-lime inline-flex h-11 items-center justify-center rounded-xl bg-lime-500 px-10 text-[16px] font-bold whitespace-nowrap text-pf-ink-900 shadow-[0_8px_20px_-10px_rgb(21_48_31/0.4)]"
+                    className="btn-lime inline-flex h-11 items-center justify-center rounded-xl bg-lime-500 px-10 text-[16px] font-bold whitespace-nowrap text-white shadow-[0_8px_20px_-10px_rgb(51_56_58/0.4)]"
                   >
                     Book a discovery call
                   </NavItem>

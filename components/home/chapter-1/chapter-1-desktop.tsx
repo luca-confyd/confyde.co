@@ -12,7 +12,7 @@ import { TakeoffCard } from "./takeoff-card";
  * EYEBROW COLOUR. All three eyebrows take `--color-eyebrow-muted`, not
  * `--color-eyebrow`. The panel wears `.canvas-botanical`, which multiplies at
  * opacity .5 over its right 420px and drops the surface under the
- * `Premium proposals` eyebrow from #F8F7F2 to a measured #F5F3ED - where
+ * `Premium proposals` eyebrow from #FAF8F3 to a measured #F4F1E9 - where
  * `--color-eyebrow` reaches only 4.40:1, exactly the thin-headroom trap
  * RULINGS.md warns about ("anything that composites them through an opacity
  * will fail"). The muted tone was computed against a darker surface still and

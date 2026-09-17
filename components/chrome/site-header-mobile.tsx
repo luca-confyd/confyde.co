@@ -56,7 +56,7 @@ export function SiteHeaderMobile() {
               off the brand's 4/6/8/12 scale and is what the artboard draws. */}
           <NavItem
             tone="light"
-            className="btn-lime inline-flex h-10 items-center rounded-[10px] bg-lime-500 px-4 text-[14px] font-bold text-forest-900"
+            className="btn-lime inline-flex h-10 items-center rounded-[10px] bg-lime-500 px-4 text-[14px] font-bold text-white"
           >
             Get started
           </NavItem>
