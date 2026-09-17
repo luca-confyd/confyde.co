@@ -72,7 +72,7 @@ export function Integrations() {
               is 12px/800, mobile 11px/700 - so both ship as literals, exactly as
               section 04 writes the same pair. */}
           <span className="text-[11px] font-bold tracking-[0.14em] text-eyebrow-muted-mobile uppercase desk:text-[12px] desk:font-extrabold desk:text-eyebrow-muted">
-            Plays nicely
+            Nothing to move
           </span>
 
           {/*

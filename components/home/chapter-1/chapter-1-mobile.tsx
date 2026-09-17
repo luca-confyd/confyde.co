@@ -31,7 +31,7 @@ export function Chapter1Mobile() {
     <ChapterShellMobile
       dataSection="chapter-1-mobile"
       image="/images/photo-2.webp"
-      heading="Meet Confyde. Quoting, taken off your plate."
+      heading="Everyone’s telling you to use AI. Fewer people can tell you what for."
     >
       {/* `.m-h3` at 19px - see the take-off card for why the shared Fraunces
           cut is reached through `.marquee-heading-mobile`. The first sub-head

@@ -44,9 +44,9 @@ export function Chapter1Desktop() {
          leaf text nodes, actually measure them instead of reporting them absent. */
       heading={
         <>
-          <span>Meet Confyde.</span>
+          <span>Everyone’s telling you to use AI.</span>
           <br />
-          <span>Quoting, taken off your plate.</span>
+          <span>Fewer people can tell you what for.</span>
         </>
       }
     >
