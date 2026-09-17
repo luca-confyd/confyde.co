@@ -115,11 +115,18 @@ export function FooterDesktop() {
         </div>
       </div>
 
-      {/* The artboard pads this row 48px horizontally and caps the rule at
-          1440px, so the rule lines up with the columns above it rather than
-          running the full 1920px panel. */}
+      {/* The artboard pads this row 48px horizontally and caps its width at
+          1440px. That cap existed to line the RULE up with the columns above it
+          rather than let it run the full 1920px panel; the rule is gone now -
+          see below - but the cap stays, because it is also what keeps the
+          copyright's left edge on the same rail as the wordmark. */}
       <div className="relative z-20 mt-auto w-full px-12 pb-[22px]">
-        <div className="mx-auto max-w-[1440px] border-t border-[rgb(255_253_252/0.14)] pt-[18px]">
+        {/* No `border-t`. It was a 14%-white rule across the foot of the panel,
+            and against the grid surface it read as one more hairline at a
+            weight of its own, cutting the grid a short way above the panel's
+            bottom edge. `pt-[18px]` stays: it is the artboard's spacing for
+            this row and the rule was never what created it. */}
+        <div className="mx-auto max-w-[1440px] pt-[18px]">
           <span className="text-[12px] text-[rgb(255_253_252/0.5)]">{FOOTER_COPYRIGHT}</span>
         </div>
       </div>

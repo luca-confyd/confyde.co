@@ -50,7 +50,9 @@ export function FooterMobile() {
         ))}
       </div>
 
-      <div className="mt-[26px] border-t border-[rgb(255_255_255/0.16)] pt-[14px] text-[11.5px] text-[rgb(255_255_255/0.52)]">
+      {/* No `border-t`, matching desktop - see the note there. The 26px above
+          and 14px below are the artboard's spacing and stay. */}
+      <div className="mt-[26px] pt-[14px] text-[11.5px] text-[rgb(255_255_255/0.52)]">
         {FOOTER_COPYRIGHT}
       </div>
     </div>
