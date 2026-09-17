@@ -42,19 +42,26 @@ export function TestimonialCard({ testimonial, index }: { testimonial: Testimoni
       have to stay welded together (see geometry.ts).
 
       `.grain` is the artboard's `.pf-grain`, character for character, and it
-      needs the `relative` here to hang its ::after on. 8px is the brand's button
-      radius rather than its 12px card radius; that is what the desktop board
-      draws, where the mobile one draws 12px, and both ship as drawn.
+      needs the `relative` here to hang its ::after on. 12px is the brand's card
+      radius, which is what the mobile testimonial card and every other card on
+      the page draw; the desktop board draws 8px, the brand's BUTTON radius, and
+      that shipped as drawn until this card was the only 8px card left on the
+      page. A consistency fix, not the fix for the square-cornered grain overlay
+      that was reported against this card - that one is in styles/base.css on
+      `.grain::after`, and the radius here was never the cause of it.
+
+      The outer card and the blob clip below carry the same value deliberately:
+      the colour field would otherwise corner the card back to square.
 
       `last:mr-5` is the artboard's 20px on the sixth card only: it is the
       lead-out that matches the strip's 20px lead-in, so the last card can reach
       the same inset from the right that the first one has from the left.
     */
-    <article className="grain relative h-[var(--testi-card)] w-[var(--testi-card)] flex-shrink-0 snap-start overflow-hidden rounded-lg bg-card last:mr-5">
+    <article className="grain relative h-[var(--testi-card)] w-[var(--testi-card)] flex-shrink-0 snap-start overflow-hidden rounded-xl bg-card last:mr-5">
       {/* The whole field is dimmed to 55% as a group, then each circle carries
           70% of its own - so the blobs read against each other at full strength
           and against the card at a third of it. */}
-      <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-lg opacity-[0.55]">
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-xl opacity-[0.55]">
         {blobs.map((fill, i) => (
           <span
             key={fill + i}

@@ -314,7 +314,15 @@
     z-index: 1;
   }
 
-  /* Film grain over a warm surface, multiplied so it reads as textured paper. */
+  /* Film grain over a warm surface, multiplied so it reads as textured paper.
+
+     `isolation: isolate` makes the card its own blending group, so the grain
+     blends against the card and nothing else. Without it the blend group is
+     whatever ancestor happens to establish one - in practice the page - and the
+     overlay reaches past the card's own edges for its backdrop. */
+  .grain {
+    isolation: isolate;
+  }
   .grain::after {
     content: "";
     position: absolute;
@@ -322,6 +330,16 @@
     z-index: 1;
     pointer-events: none;
     opacity: 0.5;
+    /* THE CORNERS. `mix-blend-mode` puts this pseudo-element in its own
+       compositing pass, and a separately composited layer is not reliably
+       clipped by an ancestor's `overflow: hidden` + `border-radius` - so
+       without a radius of its own the grain paints as a hard 380px SQUARE over
+       a card with 12px corners. It shows worst at the top-left, where the
+       card's fill sits within 1-4 of the page surface and the grain's straight
+       edge is the only thing there is to see; the tinted corners hide it.
+       `inherit` rather than a literal, so it tracks the card's radius - which
+       is what `.canvas-botanical::after` above already does. */
+    border-radius: inherit;
     mix-blend-mode: overlay;
     background-size: 160px 160px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
