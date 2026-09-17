@@ -1,4 +1,6 @@
 import { ArrowRight } from "lucide-react";
+
+import { HeroCategoriesMobile } from "./hero-categories";
 import Image from "next/image";
 
 import { NavFlipSentinel } from "@/components/chrome/nav-flip-sentinel";
@@ -115,6 +117,8 @@ export function HeroMobile() {
             Book a discovery call
             <ArrowRight size={18} strokeWidth={2.4} aria-hidden="true" focusable="false" />
           </NavItem>
+
+          <HeroCategoriesMobile />
         </div>
 
         {/* The mobile nav's flip observes this. It goes on the dark stage, not

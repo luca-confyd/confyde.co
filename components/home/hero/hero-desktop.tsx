@@ -7,7 +7,7 @@ import { NavFlipSentinel } from "@/components/chrome/nav-flip-sentinel";
 import { NavItem } from "@/components/chrome/nav-item";
 import { Reveal } from "@/components/primitives/reveal";
 
-import { StatStrip } from "./stat-strip";
+import { HeroCategories } from "./hero-categories";
 
 /* -----------------------------------------------------------------------------
    The headline, word by word.
@@ -126,7 +126,7 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
               {/* The copy column is 1000px and the stat strip below it is
                   1120px. The difference is intentional: the sentence wants a
                   readable measure, the figures want the full width. */}
-              <div className="relative flex w-full max-w-[1000px] flex-col items-center text-center">
+              <div className="relative flex w-full max-w-[1000px] flex-1 flex-col items-center justify-center text-center">
                 <div aria-hidden="true" className={VIGNETTE} />
 
                 <h1 className="display display-1 text-balance text-pf-ink-100 [text-shadow:0_2px_18px_rgb(0_0_0/0.45)] hero-short:text-[4.25rem]">
@@ -184,9 +184,14 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                 </Reveal>
               </div>
 
-              {/* `mt-auto` drops the stat strip to the foot of the panel. */}
-              <div className="relative mt-auto w-full max-w-[1120px] pb-[18px]">
-                <StatStrip />
+              {/* The copy above takes `flex-1`, so this sits at the foot on its
+                  own and the free space goes to centring the copy rather than
+                  collecting under the button. */}
+              {/* The copy above takes `flex-1`, so this sits at the foot on its
+                  own and the free space goes to centring the copy rather than
+                  collecting under the button. */}
+              <div className="relative w-full max-w-[1120px] pb-[18px]">
+                <HeroCategories />
               </div>
             </div>
 
