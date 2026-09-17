@@ -121,7 +121,22 @@ export function Chapter1Desktop() {
         </div>
       </div>
 
-      <div className="h-px bg-pf-ink-200" />
+      {/* The take-off/split separator, now UNPAINTED. The track stays so the
+          vertical rhythm below it does not move by a pixel; only the colour is
+          gone.
+
+          It was `bg-pf-ink-200`, which sits 14 levels below the panel surface
+          where the grid's own hairline sits 10 - so with the grid behind it the
+          panel carried two weights of rule and this was the heavier one. Worse,
+          its position comes from the height of the content above it rather than
+          from any fixed measure, so unlike the column divider it cannot be
+          phased onto the grid: it will always land wherever the take-off block
+          happens to end, cutting whichever row it lands in.
+
+          The grid does this job now. Restore the class if the grid ever comes
+          off this panel - the separator is in the artboard and it is only
+          redundant while there is ruling behind it. */}
+      <div className="h-px" />
 
       <div className="grid gap-12 [grid-template-columns:1fr_1px_1fr]">
         {/* Panel B - the price library. */}
@@ -172,9 +187,17 @@ export function Chapter1Desktop() {
           <PriceLibraryCard />
         </div>
 
-        {/* The rule. A bare 1px grid track, so it takes the height of the
-            taller cell without anything measuring it. */}
-        <div className="bg-pf-ink-200" />
+        {/* The column rule, also unpainted, and for the same reason as the
+            separator above: it was the heavier of the panel's two hairline
+            weights. This one DOES sit on the grid - the split is centred and
+            the grid is phased to put a line on the centre axis - so the grid
+            draws it, at the grid's own weight, and painting it again here only
+            made one column line darker than every other.
+
+            The track itself stays: it is what gives the split its 97px visual
+            gutter and what lets the rule take the height of the taller cell
+            without anything measuring it. */}
+        <div />
 
         {/* Panel C - the proposal. */}
         <div className="flex min-w-0 flex-col gap-6 pt-12">
