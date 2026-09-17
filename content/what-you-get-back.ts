@@ -1,26 +1,18 @@
 /**
  * "What you get back" - the three-card band that closes the middle of the page.
  *
- * ONE ARRAY, TWO EYEBROWS. The two artboards draw the same three cards with the
- * same figures, leads and bodies; only two strings differ, and both are the
- * client's own edit rather than a reflow:
+ * ONE SET OF STRINGS. The shape used to carry a desktop and a mobile variant for
+ * two of the fields, because the two artboards drew different words there. The
+ * replacement copy is the same on both, so those pairs are gone rather than left
+ * holding identical values and inviting a future drift.
  *
- *   card 1 eyebrow   desktop "AI SOFTWARE"      mobile "Quoting"
- *   card 3 figure    desktop "Prompt payments"  mobile "Prompt invoices"
- *
- * [LOG] Both are preserved per breakpoint rather than unified (RULINGS.md §02
- * rulings 12-14: two different moments, not ours to reconcile). The first pair
- * is the odder one - "AI SOFTWARE" is also the only eyebrow on the page typed
- * in capitals in the source rather than uppercased in CSS, and it names a
- * product category where its two neighbours name a job the reader does. Worth
- * asking the client about.
+ * COPY IS THE CLIENT'S (RULINGS.md principle 3). The arrows are U+2192, which
+ * docs/brand.md sanctions as type rather than iconography.
  */
 
 export type GetBackCard = {
-  eyebrowDesktop: string;
-  eyebrowMobile: string;
-  figureDesktop: string;
-  figureMobile: string;
+  eyebrow: string;
+  figure: string;
   lead: string;
   body: string;
 };
@@ -28,42 +20,37 @@ export type GetBackCard = {
 export const GET_BACK = {
   eyebrow: "What you get back",
   /*
-    The desktop artboard breaks this by hand after "first." and balances what is
-    left; mobile sets it as one run. Carried as two strings so the break stays a
-    composition decision in the component that draws it, not a `<br>` buried in
-    a content module.
+    Two strings, not one with a `<br>`: the desktop artboard breaks this by hand
+    and mobile sets it as one run, so where the break falls stays a composition
+    decision in the component that draws it.
   */
-  headingFirst: "The hours come back first.",
-  headingSecond: "The wins, jobs, and profit follow.",
+  headingFirst: "Clarity in the first few weeks.",
+  headingSecond: "Hours and savings from there on.",
 } as const;
 
 export const GET_BACK_CARDS: readonly GetBackCard[] = [
   {
-    eyebrowDesktop: "AI SOFTWARE",
-    eyebrowMobile: "Quoting",
-    figureDesktop: "4 hrs → 30 mins",
-    figureMobile: "4 hrs → 30 mins",
-    lead: "To build a client-ready estimate",
+    eyebrow: "Technical direction",
+    figure: "Weeks → days",
+    lead: "To know what’s actually worth building",
     body:
-      "Take-off, pricing and scope arrive pre-filled. And because Confyde learns how you quote, " +
-      "it gets faster and sharper every job you send.",
+      "You get a straight view of where AI fits, what to build, what to buy, and what to stop " +
+      "paying for, instead of months of circling the same decision.",
   },
   {
-    eyebrowDesktop: "Client communication",
-    eyebrowMobile: "Client communication",
-    figureDesktop: "1 in 3",
-    figureMobile: "1 in 3",
-    lead: "More jobs won after you send",
-    body: "Confyde tells you who opened it, what they read and when to call. Fewer quotes go quiet.",
+    eyebrow: "AI agents",
+    figure: "Hours → minutes",
+    lead: "On the work your team repeats every week",
+    body:
+      "Quotes, reports, data entry, chasing information. The jobs that fill a week start running " +
+      "without anyone watching them.",
   },
   {
-    eyebrowDesktop: "Managing jobs",
-    eyebrowMobile: "Managing jobs",
-    figureDesktop: "Prompt payments",
-    figureMobile: "Prompt invoices",
-    lead: "Every variation and invoice, billed on time",
+    eyebrow: "Your data",
+    figure: "Five places → one",
+    lead: "To get an answer out of your own business",
     body:
-      "Extra work gets priced and approved as it happens, and the invoice goes out the day the " +
-      "job is done.",
+      "Your systems connected so your team can find what they need without going through whoever " +
+      "happens to know where it lives.",
   },
 ];

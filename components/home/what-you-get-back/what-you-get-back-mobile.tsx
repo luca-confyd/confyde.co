@@ -53,14 +53,14 @@ export function WhatYouGetBackMobile() {
             className="flex flex-col gap-2 rounded-[14px] bg-card px-[18px] py-[22px] shadow-[0_0_0_1px_var(--color-hairline),0_6px_14px_-10px_rgb(21_48_31/0.2)]"
           >
             <span className="text-[10.5px] font-extrabold tracking-[0.12em] text-eyebrow-mobile uppercase">
-              {card.eyebrowMobile}
+              {card.eyebrow}
             </span>
 
             {/* The mobile artboard's own Fraunces cut (opsz 32), tightened to
                 1.05 for the figure. Desktop voices the same figure at a plain
                 weight 600 - both as drawn. */}
             <span className="display display-2-mobile text-[28px] leading-[1.05] text-ink">
-              {card.figureMobile}
+              {card.figure}
             </span>
 
             <span className="text-[14.5px] leading-[1.35] font-bold text-ink">{card.lead}</span>

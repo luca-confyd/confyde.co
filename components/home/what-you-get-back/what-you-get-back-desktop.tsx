@@ -81,7 +81,7 @@ export function WhatYouGetBackDesktop() {
               {/* `--color-eyebrow`, the corrected tone: lime-700 on this
                   near-white card measures ~2.3:1 where AA needs 4.5:1. */}
               <span className="text-[11.5px] font-extrabold tracking-[0.12em] text-eyebrow uppercase">
-                {card.eyebrowDesktop}
+                {card.eyebrow}
               </span>
 
               {/*
@@ -91,7 +91,7 @@ export function WhatYouGetBackDesktop() {
                 render these figures visibly lighter than drawn.
               */}
               <span className="font-display text-[34px] leading-[1.05] font-semibold text-pf-ink-900">
-                {card.figureDesktop}
+                {card.figure}
               </span>
 
               <span className="text-[15.5px] leading-[1.35] font-bold text-pf-ink-900">
