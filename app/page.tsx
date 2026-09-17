@@ -9,7 +9,6 @@ import { Hero } from "@/components/home/hero/hero";
 import { Integrations } from "@/components/home/integrations/integrations";
 import { LogoMarqueeDesktop } from "@/components/home/logo-marquee/logo-marquee-desktop";
 import { LogoMarqueeMobile } from "@/components/home/logo-marquee/logo-marquee-mobile";
-import { PullQuotes } from "@/components/home/proof/pull-quotes";
 import { RepeatWork } from "@/components/home/repeat-work/repeat-work";
 import { Testimonials } from "@/components/home/testimonials/testimonials";
 import { WhatYouGetBack } from "@/components/home/what-you-get-back/what-you-get-back";
@@ -42,7 +41,6 @@ export default function HomePage() {
         <Chapter2 />
         <Integrations />
         <Chapter3 />
-        <PullQuotes />
         <RepeatWork />
         <WhatYouGetBack />
         <Testimonials />
