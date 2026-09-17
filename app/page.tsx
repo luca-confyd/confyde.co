@@ -1,5 +1,4 @@
 import { Chapter1 } from "@/components/home/chapter-1/chapter-1";
-import { Chapter3 } from "@/components/home/chapter-3/chapter-3";
 import { CustomerStories } from "@/components/home/customer-stories/customer-stories";
 import { Faq } from "@/components/home/faq/faq";
 import { Hero } from "@/components/home/hero/hero";
@@ -35,7 +34,6 @@ export default function HomePage() {
         <CustomerStories />
         <Chapter1 />
         <Integrations />
-        <Chapter3 />
         <RepeatWork />
         <WhatYouGetBack />
         <Testimonials />

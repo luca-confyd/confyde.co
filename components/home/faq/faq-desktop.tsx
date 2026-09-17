@@ -65,7 +65,7 @@ export function FaqDesktop() {
       data-section="faq-desktop"
       className="mx-auto hidden w-full max-w-[1280px] flex-col py-24 desk:flex"
     >
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-[1fr_1.5fr] items-start gap-12 px-12">
+      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-[1fr_1.5fr] items-start gap-12 px-6">
         <Reveal anim="up-blur" duration={0.5} className="flex flex-col gap-4">
           {/*
             One `<h2>`, level-matched to the other band headings so the page

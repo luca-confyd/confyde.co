@@ -44,7 +44,7 @@ export function TestimonialsDesktop() {
       className="mx-auto hidden w-full max-w-full flex-col overflow-x-hidden pt-16 pb-2 desk:flex"
     >
       <div className="mx-auto flex w-full max-w-[1280px] flex-col">
-        <Reveal anim="up-blur" duration={0.5} className="mb-12 px-5">
+        <Reveal anim="up-blur" duration={0.5} className="mb-12 px-6">
           {/* `<h2>`, at the same level as every other band's, so the page
               outline stays h1 -> h2 with no skip. `.display-2` at >=1024 is
               `.pf-h2`'s 3rem/1.2/-0.008em exactly. */}

@@ -38,7 +38,7 @@ export function CustomerStories() {
       data-section="customer-stories"
       className="mx-auto flex w-full max-w-[592px] flex-col px-4 py-[34px] sm-only:max-w-[624px] sm-only:px-8 desk:max-w-[1440px] desk:px-0 desk:pt-16 desk:pb-24"
     >
-      <div className="mx-auto flex w-full flex-col desk:max-w-[1280px] desk:px-12">
+      <div className="mx-auto flex w-full flex-col desk:max-w-[1280px] desk:px-6">
         {/*
           One `<h2>`, at the same level as the marquee's and the social-proof
           band's, so the page outline stays h1 -> h2 -> h2 with no skip.

@@ -114,7 +114,7 @@ export function ChapterShell({
         </h2>
       </div>
 
-      <div className="relative -mt-[300px] overflow-hidden rounded-b-xl px-8 pt-[240px] pb-12">
+      <div className="relative -mt-[300px] overflow-hidden rounded-b-xl px-6 pt-[240px] pb-12">
         {/*
           A blurred, vertically flipped mirror of the same photograph filling the
           gutter around the panel card, so the bottom of the banner reads as a
