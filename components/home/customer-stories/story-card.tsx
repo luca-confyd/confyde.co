@@ -59,11 +59,17 @@ export function StoryCard({ story, delay }: { story: CustomerStory; delay: numbe
       {/*
         `overflow-hidden` is load-bearing here: it is what clips the photograph
         and its veil to the tile's 8px radius - one notch down from the card's
-        12px, as the brand's nesting rule wants. The forest fill underneath is
-        the placeholder tone while the image loads, and it is what the veil's
-        own colour is mixed from, so the tile never flashes a foreign hue.
+        12px, as the brand's nesting rule wants. The fill underneath is the
+        placeholder tone while the image loads, and it is the same colour the
+        veil is mixed from, so the tile never flashes a foreign hue.
+
+        NEUTRAL, not the brand petrol - the same call the hero, the footer and
+        the chapter banners make. This washes a photograph, and a wash in the
+        brand colour pulls the image towards that hue until it reads as a
+        swatch rather than a photograph. It was forest-900 when the palette was
+        green and the story photos read green because of it.
       */}
-      <span className="relative flex h-[200px] items-center justify-center overflow-hidden rounded-lg bg-forest-900">
+      <span className="relative flex h-[200px] items-center justify-center overflow-hidden rounded-lg bg-[#171A1B]">
         <Image
           src={story.photo}
           /* Decorative: the studio is named over the photograph and again in
@@ -79,14 +85,14 @@ export function StoryCard({ story, delay }: { story: CustomerStory; delay: numbe
 
         {/* The veil that buys the white name its contrast. `to-t` with the
             heavier stop at the bottom is the artboard's own direction, and the
-            two stops are forest-900 at 86% and 34%. `/srgb` because Tailwind v4
-            interpolates gradients in oklab by default and the artboard's stops
-            are plain `rgba()` - here the two stops share a colour so only the
-            alpha ramps and the pixels match either way, but the declaration
-            should say which space it means. */}
+            two stops are the neutral dark above at 86% and 34%. `/srgb`
+            because Tailwind v4 interpolates gradients in oklab by default and
+            the artboard's stops are plain `rgba()` - here the two stops share a
+            colour so only the alpha ramps and the pixels match either way, but
+            the declaration should say which space it means. */}
         <span
           aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-t/srgb from-forest-900/86 to-forest-900/34"
+          className="absolute inset-0 bg-linear-to-t/srgb from-[#171A1B]/86 to-[#171A1B]/34"
         />
 
         {/*

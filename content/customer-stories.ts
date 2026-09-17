@@ -1,23 +1,25 @@
 /**
- * The three customer stories in section 06.
+ * The three client stories under "Where we've worked".
  *
- * Copy is the client's, carried verbatim: the multiplication sign in "10×’d",
- * the ampersand in "Occo Landscapers & Builders", and the em dashes in two of
- * the three blurbs - docs/brand.md bans those, but RULINGS.md principle 3 says
- * we flag copy rather than edit it, so they are logged for the client rather
- * than removed.
- *
- * The one change is typographic, not editorial: the artboard's two straight
- * apostrophes are normalised to curly, per RULINGS.md §02 ruling 10, which is
- * already the page's convention.
+ * Copy is the client's, carried verbatim.
  *
  * `studio` is the name set over the photograph; `title` and `blurb` sit below
- * it. The two are not redundant - the studio name is the tile's own label and
- * the title is the article's headline - but the studio name IS repeated inside
- * the title, which is why the photograph's alt text is empty.
+ * it. Unlike the set this replaced, the client name is NOT repeated inside the
+ * title - the titles are claims ("Building the team behind the exit") rather
+ * than "How <name> did <thing>". That is a real change to how the tile reads:
+ * the name is the label and the title is the promise, so the two now carry
+ * different information rather than the same information twice. The
+ * photograph's alt text stays empty either way, because the name is set over
+ * it in text.
  *
- * Photo order is 1, 2, 4 in the artboard: photo-3 belongs to the social-proof
- * band and is deliberately not reused here.
+ * PHOTOGRAPHS ARE PLACEHOLDERS. photo-1, photo-2 and photo-4 are the landscape
+ * and construction stock the previous stories used, and none of them has
+ * anything to do with a social scheduling tool, a link-in-bio platform or a
+ * tennis club. They are wrong for this copy and are only here because the tile
+ * needs an image to lay out. Replace before this goes anywhere public.
+ *
+ * Photo order is 1, 2, 4: photo-3 belongs to the social-proof band and is
+ * deliberately not reused here.
  *
  * `href` is absent on all three. No story pages exist, and the client scoped
  * this build to the homepage (RULINGS.md §01), so every card ships inert.
@@ -34,22 +36,27 @@ export type CustomerStory = {
 export const CUSTOMER_STORIES: readonly CustomerStory[] = [
   {
     photo: "/images/photo-1.webp",
-    studio: "Occo Landscapers & Builders",
-    title: "How Occo Landscapers & Builders 10×’d its quoting with Confyde",
+    studio: "Plann",
+    title: "Building the team behind the exit",
     blurb:
-      "From weekend admin to same-day quotes — how a two-person crew started winning bigger jobs.",
+      "Engineering leadership, growth strategy, and the hiring that took Plann through to a " +
+      "successful exit.",
   },
   {
     photo: "/images/photo-2.webp",
-    studio: "Coastal Gardens",
-    title: "How Coastal Gardens cut quoting from 3 hours to 15 minutes",
-    blurb: "Same-day quotes, better follow-up, and a win rate that climbed right along with it.",
+    studio: "Linktree",
+    title: "Agents and security at 70m creators",
+    blurb:
+      "Automated workflows and hardened systems, built to serve a platform of 70 million-plus " +
+      "creators.",
   },
   {
     photo: "/images/photo-4.webp",
-    studio: "BuildRight",
-    title: "How BuildRight stopped underquoting for good",
-    blurb: "Confyde’s pricing caught the margin leaks — and clients trust the clearer quotes.",
+    studio: "Kensington Tennis Club",
+    title: "A club that runs itself",
+    blurb:
+      "App development and AI built into the day-to-day, driving new revenue and faster service " +
+      "for members.",
   },
 ];
 
