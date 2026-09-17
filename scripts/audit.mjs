@@ -116,4 +116,7 @@ try {
   site.stop();
 }
 
+if (failures) {
+  console.log(`\n${failures} issue(s). This is a gate - do not commit past it.`);
+}
 process.exit(failures ? 1 : 0);

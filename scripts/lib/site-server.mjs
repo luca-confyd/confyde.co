@@ -45,6 +45,12 @@ const SOURCE_DIRS = ["app", "components", "content", "lib", "styles"];
 function newestSourceMtime() {
   let newest = 0;
   const walk = (dir) => {
+    // The directory's own mtime counts, not just its files'. A deletion leaves
+    // every remaining file older than the build while changing the directory -
+    // so a files-only walk reports a stale build as fresh, and the server then
+    // serves 500s for modules that no longer exist. That is exactly how a run
+    // once reported a passing audit against a page that was not building.
+    newest = Math.max(newest, statSync(dir).mtimeMs);
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const path = join(dir, entry.name);
       if (entry.isDirectory()) walk(path);

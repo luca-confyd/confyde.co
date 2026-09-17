@@ -23,7 +23,7 @@ export function TestimonialsMobile() {
           fall away above 1024, which this subtree never reaches. 20px of side
           margin, as drawn - the strip itself keeps its own 16px. */}
       <h2 className="display display-2-mobile mx-5 mb-4 text-center text-[26px] text-ink">
-        The best landscape businesses run on Confyde.
+        What it’s like to work with Confyde.
       </h2>
 
       <TestimonialScroller

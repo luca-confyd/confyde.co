@@ -2,15 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-type BarPhase = "hidden" | "trailer" | "cta";
-
-/**
- * Pixels of document still below the fold at which the closing CTA bar takes
- * over from the trailer. An absolute constant in the artboard, not a fraction:
- * roughly the height of the final CTA stage plus the footer, so the bar arrives
- * as the closing section does.
- */
-const CTA_REMAINING = 1700;
+type BarPhase = "hidden" | "trailer";
 
 /**
  * Drives the desktop floating bars.
@@ -41,13 +33,11 @@ export function useFloatingBars(): { phase: BarPhase; dismiss: () => void } {
       frame = 0;
       const y = window.scrollY;
       const vh = window.innerHeight;
-      const remaining = document.documentElement.scrollHeight - y - vh;
-
       // Note this is `< vh`, where the nav's old threshold was `< vh - 80`: the
       // bar is meant to arrive 80px after the nav flips, and the two comparisons
       // stay separate.
       if (y < vh) setPhase("hidden");
-      else setPhase(remaining < CTA_REMAINING ? "cta" : "trailer");
+      else setPhase("trailer");
     };
 
     const schedule = () => {

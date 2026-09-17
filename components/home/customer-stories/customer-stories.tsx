@@ -7,7 +7,7 @@ import { StoryCard } from "./story-card";
  * Section 06, customer stories.
  *
  * [ADDITION, NOT A PORT] The mobile artboard has no customer-stories section at
- * all - its nearest neighbour is the "The best landscape businesses run on
+ * all - its nearest neighbour is the "What it’s like to work with
  * Confyde." testimonial carousel, which is different content (pull quotes from
  * named owners, no photographs, no article titles) and belongs to another
  * section. Hiding this band below 1024 would drop three real customer stories

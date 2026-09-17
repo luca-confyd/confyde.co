@@ -1,4 +1,4 @@
-import { FOOTER_BLURB_DESKTOP, FOOTER_COLUMNS_DESKTOP, FOOTER_COPYRIGHT } from "@/content/footer";
+import { FOOTER_BLURB, FOOTER_COLUMNS_DESKTOP, FOOTER_COPYRIGHT } from "@/content/footer";
 import { NavItem } from "../nav-item";
 import { Wordmark } from "../wordmark";
 import { InstagramMark, LinkedInMark, XMark, YouTubeMark } from "./social-marks";
@@ -55,7 +55,7 @@ export function FooterDesktop() {
                 -0.02em - so only the colour is set here. */}
             <Wordmark className="text-white" />
 
-            <p className="m-0 text-[14px] leading-[1.6] text-[rgb(255_253_252/0.72)]">{FOOTER_BLURB_DESKTOP}</p>
+            <p className="m-0 text-[14px] leading-[1.6] text-[rgb(255_253_252/0.72)]">{FOOTER_BLURB}</p>
 
             {/* A list, because it is one. The artboard's extra 4px sits on this
                 row alone rather than in the column's gap. */}

@@ -5,7 +5,7 @@
  * columns (Product / Company / Support) and mobile carries two (Product /
  * Company) whose link sets overlap only partly - mobile's Product column is the
  * feature names, desktop's is the site's own pages, and mobile folds Support's
- * "Help centre" and "Contact" into Company. The blurb differs too ("Landscape
+ * "Help centre" and "Contact" into Company. The blurb used to differ too ("Landscape
  * businesses" against "landscapers").
  *
  * Both are transcribed verbatim. We do not edit the client's copy, and merging
@@ -23,11 +23,12 @@ export type FooterColumn = {
   readonly links: readonly FooterLink[];
 };
 
-export const FOOTER_BLURB_DESKTOP =
-  "The AI teammate for Landscape businesses. It scopes the work, wins you more jobs, and gets smarter about how you run things the more you use it.";
-
-export const FOOTER_BLURB_MOBILE =
-  "The AI teammate for landscapers. It scopes the work, wins you more jobs, and gets smarter about how you run things the more you use it.";
+/* One blurb for both breakpoints. The artboards wrote two - "Landscape
+   businesses" on desktop, "landscapers" on mobile - and that difference was
+   preserved while it existed; the replacement copy is the same on both, so two
+   constants holding one string would only invite them to drift apart again. */
+export const FOOTER_BLURB =
+  "Technical expertise for growing businesses. We work out where AI fits, build the systems behind it, and stay accountable for how they run.";
 
 export const FOOTER_COLUMNS_DESKTOP: readonly FooterColumn[] = [
   { heading: "Product", links: [{ label: "Features" }, { label: "Pricing" }, { label: "Security" }, { label: "Changelog" }] },

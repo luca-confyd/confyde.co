@@ -1,4 +1,4 @@
-import { FOOTER_BLURB_MOBILE, FOOTER_COLUMNS_MOBILE, FOOTER_COPYRIGHT } from "@/content/footer";
+import { FOOTER_BLURB, FOOTER_COLUMNS_MOBILE, FOOTER_COPYRIGHT } from "@/content/footer";
 import { NavItem } from "../nav-item";
 import { Wordmark } from "../wordmark";
 
@@ -25,7 +25,7 @@ export function FooterMobile() {
           the bar's, sets no letter-spacing at all. */}
       <Wordmark className="text-[19px] tracking-normal text-white" />
 
-      <p className="mt-2.5 mb-0 text-[13.5px] leading-[1.6] text-[rgb(255_255_255/0.76)]">{FOOTER_BLURB_MOBILE}</p>
+      <p className="mt-2.5 mb-0 text-[13.5px] leading-[1.6] text-[rgb(255_255_255/0.76)]">{FOOTER_BLURB}</p>
 
       <div className="mt-[22px] grid grid-cols-2 gap-5">
         {FOOTER_COLUMNS_MOBILE.map((column) => (
