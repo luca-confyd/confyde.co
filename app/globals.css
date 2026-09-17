@@ -154,9 +154,25 @@
   /* The marketing layer's own oklch ramp, carried verbatim. The .shadow-border-*
      stacks color-mix() against these, so approximating them would visibly shift
      every card edge on the page. */
-  --color-pf-ink-100: #f0ede7;
-  --color-pf-ink-200: #e4e1da;
-  --color-pf-ink-300: #bdb9b2;
+  /*
+     THE THREE BORDER STEPS, RESTORED TO THE ORIGINAL RAMP.
+
+     These are the hairline tones the `.shadow-border-*` recipes stack their
+     color-mix() against, and the palette pass replaced them with values picked
+     off the new warm-grey ramp: #F0EDE7, #E4E1DA and #BDB9B2. That last one is
+     the hairline in `shadow-border-strong`, and it went from #D8D6CE to
+     #BDB9B2 - contrast against the card surface rose from 1.26 to 1.69, which
+     is what turned a soft edge into a hard grey line. It showed up most around
+     the hero card that frames the marquee band.
+
+     The block's own note called this in advance: approximating this ramp
+     "would visibly shift every card edge on the page". It did. They are back
+     verbatim. They were already warm - hue 98 is the same family as the cream -
+     so nothing about the petrol palette needed them changed.
+  */
+  --color-pf-ink-100: oklch(95.8% 0.007 98);
+  --color-pf-ink-200: #edeae4;
+  --color-pf-ink-300: oklch(87.6% 0.011 98);
   --color-pf-ink-400: #82878a;
   --color-pf-ink-500: #666b6d;
   --color-pf-ink-600: #565b5d;

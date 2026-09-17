@@ -1,4 +1,4 @@
-import { MARQUEE_LABEL, MARQUEE_TERMS_DESKTOP } from "./terms";
+import { MARQUEE_LABEL, MARQUEE_TERMS } from "./terms";
 
 /* The edge fade, 10% in from each side. Both the prefixed and unprefixed
    properties, as the artboard declares them - older iOS Safari only knows the
@@ -18,7 +18,7 @@ const FOCUS_RING =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700";
 
 /**
- * The desktop trades marquee, >=1024px.
+ * The desktop capability marquee, >=1024px.
  *
  * [DEVIATION - docs/specs/03-logo-marquee.md §1.] In the artboard this section
  * is the second and last child of the hero's `shadow-border-strong` card, so
@@ -99,7 +99,7 @@ function MarqueeCopy({ "aria-hidden": ariaHidden }: { "aria-hidden"?: true }) {
       aria-hidden={ariaHidden}
       className="flex shrink-0 items-center gap-20 pr-20"
     >
-      {MARQUEE_TERMS_DESKTOP.map((term) => (
+      {MARQUEE_TERMS.map((term) => (
         <span key={term} className="marquee-term text-marquee-term">
           {term}
         </span>

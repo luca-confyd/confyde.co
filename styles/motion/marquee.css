@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   The trades marquee, both breakpoints.
+   The capability marquee, both breakpoints.
 
    Two compositions share one animation: a track made of two byte-identical
    copies of the term list, translated by exactly half its own width forever.

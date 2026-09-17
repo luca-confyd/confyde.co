@@ -1,4 +1,4 @@
-import { MARQUEE_LABEL, MARQUEE_TERMS_MOBILE } from "./terms";
+import { MARQUEE_LABEL, MARQUEE_TERMS } from "./terms";
 
 /* 8%/92%, not desktop's 10%/90% - on a 430px column that is a ~34px fade per
    edge against desktop's up to 144px. The mobile artboard declares only the
@@ -13,11 +13,12 @@ const FOCUS_RING =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700";
 
 /**
- * The mobile trades marquee, <1024px.
+ * The mobile capability marquee, <1024px.
  *
  * A different composition from the desktop strip rather than a reflow of it:
- * different heading copy, seven terms instead of thirteen, 19px instead of
- * 30px, a 28px rhythm instead of 80px, 26s instead of 60s and a softer mask.
+ * different heading copy, 19px instead of 30px, a 28px rhythm instead of 80px,
+ * 26s instead of 60s and a softer mask. The term LIST is no longer one of the
+ * differences - both breakpoints run the same fourteen now.
  * The two swap wholesale at 1024px with nothing in between.
  *
  * Size, gap and duration are all pinned across 320-1023px on purpose: the
@@ -78,7 +79,7 @@ function MarqueeCopy({ "aria-hidden": ariaHidden }: { "aria-hidden"?: true }) {
     /* gap-7 / pr-7 = the artboard's 28px, as the trailing-padding form that
        closes the loop. See styles/motion/marquee.css. */
     <span aria-hidden={ariaHidden} className="flex shrink-0 items-center gap-7 pr-7">
-      {MARQUEE_TERMS_MOBILE.map((term) => (
+      {MARQUEE_TERMS.map((term) => (
         <span key={term} className="marquee-term-mobile text-marquee-term-mobile">
           {term}
         </span>

@@ -5,7 +5,7 @@ import { LogoMarqueeMobile } from "./logo-marquee-mobile";
  * Section 03.
  *
  * Named for the source comment rather than its contents: the artboards call it
- * the logo marquee, and it carries no logos - thirteen trade categories set as
+ * the logo marquee, and it carries no logos - fourteen capabilities set as
  * type. The name is kept so the component, the spec and the comment agree.
  *
  * Two compositions, mutually exclusive at 1024px, shipped as siblings like the
