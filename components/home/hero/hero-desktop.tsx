@@ -158,21 +158,10 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                   duration={0.5}
                   className="mt-9 max-w-[720px] text-[16px] leading-[1.55] font-medium text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.5)] hero-short:mt-[26px]"
                 >
-                  {
-                    /* Client copy, carried verbatim: the bare hyphen before "the
-                       lot", the exclamation mark the brand doc would normally
-                       refuse, and the sentence order are all theirs. The only
-                       change is the apostrophe in "it’s", normalised from
-                       straight to curly to match the rest of the hero - a
-                       typographic fix, not a copy edit (RULINGS.md §02 ruling
-                       10). */
-                    "Tell Confyde about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it’s sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients."
-                  }
-                  <br />
-                  {/* <b>, not <strong>: this is the line the eye should land on,
-                      not a phrase with more meaning than its neighbours. The
-                      non-breaking space keeps "your complete" together. */}
-                  <b>{"Runs your complete end-to-end sales system."}</b>
+                  Confyde is a technical consultancy for businesses that need expertise in AI,
+                  software engineering, and strategy. We help plan where AI fits, build agents and
+                  automations that take on real work, fix the software behind them, and connect
+                  your data so your people and customers get better answers.
                 </Reveal>
 
                 {/* 60px, not the artboard's declared 44px. Its paragraph above

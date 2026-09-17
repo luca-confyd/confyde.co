@@ -101,9 +101,10 @@ export function HeroMobile() {
           {/* Not the desktop paragraph re-cut - a different, shorter piece of
               copy. It is the same string as the site's metadata.description. */}
           <p className="mt-4 text-[15.5px] leading-[1.55] text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.5)]">
-            Confyde learns your prices, drafts your estimates, and sends a branded proposal in
-            minutes. Then it tells you who to chase, so more of the jobs you quote turn into money
-            in the bank.
+            Confyde is a technical consultancy for businesses that need expertise in AI, software
+            engineering, and strategy. We help plan where AI fits, build agents and automations that
+            take on real work, fix the software behind them, and connect your data so your people
+            and customers get better answers.
           </p>
 
           {/* One action, full width - the primary thing to do on a phone. */}
@@ -114,12 +115,6 @@ export function HeroMobile() {
             Book a discovery call
             <ArrowRight size={18} strokeWidth={2.4} aria-hidden="true" focusable="false" />
           </NavItem>
-
-          {/* Desktop carries this claim inside its sub-paragraph; mobile draws it
-              as its own line, and drops "complete". Client copy, preserved. */}
-          <span className="mt-3.5 text-center text-[14px] font-bold text-white">
-            Runs your end-to-end sales system.
-          </span>
         </div>
 
         {/* The mobile nav's flip observes this. It goes on the dark stage, not
