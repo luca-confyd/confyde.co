@@ -38,21 +38,6 @@ export const SECTIONS = {
     siteWeb: "[data-section='marquee-desktop']",
     siteMobile: "[data-section='marquee-mobile']",
   },
-  "before-after": {
-    title: "Before / after",
-    site: null,
-    // The only web section whose panel is a forest-900 div wrapping a centred
-    // header block and a two-column grid; `.pf-oneline` pins it to this one
-    // headline, which no other band carries.
-    web: "#dc-root section:has(h2.pf-oneline)",
-    // The mobile board's only section containing a phone frame - the 34px
-    // radius plus the #10160F body is unique to these two devices.
-    mobile: "#dc-root section:has(div[style*='#10160F'])",
-    // Two compositions shipped as siblings; the harness picks whichever one is
-    // laid out at the width being shot.
-    siteWeb: "[data-section='before-after-desktop']",
-    siteMobile: "[data-section='before-after-mobile']",
-  },
   "chapter-1": {
     title: "Chapter 1 - meet Confyde",
     site: null,
@@ -63,18 +48,6 @@ export const SECTIONS = {
     mobile: "#dc-root section:has(img[src*='takeoff-plan'])",
     siteWeb: "[data-section='chapter-1-desktop']",
     siteMobile: "[data-section='chapter-1-mobile']",
-  },
-  "chapter-2": {
-    title: "Chapter 2 - sales assistant",
-    site: null,
-    // #pf-radar is the two-card row's own id and the web artboard's only
-    // occurrence, so it pins this section and nothing else.
-    web: "#dc-root section:has(#pf-radar)",
-    // The mini replay's document track is the mobile artboard's only
-    // .m-doc-track; the eyebrow/heading pairs alone match four sections.
-    mobile: "#dc-root section:has(.m-doc-track)",
-    siteWeb: "[data-section='chapter-2-desktop']",
-    siteMobile: "[data-section='chapter-2-mobile']",
   },
   integrations: {
     title: "Integrations",

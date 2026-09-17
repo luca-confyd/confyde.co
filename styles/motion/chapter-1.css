@@ -3,7 +3,7 @@
 
    The take-off demo runs a 15s loop, the price-library ingest a 12s one (see
    the note on the 13.5s period below), and the proposal card's live pip a 2.4s
-   one it borrows from `.live-pip` in before-after.css. Nothing here is
+   one it borrows from `.live-pip` in styles/base.css. Nothing here is
    synchronised with anything else, which is the point: three product surfaces
    doing three unrelated jobs read as a product, where three surfaces beating
    together read as one animation.
@@ -655,7 +655,7 @@
    section has a dashed SVG stroke for it to act on.
 
    `.live-pip` is not repeated here. It is already declared once, globally, in
-   before-after.css - including its reduced-motion rule - and the artboard's own
+   styles/base.css - including its reduced-motion rule - and the artboard's own
    duplicate declaration of the same 2.4s keyframe is the reason to keep exactly
    one copy on the page.
 --------------------------------------------------------------------------- */
