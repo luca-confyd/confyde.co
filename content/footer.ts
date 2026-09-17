@@ -47,4 +47,4 @@ export const FOOTER_COLUMNS_MOBILE: readonly FooterColumn[] = [
 ];
 
 /** Both artboards draw the same line; only its size and opacity differ. */
-export const FOOTER_COPYRIGHT = "© 2026 Bramble. All rights reserved.";
+export const FOOTER_COPYRIGHT = "© 2026 Confyde. All rights reserved.";

@@ -35,7 +35,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
   {
     photo: "/images/photo-1.webp",
     studio: "Occo Landscapers & Builders",
-    title: "How Occo Landscapers & Builders 10×’d its quoting with Bramble",
+    title: "How Occo Landscapers & Builders 10×’d its quoting with Confyde",
     blurb:
       "From weekend admin to same-day quotes — how a two-person crew started winning bigger jobs.",
   },
@@ -49,7 +49,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
     photo: "/images/photo-4.webp",
     studio: "BuildRight",
     title: "How BuildRight stopped underquoting for good",
-    blurb: "Bramble’s pricing caught the margin leaks — and clients trust the clearer quotes.",
+    blurb: "Confyde’s pricing caught the margin leaks — and clients trust the clearer quotes.",
   },
 ];
 

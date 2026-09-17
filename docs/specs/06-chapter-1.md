@@ -1,9 +1,9 @@
-# 06 — Chapter 1: Meet Bramble
+# 06 — Chapter 1: Meet Confyde
 
 Source of truth for this section:
 
 - **Desktop (≥1024px)** — `Bramble Home Web.dc.html`,
-  `<!-- ===== CHAPTER 1: MEET BRAMBLE ===== -->`, lines 804–1071. CSS in the
+  `<!-- ===== CHAPTER 1: MEET CONFYDE ===== -->`, lines 804–1071. CSS in the
   `<helmet>` `<style>` block, lines 19–340: the `tk-*` system at lines 72–100,
   the `pf-drop-*` system at lines 215–239, `.pf-livepip` at 161–163,
   `.pf-banner-fade` at 256–257. `.canvas-botanical` is **not** in that block —
@@ -67,7 +67,7 @@ Per-chapter parameter table, transcribed from all three call sites:
 | `<section>` padding | `32px 0 0` | `96px 0 96px` | `0 0 96px` |
 | panel padding | `48px 48px 48px` | `48px` | `48px` |
 | heading `max-width` | `760px` | `820px` | `820px` |
-| heading | `Meet Bramble.` / `Quoting, taken off your plate.` (two spans, hard `<br>`) | `Win more jobs, without the late-night admin.` | `Build a quoting & sales system that gets sharper every job.` |
+| heading | `Meet Confyde.` / `Quoting, taken off your plate.` (two spans, hard `<br>`) | `Win more jobs, without the late-night admin.` | `Build a quoting & sales system that gets sharper every job.` |
 
 Chapter 1's panel padding is written `48px 48px 48px` where the other two write
 `48px`. It computes identically; ship the shorthand.
@@ -302,7 +302,7 @@ Client copy; flag, do not edit (§9, D14).
 **Body** — `data-anim="up-blur" data-delay="0.1" data-duration="0.5"`,
 `margin-top:6px;max-width:60ch;font-size:18px;color:var(--pf-ink-900)`:
 
-> Bramble's AI measures your job off the plan, prices it from your own materials
+> Confyde's AI measures your job off the plan, prices it from your own materials
 > & suppliers - then and rewrites it ready for your client. **You just add your
 > margin.**
 
@@ -851,12 +851,12 @@ Eyebrow (same 12px/800/.14em uppercase recipe as §2.1):
 
 Heading, `.pf-h3` [`display display-3`]:
 
-> Bramble learns your real prices.
+> Confyde learns your real prices.
 
 Body, `margin-top:6px;max-width:48ch;font-size:14px;color:var(--pf-ink-900)` —
 note **14px here, against 18px in the wide panel**:
 
-> Bramble learns your materials, labour rates and margins from your own files, so
+> Confyde learns your materials, labour rates and margins from your own files, so
 > every line is priced on what the job actually costs you. No more finding out at
 > the end that you quoted it too cheap.
 
@@ -1403,7 +1403,7 @@ linear-gradient(to bottom,
 (`--m-forest` = `#15301F` = `--color-forest-900`), and the heading
 `<h2 class="m-h2" style="position:relative;margin:0;font-size:28px;color:#fff">`:
 
-> Meet Bramble. Quoting, taken off your plate.
+> Meet Confyde. Quoting, taken off your plate.
 
 One sentence run together, where desktop breaks it into two lines with a `<br>`.
 Preserve both.
@@ -1439,7 +1439,7 @@ Copy above it:
 
 > **Build a client-ready estimate in minutes, not your nights.** (identical to desktop)
 >
-> Bramble measures the job off the plan and prices it from your own suppliers,
+> Confyde measures the job off the plan and prices it from your own suppliers,
 > and rewrites it in language ready for your client. You just add your margin.
 
 The mobile paragraph is a **different, and better, sentence** — it does not
@@ -1586,9 +1586,9 @@ control — build it as a `<span>`, never a `<button>` or `<a>` (§8.1).
 
 Copy:
 
-> **Bramble learns your real prices.** (identical to desktop)
+> **Confyde learns your real prices.** (identical to desktop)
 >
-> Bramble learns from your pricing, so every quote gets faster and easier, and it
+> Confyde learns from your pricing, so every quote gets faster and easier, and it
 > knows your margins.
 
 A shorter, different paragraph. Preserve both.
@@ -1788,7 +1788,7 @@ The four regions and their labels:
 
 | Region | `aria-label` |
 |---|---|
-| The take-off card (desktop + mobile) | `A take-off in progress: Bramble measures a site plan and prices four lines — paving, stepping pavers, pool coping and screen planting — to a quote total of $15,563 in 2 minutes 14 seconds.` |
+| The take-off card (desktop + mobile) | `A take-off in progress: Confyde measures a site plan and prices four lines — paving, stepping pavers, pool coping and screen planting — to a quote total of $15,563 in 2 minutes 14 seconds.` |
 | The price-library card | `Four files being read into a price library: a PDF quote, an Excel pricelist and two photographs. All four are marked Read, and the footer says 248 materials learned.` |
 | The proposal card (desktop) | `A branded proposal for Sarah Henderson at 14 Beach Rd, Coogee. Five scope lines with a total of $48,200 including GST, marked as sent and opened four times.` |
 | The proposal card (mobile) | `A branded proposal prepared for Sarah Henderson, 14 Beach Rd, Coogee. Four scope lines with a total of $48,200 including GST, marked as sent and opened four times.` |
@@ -1806,7 +1806,7 @@ Why this and not the alternatives:
   `opacity:0` at any given moment but **both of which remain in the accessibility
   tree**, since `opacity` is not `visibility`.
 - **Silencing them entirely loses the argument.** These three cards *are* the
-  chapter's claim. "Bramble measures the job off the plan and prices it from your
+  chapter's claim. "Confyde measures the job off the plan and prices it from your
   own suppliers" is only credible because the reader can see a plan being
   measured and lines being priced. A label restores that in one sentence.
 - **The labels carry the numbers that matter and drop the ones that do not.**
@@ -1860,7 +1860,7 @@ photograph.
 | `Quote ready`, 13.5px/700 | `#15301F` | `#C8E84A` | **10.27** | 4.5 | pass |
 | `2m 14s`, 12.5px/700 | `#15301F` | `#C8E84A` | **10.27** | 4.5 | pass |
 
-`forest-900` on `lime-500` is the same pair as §05's `With Bramble` pill, and it
+`forest-900` on `lime-500` is the same pair as §05's `With Confyde` pill, and it
 measures the same. No change.
 
 **The on-photo masthead does not pass**, and the 24° angle is why:

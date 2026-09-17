@@ -21,7 +21,7 @@ import { shoot } from "./lib/shoot.mjs";
 import { ARTBOARDS, ARTBOARD_READY, DESKTOP_WIDTHS, MOBILE_WIDTHS, SECTIONS } from "./sections.mjs";
 
 const DESIGN_ROOT =
-  process.env.BRAMBLE_DESIGN_ROOT ??
+  process.env.CONFYDE_DESIGN_ROOT ??
   "/private/tmp/claude-501/-Applications-sites-confyd/79c7e3e0-24d6-4968-941b-c266f02210a5/scratchpad/design";
 const SITE_PORT = 3100;
 const DESIGN_PORT = 4321;

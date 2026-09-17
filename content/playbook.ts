@@ -194,7 +194,7 @@ export const LANES = {
     name: "Closed",
     count: "6",
     countAfter: "7",
-    blurb: "Won jobs land here. Bramble reminds you to go back for repeat business.",
+    blurb: "Won jobs land here. Confyde reminds you to go back for repeat business.",
     link: "See all closed →",
   },
 } as const;

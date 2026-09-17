@@ -59,12 +59,12 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bramblehq.co"),
-  title: "Bramble | The AI sales and estimate partner for landscapers",
+  metadataBase: new URL("https://confydehq.co"),
+  title: "Confyde | The AI sales and estimate partner for landscapers",
   description:
-    "Bramble learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.",
+    "Confyde learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.",
   openGraph: {
-    title: "Bramble | The AI sales and estimate partner for landscapers",
+    title: "Confyde | The AI sales and estimate partner for landscapers",
     description:
       "Scope, price and send a quote in minutes, not late-night hours. Priced on your own materials, suppliers and margins.",
     type: "website",

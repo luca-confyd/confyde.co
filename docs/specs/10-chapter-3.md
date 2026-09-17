@@ -578,7 +578,7 @@ margin:0; padding:0 4px; font-family:var(--font-sans);
 font-size:12px; line-height:1.45; color:var(--color-slate-400,#8A9082)
 ```
 
-> `Won jobs land here. Bramble reminds you to go back for repeat business.`
+> `Won jobs land here. Confyde reminds you to go back for repeat business.`
 
 and a trailing link outside the card list:
 
@@ -2037,7 +2037,7 @@ worst case:
 
 | Chapter | Photo | Worst @1440 | Worst @1200 | Needs |
 |---|---|---|---|---|
-| 1 — `Meet Bramble.` | `photo-2` | **2.48** | — | 3.0 |
+| 1 — `Meet Confyde.` | `photo-2` | **2.48** | — | 3.0 |
 | 2 — `Win more jobs…` | `photo-3` | **2.53** | — | 3.0 |
 | **3 — `Build a quoting…`** | `photo-1` | **2.73** | **2.87** | 3.0 |
 

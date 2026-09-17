@@ -47,7 +47,7 @@ export function Chapter2Mobile() {
         Win the job and the client, not just the quote.
       </h3>
       <p className="mt-2 mb-4 text-[14.5px] leading-[1.55] text-slate-700">
-        Bramble shows you what your client read, and how long they sat on it. You call knowing
+        Confyde shows you what your client read, and how long they sat on it. You call knowing
         what they care about.
       </p>
 

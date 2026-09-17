@@ -67,7 +67,7 @@ export const SECTIONS = {
     siteMobile: "[data-section='before-after-mobile']",
   },
   "chapter-1": {
-    title: "Chapter 1 - meet Bramble",
+    title: "Chapter 1 - meet Confyde",
     site: null,
     // #pf-prices is the price-library card's inner wrapper and appears exactly
     // once in the web artboard, so it pins this section and nothing else.

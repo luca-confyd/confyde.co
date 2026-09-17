@@ -11,5 +11,5 @@ type WordmarkProps = {
  * of this one, and overrides those two properties through `className`.
  */
 export function Wordmark({ className }: WordmarkProps) {
-  return <span className={className ? `wordmark ${className}` : "wordmark"}>Bramble</span>;
+  return <span className={className ? `wordmark ${className}` : "wordmark"}>Confyde</span>;
 }

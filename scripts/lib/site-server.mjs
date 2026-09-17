@@ -16,7 +16,7 @@ import { join } from "node:path";
  * once, `next start` once, and every verification run reuses it. Dev mode was
  * recompiling on every file change while other work was in flight, which made
  * navigations time out for reasons that had nothing to do with the page.
- * Override with BRAMBLE_SITE_ORIGIN to point at your own.
+ * Override with CONFYDE_SITE_ORIGIN to point at your own.
  */
 const CANDIDATE_PORTS = [3200, 3100, 3108];
 
@@ -70,8 +70,8 @@ function buildIsStale() {
 }
 
 export async function siteServer() {
-  if (process.env.BRAMBLE_SITE_ORIGIN) {
-    return { origin: process.env.BRAMBLE_SITE_ORIGIN, stop: () => {}, reused: true };
+  if (process.env.CONFYDE_SITE_ORIGIN) {
+    return { origin: process.env.CONFYDE_SITE_ORIGIN, stop: () => {}, reused: true };
   }
 
   const stale = buildIsStale();

@@ -1,6 +1,6 @@
-# Bramble homepage
+# Confyde homepage
 
-The Bramble marketing homepage, rebuilt from the Claude Design artboards in
+The Confyde marketing homepage, rebuilt from the Claude Design artboards in
 `design-source/` as a statically prerendered Next.js site.
 
 ```bash

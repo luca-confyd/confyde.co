@@ -1,4 +1,3 @@
-import { Play } from "lucide-react";
 import Image from "next/image";
 import { Fragment } from "react";
 
@@ -8,7 +7,6 @@ import { NavFlipSentinel } from "@/components/chrome/nav-flip-sentinel";
 import { NavItem } from "@/components/chrome/nav-item";
 import { Reveal } from "@/components/primitives/reveal";
 
-import { FloatCards } from "./float-cards";
 import { StatStrip } from "./stat-strip";
 
 /* -----------------------------------------------------------------------------
@@ -17,7 +15,7 @@ import { StatStrip } from "./stat-strip";
    Each word reveals on its own delay, 45ms apart, with a 65ms extra beat across
    the line break - the pause a reader takes anyway. The literal space between
    the spans is load-bearing: without it a screen reader concatenates the text
-   nodes into "Bramblebuildsyourquotes.".
+   nodes into "Confydebuildsyourquotes.".
 
    [KNOWING EXCEPTION - RULINGS.md §02 ruling 1.] docs/brand.md says a heading is
    a heading through family, weight and size, NOT colour, and lime has four
@@ -30,7 +28,7 @@ const HEADLINE_LINES = [
   {
     tone: "",
     words: [
-      { word: "Bramble", delay: 0 },
+      { word: "Confyde", delay: 0 },
       { word: "builds", delay: 0.045 },
       { word: "your", delay: 0.09 },
       { word: "quotes.", delay: 0.135 },
@@ -131,19 +129,6 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
               <div className="relative flex w-full max-w-[1000px] flex-col items-center text-center">
                 <div aria-hidden="true" className={VIGNETTE} />
 
-                {/* Not the project's `.eyebrow`: that is .14em and this pill is
-                    .16em. The 9999px radius is the one place a >12px radius is
-                    allowed - the 4/6/8/12 scale governs boxes, and this is a
-                    pill. */}
-                <Reveal
-                  anim="up-blur"
-                  delay={0}
-                  duration={0.5}
-                  className="mb-[18px] inline-flex items-center self-center rounded-full bg-[linear-gradient(to_bottom,rgb(255_255_255/0.16),rgb(255_255_255/0.06))] px-[18px] py-2 text-[12.5px] font-bold tracking-[0.16em] text-white uppercase backdrop-blur-[14px] backdrop-saturate-[1.2] [text-shadow:0_1px_3px_rgb(0_0_0/0.35)]"
-                >
-                  AI assistant for landscapers
-                </Reveal>
-
                 <h1 className="display display-1 text-balance text-pf-ink-100 [text-shadow:0_2px_18px_rgb(0_0_0/0.45)] hero-short:text-[4.25rem]">
                   {HEADLINE_LINES.map((line) => (
                     <span key={line.words[0].word} className="block">
@@ -181,7 +166,7 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                        straight to curly to match the rest of the hero - a
                        typographic fix, not a copy edit (RULINGS.md §02 ruling
                        10). */
-                    "Tell Bramble about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it’s sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients."
+                    "Tell Confyde about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it’s sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients."
                   }
                   <br />
                   {/* <b>, not <strong>: this is the line the eye should land on,
@@ -199,42 +184,19 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                   anim="up-blur"
                   delay={0.42}
                   duration={0.5}
-                  className="mt-15 flex flex-row items-start gap-3 hero-short:mt-12"
+                  className="mt-15 flex justify-center hero-short:mt-12"
                 >
-                  <div className="flex flex-col items-center gap-2.5">
-                    <NavItem
-                      tone="dark"
-                      className="btn-lime inline-flex h-11 items-center justify-center rounded-xl bg-lime-500 px-10 text-[16px] font-bold whitespace-nowrap text-pf-ink-900 shadow-[0_8px_20px_-10px_rgb(21_48_31/0.4)]"
-                    >
-                      Try Bramble free
-                    </NavItem>
-                    {/* 10px, and the mobile hero sets the same line at 12.5px.
-                        Both ship as drawn. */}
-                    <span className="text-[10px] text-white/88">*90 seconds. No card.</span>
-                  </div>
-
-                  {/* `.btn-glass` supplies the tint and its hover. Its white
-                      hairline does not survive: the artboard's own inline shadow
-                      replaces the whole stack, and the utility below reproduces
-                      that rendered result rather than restoring the hairline
-                      (RULINGS.md §02 ruling 3). */}
                   <NavItem
                     tone="dark"
-                    className="btn-glass inline-flex h-11 items-center justify-center gap-3 rounded-xl px-8 text-[16px] font-semibold whitespace-nowrap text-pf-ink-100 shadow-[0_8px_20px_-10px_rgb(0_0_0/0.4)] backdrop-blur-[12px]"
+                    className="btn-lime inline-flex h-11 items-center justify-center rounded-xl bg-lime-500 px-10 text-[16px] font-bold whitespace-nowrap text-pf-ink-900 shadow-[0_8px_20px_-10px_rgb(21_48_31/0.4)]"
                   >
-                    See how it works
-                    {/* The artboard inlines its own play triangle. Lucide is the
-                        only icon system, and `Play` filled is the same shape
-                        (RULINGS.md §02 ruling 8). */}
-                    <Play size={16} fill="currentColor" aria-hidden="true" focusable="false" />
+                    Book a discovery call
                   </NavItem>
                 </Reveal>
               </div>
 
-              {/* `mt-auto` drops this to the foot of the panel; the float cards
-                  hang off its top edge, so they move with it. */}
+              {/* `mt-auto` drops the stat strip to the foot of the panel. */}
               <div className="relative mt-auto w-full max-w-[1120px] pb-[18px]">
-                <FloatCards />
                 <StatStrip />
               </div>
             </div>

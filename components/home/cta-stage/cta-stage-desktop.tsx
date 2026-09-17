@@ -87,7 +87,7 @@ export function CtaStageDesktop() {
 
             The spaces between the spans are load-bearing and invisible. The
             artboard has no whitespace of any kind between them, so its heading's
-            text content is literally `midnight.They'vegotBrambledoingit.` - that
+            text content is literally `midnight.They'vegotConfydedoingit.` - that
             is what a screen reader announces and what the clipboard receives. It
             renders correctly only because `column-gap` fakes the word spaces.
             Whitespace-only text between flex items does not generate an

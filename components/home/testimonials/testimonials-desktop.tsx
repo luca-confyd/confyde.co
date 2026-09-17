@@ -49,7 +49,7 @@ export function TestimonialsDesktop() {
               outline stays h1 -> h2 with no skip. `.display-2` at >=1024 is
               `.pf-h2`'s 3rem/1.2/-0.008em exactly. */}
           <h2 className="display display-2 text-pf-ink-900">
-            Great landscape businesses run on Bramble.
+            Great landscape businesses run on Confyde.
           </h2>
         </Reveal>
       </div>

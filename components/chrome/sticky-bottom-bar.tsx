@@ -39,7 +39,7 @@ export function StickyBottomBar() {
           tone="light"
           className="btn-lime flex h-[50px] items-center justify-center gap-[9px] rounded-xl bg-lime-500 text-[16px] font-bold text-forest-900 shadow-[0_8px_20px_-12px_rgb(21_48_31/0.5)]"
         >
-          Try Bramble free
+          Try Confyde free
           {/* Heavier than any other stroke on the page, and a different arrow
               from the desktop bars' move-right. Both are deliberate. */}
           <ArrowRight size={17} strokeWidth={2.4} aria-hidden="true" focusable="false" />

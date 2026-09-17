@@ -31,7 +31,7 @@ export function Chapter1Mobile() {
     <ChapterShellMobile
       dataSection="chapter-1-mobile"
       image="/images/photo-2.webp"
-      heading="Meet Bramble. Quoting, taken off your plate."
+      heading="Meet Confyde. Quoting, taken off your plate."
     >
       {/* `.m-h3` at 19px - see the take-off card for why the shared Fraunces
           cut is reached through `.marquee-heading-mobile`. The first sub-head
@@ -40,7 +40,7 @@ export function Chapter1Mobile() {
         Build a client-ready estimate in minutes, not your nights.
       </h3>
       <p className="mt-2 mb-4 text-[14.5px] leading-[1.55] text-slate-700">
-        Bramble measures the job off the plan and prices it from your own suppliers, and
+        Confyde measures the job off the plan and prices it from your own suppliers, and
         rewrites it in language ready for your client. You just add your margin.
       </p>
       <TakeoffCardMobile />
@@ -59,10 +59,10 @@ export function Chapter1Mobile() {
       <ProposalCardMobile />
 
       <h3 className="display marquee-heading-mobile mt-[26px] text-[19px] text-ink">
-        Bramble learns your real prices.
+        Confyde learns your real prices.
       </h3>
       <p className="mt-2 mb-4 text-[14.5px] leading-[1.55] text-slate-700">
-        Bramble learns from your pricing, so every quote gets faster and easier, and it knows
+        Confyde learns from your pricing, so every quote gets faster and easier, and it knows
         your margins.
       </p>
       <PriceLibraryCardMobile />

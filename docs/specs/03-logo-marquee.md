@@ -462,7 +462,7 @@ Flagged, not fixed. Each needs a ruling before the build changes it.
 
    The whole strip should additionally be a single labelled region rather than
    14 loose spans. **Recommend:** wrap the clipper in
-   `<div role="list" aria-label="Trades Bramble covers">` with each *visible*
+   `<div role="list" aria-label="Trades Confyde covers">` with each *visible*
    term as `role="listitem"`, and put `aria-hidden="true"` on the entire
    duplicate copy so it contributes nothing to the list. Marked as an addition,
    not a port — the artboard does not draw it.

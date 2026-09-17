@@ -7,7 +7,7 @@ import { PhoneAfter } from "./phone-after";
 import { PhoneBefore } from "./phone-before";
 
 /*
-  #E9C9A6 is the "Before Bramble" label tone. It is a one-off warm sand that
+  #E9C9A6 is the "Before Confyde" label tone. It is a one-off warm sand that
   has no role in the colour system, so it stays a commented local constant
   rather than becoming a token (RULINGS.md §02 ruling 5).
 

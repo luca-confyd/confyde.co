@@ -89,7 +89,7 @@ export function Chapter2Desktop() {
             duration={0.5}
             className="mt-1.5 mb-[18px] max-w-[64ch] text-[18px] text-pf-ink-900"
           >
-            Bramble knows the moment a client opens your quote, then hands you a heatmap of what
+            Confyde knows the moment a client opens your quote, then hands you a heatmap of what
             they read and a replay of every visit — how long they sat on each section, and what
             they keep coming back to. You’re ready to close the deal.
           </Reveal>

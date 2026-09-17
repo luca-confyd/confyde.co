@@ -1,4 +1,4 @@
-# Bramble brand rules
+# Confyde brand rules
 
 Distilled from the design system shipped in the Claude Design export
 (`_ds/bramble-design-system-<id>/readme.md`, 26 KB). These are the rules a
@@ -12,7 +12,7 @@ Warning is rust. Selected or completed is forest, never lime.
 - **Forest** is the primary: dark panels, link and action text, the primary
   button, selected and completed states.
 - **Lime** is the single accent and it means *forward motion*. Four roles only:
-  one primary action per page, live happening-now markers, AI/Bramble surfaces,
+  one primary action per page, live happening-now markers, AI/Confyde surfaces,
   and the you-are-here marker. Nothing else. No lime selected states, role
   badges, decorative borders, completed checks or focus rings.
 - **Sage** is form-field focus only. Never a fill, never a CTA.

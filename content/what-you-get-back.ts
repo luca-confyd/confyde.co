@@ -45,7 +45,7 @@ export const GET_BACK_CARDS: readonly GetBackCard[] = [
     figureMobile: "4 hrs → 30 mins",
     lead: "To build a client-ready estimate",
     body:
-      "Take-off, pricing and scope arrive pre-filled. And because Bramble learns how you quote, " +
+      "Take-off, pricing and scope arrive pre-filled. And because Confyde learns how you quote, " +
       "it gets faster and sharper every job you send.",
   },
   {
@@ -54,7 +54,7 @@ export const GET_BACK_CARDS: readonly GetBackCard[] = [
     figureDesktop: "1 in 3",
     figureMobile: "1 in 3",
     lead: "More jobs won after you send",
-    body: "Bramble tells you who opened it, what they read and when to call. Fewer quotes go quiet.",
+    body: "Confyde tells you who opened it, what they read and when to call. Fewer quotes go quiet.",
   },
   {
     eyebrowDesktop: "Managing jobs",

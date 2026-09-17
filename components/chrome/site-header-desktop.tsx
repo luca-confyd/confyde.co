@@ -79,7 +79,7 @@ export function SiteHeaderDesktop() {
         {/* Left pill: brand + sections. 5px left / 6px right padding is the
             artboard's own asymmetry, not a typo. */}
         <div className={`${PILL} gap-2`}>
-          <NavItem href="/" aria-label="Bramble home" className="flex h-[30px] items-center px-2">
+          <NavItem href="/" aria-label="Confyde home" className="flex h-[30px] items-center px-2">
             {/* The pill cross-fades over .3s but the wordmark's colour snaps -
                 the artboard only transitions the pill. */}
             <Wordmark className="group-data-[nav-state=dark]:text-white group-data-[nav-state=light]:text-charcoal-900" />

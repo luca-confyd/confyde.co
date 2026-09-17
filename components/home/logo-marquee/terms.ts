@@ -44,4 +44,4 @@ export const MARQUEE_TERMS_MOBILE = [
  * makes its `overflow-x: auto` container keyboard-scrollable (WCAG 2.1.1).
  * Neither artboard draws this; it is an addition, logged as one.
  */
-export const MARQUEE_LABEL = "Trades Bramble covers";
+export const MARQUEE_LABEL = "Trades Confyde covers";

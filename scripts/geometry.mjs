@@ -21,7 +21,7 @@ import { siteServer } from "./lib/site-server.mjs";
 import { ARTBOARDS, ARTBOARD_READY, SECTIONS } from "./sections.mjs";
 
 const DESIGN_ROOT =
-  process.env.BRAMBLE_DESIGN_ROOT ??
+  process.env.CONFYDE_DESIGN_ROOT ??
   "/private/tmp/claude-501/-Applications-sites-confyd/79c7e3e0-24d6-4968-941b-c266f02210a5/scratchpad/design";
 
 const args = process.argv.slice(2);

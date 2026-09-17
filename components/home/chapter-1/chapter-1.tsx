@@ -2,7 +2,7 @@ import { Chapter1Desktop } from "./chapter-1-desktop";
 import { Chapter1Mobile } from "./chapter-1-mobile";
 
 /**
- * Section 06, "Meet Bramble" - the first of the three chapters.
+ * Section 06, "Meet Confyde" - the first of the three chapters.
  *
  * Two compositions, mutually exclusive at 1024px, shipped as siblings like the
  * hero, the marquee and the before/after phones. The two artboards are not one

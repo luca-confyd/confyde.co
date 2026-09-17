@@ -185,7 +185,7 @@ not be unified.
   <span id="pf-cta-tail" data-total="5" style="display:flex;flex-wrap:wrap;justify-content:center;column-gap:.3em">
     <span data-w="0" style="opacity:.22">They've</span>
     <span data-w="1" style="opacity:.22">got</span>
-    <span data-w="2" style="opacity:.22">Bramble</span>
+    <span data-w="2" style="opacity:.22">Confyde</span>
     <span data-w="3" style="opacity:.22">doing</span>
     <span data-w="4" style="opacity:.22">it.</span>
   </span>
@@ -203,7 +203,7 @@ Line 1, static, full opacity, never scrubbed:
 
 Line 2, the scrubbed tail, five words:
 
-> `They've` `got` `Bramble` `doing` `it.`
+> `They've` `got` `Confyde` `doing` `it.`
 
 Both apostrophes in the source are **straight** (U+0027 — verified by hexdump:
 `61 72 65 6e 27 74` / `54 68 65 79 27 76 65`). Normalise both to U+2019 per
@@ -284,7 +284,7 @@ at 0.22.
 
 Measured, the full table (`rev` and per-word opacity):
 
-| `p` | `rev` | `They've` | `got` | `Bramble` | `doing` | `it.` |
+| `p` | `rev` | `They've` | `got` | `Confyde` | `doing` | `it.` |
 |---|---|---|---|---|---|---|
 | 0.000 | 0.000 | 0.610 | 0.220 | 0.220 | 0.220 | 0.220 |
 | 0.100 | 0.000 | 0.610 | 0.220 | 0.220 | 0.220 | 0.220 |
@@ -314,7 +314,7 @@ Per-word start points, for QA:
 |---|---|---|
 | 0 `They've` | (starts at 0.610) | 0.335 |
 | 1 `got` | 0.335 | 0.405 |
-| 2 `Bramble` | 0.405 | 0.475 |
+| 2 `Confyde` | 0.405 | 0.475 |
 | 3 `doing` | 0.475 | 0.545 |
 | 4 `it.` | 0.545 | 0.615 |
 
@@ -322,7 +322,7 @@ Per-word start points, for QA:
 
 The first line is simply there, black, from the moment the stage pins. The second
 line is a ghost of itself. As you scroll, the ghost resolves left to right, one
-word at a time, at a steady rate — no easing, no overlap, no bounce. `Bramble`
+word at a time, at a steady rate — no easing, no overlap, no bounce. `Confyde`
 lands in the middle, which is the point. By `p = 0.615` the sentence is a normal
 sentence and the section reads as a plain, confident CTA.
 
@@ -1030,7 +1030,7 @@ Why `p = 1` minus the drift, and not `p = 1` exactly:
 
 - **A user who asked for no motion must still get the section's argument.** The
   headline only says what it means at full opacity; at the `p = 0` frame it says
-  "They've got Bramble doing it." in a 1.58:1 ghost (§9.1) and the eleven chips
+  "They've got Confyde doing it." in a 1.58:1 ghost (§9.1) and the eleven chips
   are invisible. Pinning to `p = 0` would be pinning to a blank screen with half
   a sentence on it.
 - **The drift is a departure transient, not a state.** `−46px` means "this stage
@@ -1088,7 +1088,7 @@ There is nothing to port. The mobile artboard has no CTA stage, no chips, no
 field, and none of this copy. It also no longer has the band that used to sit
 here: the client cut all three inline CTA sections mid-build (RULINGS, "Scope
 changes from the client"), including mobile's
-`Run your next job with Bramble, get started free!`. So below 1024px the page
+`Run your next job with Confyde, get started free!`. So below 1024px the page
 currently goes **customer stories → testimonials → FAQ → footer** with no
 mid-page conversion surface at all except the sticky bottom bar.
 
@@ -1144,7 +1144,7 @@ has a 12px radius and `overflow:hidden`, so there is no seam to dissolve.
    `text-wrap: balance`, **both lines at full opacity**, as one string with a
    real space:
 
-   > `The best landscapers aren't quoting at midnight. They've got Bramble doing it.`
+   > `The best landscapers aren't quoting at midnight. They've got Confyde doing it.`
 
    26px matches the mobile artboard's own `.m-h2` size, which is what every other
    mobile H2 on this page uses. `balance` rather than a hard `<br>` — RULINGS §05
@@ -1170,7 +1170,7 @@ has a 12px radius and `overflow:hidden`, so there is no seam to dissolve.
 
    `52px`, `12px`, `16.5px/700` and the stacked-with-10px-gap arrangement are
    lifted directly from the mobile hero's own CTA pair
-   (`Try Bramble free` / `Book a demo`, lines 118–121 of the mobile artboard), so
+   (`Try Confyde free` / `Book a demo`, lines 118–121 of the mobile artboard), so
    this band's buttons are the same object the user already met at the top of the
    page. Full width solves D10 for free: the desktop's fixed `288px` would
    overflow a 320px viewport at these gutters.
@@ -1256,7 +1256,7 @@ position, each word clears 3.0:1 at:
 |---|---|---|---|
 | 0 `They've` | (0.288 — before the window opens; it renders at 0.610 from `p = 0`) | — | never fails once JS runs |
 | 1 `got` | **0.358** | `p = 0` | 35.8% of the stage |
-| 2 `Bramble` | **0.428** | `p = 0` | 42.8% |
+| 2 `Confyde` | **0.428** | `p = 0` | 42.8% |
 | 3 `doing` | **0.498** | `p = 0` | 49.8% |
 | 4 `it.` | **0.568** | `p = 0` | **56.8%** |
 
@@ -1399,7 +1399,7 @@ There is **no whitespace of any kind** between the five word spans, or between
 line 1's span and the tail span. The `<h2>`'s text content is literally:
 
 ```
-The best landscapers aren't quoting at midnight.They'vegotBrambledoingit.
+The best landscapers aren't quoting at midnight.They'vegotConfydedoingit.
 ```
 
 That is what a screen reader announces, what the clipboard receives, and what any
@@ -1448,7 +1448,7 @@ gates.
 |---|---|---|
 | **D1** | `.pf-sticker`'s five `drop-shadow()`s are **completely destroyed** by the inline `filter:blur(Npx)` that `ctaChips` writes on every tick — including at `blur(0.00px)`. All eleven chips render with no white keyline and no shadow, i.e. as 1.07:1 white pills on a near-white page | **Reproduce the render**, drop the inert `.sticker` from our markup (§02 ruling 3, §03/04 ruling 9 precedent). **Escalate** the one-line composed-filter fix in §9.2 with the note that it makes the filter permanent. This is the section's biggest open visual question. |
 | D2 | `margin:0 auto` on `#pf-cta-chips` is inert — auto margins do not resolve on an abspos box with `left:auto;right:auto`. Above 1920px the layer is centred only because the parent flex container resolves its static position | Write it honestly as `inset-x-0 mx-auto`, which is identical below 1920 and correct above it. Log as an observation. |
-| **D3** | **No whitespace between the five word spans or between the two headline lines.** Text content reads `midnight.They'vegotBrambledoingit.` — that is what a screen reader says and what the clipboard gets | **Fix.** Insert real spaces. Whitespace-only text does not become a flex item, so the render is unchanged. §9.5. |
+| **D3** | **No whitespace between the five word spans or between the two headline lines.** Text content reads `midnight.They'vegotConfydedoingit.` — that is what a screen reader says and what the clipboard gets | **Fix.** Insert real spaces. Whitespace-only text does not become a flex item, so the render is unchanged. §9.5. |
 | D4 | The reveal window is authored as `0.30 → 0.72` but the last word reaches opacity 1 at **`p = 0.615`**, because `tot + 1 = 6` with a half-step head start. **38.5% of the stage — 578px at 1440×900 — has a completely static headline** | Flag. The chips' drift (`p: 0.5 → 1`) is what occupies that stretch, so it is not dead scroll. Ship as drawn. |
 | D5 | `t = clamp(rev − (i − 0.5))` gives word 0 a 0.5 head start, so it renders at **0.610**, never at its inline `opacity:.22`. The `.22` is visible only in the pre-hydration frame | Note. §7's static-CSS resting state removes the flash. |
 | D6 | Chip 7 `Terra Firma` (`data-x="48" data-side="left" data-top="66"`) settles **48% from the left, 66% down** — directly behind the CTA button row, a white pill tangent to a white button | Flag. The copy block's `z-index:10` means nothing is obscured. Look at it in the visual diff. |
@@ -1491,10 +1491,10 @@ gates.
 ### Copy — character for character
 
 - [ ] Headline line 1: `The best landscapers aren’t quoting at midnight.`
-- [ ] Tail, five spans in order: `They’ve` `got` `Bramble` `doing` `it.`
+- [ ] Tail, five spans in order: `They’ve` `got` `Confyde` `doing` `it.`
 - [ ] Both apostrophes are U+2019 (D8). Grep the section for U+0027; zero hits.
-- [ ] `h2.textContent` contains real spaces — `midnight. They’ve got Bramble
-      doing it.` — and **not** `midnight.They’vegotBrambledoingit.` (D3). Assert
+- [ ] `h2.textContent` contains real spaces — `midnight. They’ve got Confyde
+      doing it.` — and **not** `midnight.They’vegotConfydedoingit.` (D3). Assert
       it in a test; it is invisible in a screenshot.
 - [ ] Body line: `Scope, price and send a quote in minutes — not late-night hours.`
       with U+2014 and a space either side (D9).
@@ -1543,7 +1543,7 @@ At 1440×900, `scrollTop = stage.offsetTop + p × 1500`.
 - [ ] `p = 0.300` — the reveal window opens. `rev = 0`. Tail unchanged from
       `p = 0`; word 1 `got` has not moved.
 - [ ] `p = 0.335` — `They've` reaches 1.000, `got` starts leaving the floor.
-- [ ] `p = 0.405` / `0.475` / `0.545` — `got` / `Bramble` / `doing` each reach
+- [ ] `p = 0.405` / `0.475` / `0.545` — `got` / `Confyde` / `doing` each reach
       1.000. Exactly one word is mid-fade at each of these.
 - [ ] `p = 0.500` — **the settle point.** Every chip's `top` equals its
       `data-top` and its `left`/`right` equals its `data-x`; `scale(1.000)`;

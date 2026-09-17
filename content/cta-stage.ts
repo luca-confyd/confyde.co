@@ -86,7 +86,7 @@ export const CTA_CHIPS: readonly CtaChipPlaced[] = CHIPS_AUTHORED.map((chip, i) 
  * The apostrophe in "They’ve" is U+2019. The artboard writes U+0027;
  * normalising it is typographic, not a copy edit (RULINGS.md §02 ruling 10).
  */
-export const CTA_TAIL_WORDS: readonly string[] = ["They’ve", "got", "Bramble", "doing", "it."];
+export const CTA_TAIL_WORDS: readonly string[] = ["They’ve", "got", "Confyde", "doing", "it."];
 
 /**
  * The three chips the mobile band carries (spec §8.2).

@@ -1,7 +1,6 @@
 import { Reveal } from "@/components/primitives/reveal";
 import { LANDSCAPERS } from "@/content/landscapers";
 
-import { AccreditationPills } from "./accreditation-pills";
 import { LandscaperCard } from "./landscaper-card";
 
 /**
@@ -71,7 +70,7 @@ export function SocialProof() {
           `text-balance` is desktop-only: the mobile artboard does not balance.
         */}
         <h2 className="display display-2-mobile mt-[10px] text-[26px] text-ink desk:mt-0 desk:text-[3rem] desk:leading-[1.2] desk:tracking-[-0.008em] desk:text-balance desk:text-pf-ink-900">
-          Landscapers &amp; designers who stand behind Bramble.
+          Landscapers &amp; designers who stand behind Confyde.
         </h2>
       </Reveal>
 
@@ -99,7 +98,6 @@ export function SocialProof() {
         ))}
       </Reveal>
 
-      <AccreditationPills />
     </section>
   );
 }

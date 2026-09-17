@@ -292,7 +292,7 @@ All three instances are removed from the homepage:
 
 - "Build a bigger business. Start free" (brambie-leaning)
 - "Create and send a quote within 30mins. Get started now, free" (brambie-peering)
-- "Run your next job with Bramble, get started free!" (brambie-pointing)
+- "Run your next job with Confyde, get started free!" (brambie-pointing)
 
 Consequences handled: the three mascot images were referenced by nothing else on
 the page and are deleted from `public/images/`, and `scripts/optimize-assets.mjs`
@@ -337,7 +337,7 @@ widths in both motion preferences, its own commit.
 | Partner names truncate below 430px - two at 360-390px, five at 320px | **Fix: let them wrap.** 390px and 360px are among the commonest real phone widths, so unlike section 04 this is not a hypothetical edge. Losing "Google Calendar" to an ellipsis on a phone is content loss. |
 | Desktop tile shadow re-spelled inline because `.shadow-border-default` could not take a `desk:` variant | **Root cause fixed instead.** The four elevation recipes are now `@utility` rather than plain classes in `@layer components`, so they accept variants. The section can use `desk:shadow-border-default` and drop the second spelling. |
 | Both sub-paragraphs shipped, gated by breakpoint, because the artboards write different copy | **Correct**, matching the §02 rulings 12-14 precedent. Client's to unify. |
-| Gmail & Outlook's disc written as `forest-700` rather than a literal | **Right call.** `#2C5539` is Bramble's own forest, not a partner colour - neither Gmail nor Outlook is green. |
+| Gmail & Outlook's disc written as `forest-700` rather than a literal | **Right call.** `#2C5539` is Confyde's own forest, not a partner colour - neither Gmail nor Outlook is green. |
 
 ---
 
@@ -502,3 +502,41 @@ It cost one false hero regression (the CTA row reporting 8px low) and one false
 board measurement (992px reading as 942.4px). **Freeze only where the section has
 a looping system to pin, and use a `t` inside that loop rather than 0.** For a
 section whose only motion is the entrance, run without `--freeze` at all.
+
+---
+
+## Client changes after the build (2026-09-17)
+
+The artboards are no longer the target for these. The geometry harness will
+report the removed elements as `ABSENT` on the hero and social-proof runs, and
+that is now the correct result rather than a regression.
+
+| Change | Scope |
+|---|---|
+| **The hero's four floating cards are removed.** | With them go `styles/motion/hero.css` entirely (the 24s flip was its only content) and the three `hero-h900` / `hero-h760` / `hero-h620` height variants, which existed solely to shrink and then hide that stack. `hero-short` stays - other hero elements use it. |
+| **The two accreditation pills are removed** from social proof. | "Australian Landscape Association member" and "Xero app partner". |
+| **The hero eyebrow pill is removed**, both breakpoints. | "AI assistant for landscapers". |
+| **The hero CTA row is one centred button**, both breakpoints. | "Book a discovery call" replaces "Try … free" plus "See how it works" (desktop) and "Book a demo" (mobile). The "*90 seconds. No card." line goes with them. Mobile keeps "Runs your end-to-end sales system.", which is a claim rather than button subtext. Lucide `Play` and `Calendar` are no longer imported anywhere. |
+| **Bramble is renamed to Confyde everywhere.** | 53 files: all user-facing copy, metadata, the wordmark, the package name, the specs and this document. |
+
+### What the rename deliberately did not touch
+
+Three classes of reference are real filenames on disk, not the brand, so renaming
+them would have made the docs point at nothing:
+
+- `design-source/Bramble HomepageProduct PageMobile Web.zip`
+- `Bramble Home Web.dc.html` and `Bramble Home Mobile.dc.html`, including the
+  URL-encoded forms in `scripts/sections.mjs`
+- the `bramble-design-system-…` directory inside the export
+
+The `bb-` keyframe prefix is also unchanged. It is opaque in the output and
+renaming ~40 keyframes would be churn with no user-visible effect.
+
+### Still carrying the old offer language
+
+The mobile sticky bottom bar and the nav still read "Try Confyde free" and
+"90 seconds. No card.", and the desktop floating bars still offer the quiz and
+"Get started free". Those are separate components from the hero and were not in
+the client's instruction, so they are unchanged - but if the hero's move to
+"Book a discovery call" is a positioning change rather than a hero-only one,
+they are the next things to align.

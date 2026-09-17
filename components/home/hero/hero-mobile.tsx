@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 import { NavFlipSentinel } from "@/components/chrome/nav-flip-sentinel";
@@ -78,14 +78,6 @@ export function HeroMobile() {
           ~140 characters a line.
         */}
         <div className="relative mx-auto flex min-h-[512px] w-full max-w-[560px] flex-col justify-end">
-          {/* Deliberately not the desktop eyebrow: a 6px box rather than a pill,
-              left-aligned rather than centred, a forest wash rather than a white
-              gradient, a lighter blur, .14em rather than .16em and no text
-              shadow. Six differences, all drawn. */}
-          <div className="self-start rounded-md bg-[color-mix(in_oklab,var(--color-forest-900)_50%,transparent)] px-[11px] py-1.5 text-[10.5px] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase backdrop-blur-[6px]">
-            AI assistant for landscapers
-          </div>
-
           {/*
             `.display` alone, without `.display-1`: its default axes ARE the
             mobile cut - wght 600, SOFT 60, opsz 40 - where the desktop headline
@@ -102,48 +94,31 @@ export function HeroMobile() {
             per-word, because mobile has no reveals.
           */}
           <h1 className="display mt-3 text-[clamp(30px,8.84vw,38px)] leading-[1.06] tracking-[-0.01em] text-white [text-shadow:0_2px_18px_rgb(0_0_0/0.45)]">
-            {"Bramble builds your quotes. "}
+            {"Confyde builds your quotes. "}
             <span className="text-lime-500">Then helps you win them.</span>
           </h1>
 
           {/* Not the desktop paragraph re-cut - a different, shorter piece of
               copy. It is the same string as the site's metadata.description. */}
           <p className="mt-4 text-[15.5px] leading-[1.55] text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.5)]">
-            Bramble learns your prices, drafts your estimates, and sends a branded proposal in
+            Confyde learns your prices, drafts your estimates, and sends a branded proposal in
             minutes. Then it tells you who to chase, so more of the jobs you quote turn into money
             in the bank.
           </p>
 
-          {/* Full-width and stacked at every width below 1024: these are the
-              primary action on a touch device, and splitting them into a row
-              would invent a layout neither artboard draws. */}
+          {/* One action, full width - the primary thing to do on a phone. */}
           <NavItem
             tone="dark"
             className={`btn-lime ${CTA} mt-[22px] bg-lime-500 text-forest-900 shadow-[0_8px_20px_-10px_rgb(21_48_31/0.5)]`}
           >
-            Try Bramble free
+            Book a discovery call
             <ArrowRight size={18} strokeWidth={2.4} aria-hidden="true" focusable="false" />
           </NavItem>
 
-          {/* Desktop's second CTA is "See how it works" with a play glyph. These
-              are two different moments - a phone reader is likelier to book than
-              to watch - and they are preserved rather than unified. */}
-          <NavItem
-            tone="dark"
-            className={`${CTA} mt-2.5 bg-white/12 text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.28)] backdrop-blur-[12px]`}
-          >
-            Book a demo
-            <Calendar size={17} strokeWidth={2.2} aria-hidden="true" focusable="false" />
-          </NavItem>
-
-          {/* Desktop's version of this line reads "Runs your complete end-to-end
-              sales system."; mobile drops "complete". Client copy, preserved. */}
+          {/* Desktop carries this claim inside its sub-paragraph; mobile draws it
+              as its own line, and drops "complete". Client copy, preserved. */}
           <span className="mt-3.5 text-center text-[14px] font-bold text-white">
             Runs your end-to-end sales system.
-          </span>
-          {/* 12.5px here, 10px on desktop for the same string. Both as drawn. */}
-          <span className="mt-1.5 text-center text-[12.5px] text-white/86">
-            *90 seconds. No card.
           </span>
         </div>
 

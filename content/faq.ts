@@ -33,7 +33,7 @@ export type FaqEntry = {
 
 export const FAQ: readonly FaqEntry[] = [
   {
-    question: "What is Bramble?",
+    question: "What is Confyde?",
     // [LOG] The only copy divergence in the section. Desktop capitalises
     // "Landscapers" and ends on a non-breaking space; mobile does neither. Both
     // ship as drawn. The   is the artboard's own trailing `&nbsp;`.
@@ -50,19 +50,19 @@ export const FAQ: readonly FaqEntry[] = [
     question: "Who is it for?",
     answer: [
       "Busy residential landscapers, pool builders, and builders who are drowning in quotes, losing jobs they never followed up, and know they need a proper sales system but do not have a spare month to build one.",
-      "If you write a scope of works and price off your own rates, you are in the right place. Whether you quote on your own, run a team, or have an estimator in the seat, Bramble is built for the way you already work.",
+      "If you write a scope of works and price off your own rates, you are in the right place. Whether you quote on your own, run a team, or have an estimator in the seat, Confyde is built for the way you already work.",
     ],
   },
   {
     question: "Will it guess my prices wrong?",
     answer: [
-      "No. Bramble does not price from a national cost database. Every line is priced off your own supplier pricelists and your own past quotes, so the number is yours, and you can see which supplier and which rate it came from. You set the margin, and nothing goes to a client until you send it.",
+      "No. Confyde does not price from a national cost database. Every line is priced off your own supplier pricelists and your own past quotes, so the number is yours, and you can see which supplier and which rate it came from. You set the margin, and nothing goes to a client until you send it.",
     ],
   },
   {
     question: "How long does it take to set up?",
     answer: [
-      "Signing up is instant. Setting up is about 30 minutes: drop in a few old quotes and a supplier pricelist, and Bramble builds your price library from them. Most landscapers send their first quote in the same sitting. If you would rather walk through it with someone, book a demo and we will help you get set up.",
+      "Signing up is instant. Setting up is about 30 minutes: drop in a few old quotes and a supplier pricelist, and Confyde builds your price library from them. Most landscapers send their first quote in the same sitting. If you would rather walk through it with someone, book a demo and we will help you get set up.",
     ],
   },
   {
@@ -72,15 +72,15 @@ export const FAQ: readonly FaqEntry[] = [
     ],
   },
   {
-    question: "Can I use Bramble with my team?",
+    question: "Can I use Confyde with my team?",
     answer: [
-      "Absolutely. Bramble keeps everyone on the same page, so nobody has to ask where a job is at. You can see who is quoting what and who is closing the most, or give one person the job of running Bramble and closing the work while the rest of the crew stays on the tools.",
+      "Absolutely. Confyde keeps everyone on the same page, so nobody has to ask where a job is at. You can see who is quoting what and who is closing the most, or give one person the job of running Confyde and closing the work while the rest of the crew stays on the tools.",
     ],
   },
   {
     question: "My quoting is fine. I just have too much of it.",
     answer: [
-      "Then volume is exactly what Bramble is for. Once it knows your prices, it measures the plan and prices the lines faster than anyone can type them, so the pile clears in an afternoon rather than a weekend. And every one you send tells you what the client read, so you also know which ones to chase.",
+      "Then volume is exactly what Confyde is for. Once it knows your prices, it measures the plan and prices the lines faster than anyone can type them, so the pile clears in an afternoon rather than a weekend. And every one you send tells you what the client read, so you also know which ones to chase.",
     ],
   },
   {
@@ -92,7 +92,7 @@ export const FAQ: readonly FaqEntry[] = [
   {
     question: "I already have a spreadsheet and a way of doing things.",
     answer: [
-      "Excellent news! Upload it straight into Bramble, your spreadsheet becomes your price library on day one, and from then on, every job, price, client and conversation lands in one place as a by-product of quoting. It stays current because the work put it there, not because someone remembered to update it.",
+      "Excellent news! Upload it straight into Confyde, your spreadsheet becomes your price library on day one, and from then on, every job, price, client and conversation lands in one place as a by-product of quoting. It stays current because the work put it there, not because someone remembered to update it.",
     ],
   },
   {
@@ -104,7 +104,7 @@ export const FAQ: readonly FaqEntry[] = [
   {
     question: "What happens to my data?",
     answer: [
-      "Your quotes, prices and clients are yours. Bramble learns from your own files to price your own jobs.",
+      "Your quotes, prices and clients are yours. Confyde learns from your own files to price your own jobs.",
     ],
   },
 ];

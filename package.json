@@ -1,5 +1,5 @@
 {
-  "name": "bramble-homepage",
+  "name": "confyde-homepage",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,5 +34,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "description": "The Bramble marketing homepage."
+  "description": "The Confyde marketing homepage."
 }

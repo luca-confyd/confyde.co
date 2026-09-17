@@ -59,7 +59,7 @@ export function CtaBandMobile() {
           every other mobile <h2> on this page uses.
         */}
         <h2 className="display display-2-mobile text-[26px] text-pf-ink-900 [text-wrap:balance]">
-          The best landscapers aren’t quoting at midnight. They’ve got Bramble doing it.
+          The best landscapers aren’t quoting at midnight. They’ve got Confyde doing it.
         </h2>
 
         {/* The desktop copy verbatim, em dash included. There is no mobile

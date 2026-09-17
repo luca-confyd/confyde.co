@@ -39,7 +39,7 @@ export function Chapter1Desktop() {
          leaf text nodes, actually measure them instead of reporting them absent. */
       heading={
         <>
-          <span>Meet Bramble.</span>
+          <span>Meet Confyde.</span>
           <br />
           <span>Quoting, taken off your plate.</span>
         </>
@@ -94,7 +94,7 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mt-1.5 mb-[18px] max-w-[60ch] text-[18px] text-pf-ink-900"
             >
-              Bramble’s AI measures your job off the plan, prices it from your own materials
+              Confyde’s AI measures your job off the plan, prices it from your own materials
               &amp; suppliers - then and rewrites it ready for your client.{"\u00A0"}
               <span>You just add your margin.</span>
             </Reveal>
@@ -131,7 +131,7 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="display display-3 text-pf-ink-900"
             >
-              Bramble learns your real prices.
+              Confyde learns your real prices.
             </Reveal>
             {/* 14px here against the wide panel's 18px. Two different jobs:
                 that one opens the chapter, this one supports a card.
@@ -153,7 +153,7 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mt-1.5 mb-[14px] max-w-[48ch] text-[14px] text-pf-ink-900"
             >
-              Bramble learns your materials, labour rates and margins from your own files, so
+              Confyde learns your materials, labour rates and margins from your own files, so
               every line is priced on what the job actually costs you. No more finding out at
               the end that you quoted it too cheap.
             </Reveal>

@@ -13,7 +13,7 @@
  * Apostrophes are U+2019 throughout (RULINGS.md §02 ruling 10). The artboards
  * mix straight and curly; normalising is typographic, not editorial. The three
  * em-dashes are U+2014 with a space either side, exactly as drawn - docs/brand.md
- * bans them in Bramble's own voice, but these are the names trades gave
+ * bans them in Confyde's own voice, but these are the names trades gave
  * themselves in the client's copy.
  */
 
@@ -261,18 +261,18 @@ export const UNREAD_REST_INDEX = 3;
 /** Everything outside the two phone frames, which stays fully readable. */
 export const COPY = {
   eyebrow: "A week in Marcus’s pocket",
-  heading: "You’re on the tools. Bramble’s running the office.",
+  heading: "You’re on the tools. Confyde’s running the office.",
   /* Mobile drops ", so the job moves forward while you sleep." Both ship. */
-  body: "Quoting, chasing, variations, invoices. It all lands on you, at night, after a full day on the tools. Bramble runs the lot from first enquiry to final payment, so the job moves forward while you sleep.",
+  body: "Quoting, chasing, variations, invoices. It all lands on you, at night, after a full day on the tools. Confyde runs the lot from first enquiry to final payment, so the job moves forward while you sleep.",
   bodyMobile:
-    "Quoting, chasing, variations, invoices. It all lands on you, at night, after a full day on the tools. Bramble runs the lot from first enquiry to final payment.",
-  pillBefore: "Before Bramble",
-  pillAfter: "With Bramble",
+    "Quoting, chasing, variations, invoices. It all lands on you, at night, after a full day on the tools. Confyde runs the lot from first enquiry to final payment.",
+  pillBefore: "Before Confyde",
+  pillAfter: "With Confyde",
   /* Four captions, four different strings. None is reused across breakpoints. */
   captionBefore:
     "Everyone wants an answer, and they all want it from you, now. You reply when you can and the quotes wait until Sunday.",
   captionAfter:
-    "Bramble priced the variation and managed the contractors’ prices. Marcus opens his phone already knowing who to call first.",
+    "Confyde priced the variation and managed the contractors’ prices. Marcus opens his phone already knowing who to call first.",
   captionBeforeMobile: "They keep coming, and the quotes wait until Sunday.",
   captionAfterMobile:
     "Marcus opens his phone and already knows where every job is at, and who to call first.",
@@ -295,5 +295,5 @@ export const PHONE_LABELS = {
   before:
     "A phone at 12:06 am showing 31 unread messages — ten SMS, email, WhatsApp and missed-call notifications from clients and trades, every one asking for a price or an update.",
   after:
-    "The same phone at 7:05 am with Bramble running — a short, calm list: Sarah has opened your quote three times, the variation is priced and sent, Ana’s invoice has cleared, Jo wraps Friday, and Dave’s plumbing price is in.",
+    "The same phone at 7:05 am with Confyde running — a short, calm list: Sarah has opened your quote three times, the variation is priced and sent, Ana’s invoice has cleared, Jo wraps Friday, and Dave’s plumbing price is in.",
 } as const;

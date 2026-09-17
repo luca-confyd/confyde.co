@@ -111,14 +111,14 @@ Children, in order:
 **1. Wordmark link**
 
 ```html
-<a href="#pf-top" aria-label="Bramble home" style="display:flex;height:30px;align-items:center;padding:0 8px"><span class="pf-logo">Bramble</span></a>
+<a href="#pf-top" aria-label="Confyde home" style="display:flex;height:30px;align-items:center;padding:0 8px"><span class="pf-logo">Confyde</span></a>
 ```
 
 - `display: flex; height: 30px; align-items: center; padding: 0 8px`
 - Inner span uses `.pf-logo`, which is exactly the project's `.wordmark`:
   `font-family: var(--font-logo)` (Asap), `font-weight: 800`, `font-size: 1.5rem`
   (24px), `line-height: 1`, `letter-spacing: -0.02em`.
-- Copy: `Bramble`
+- Copy: `Confyde`
 - This is the **only** real destination in the whole header. In the artboard it
   points at the in-page anchor `#pf-top`; in the build it is `<Link href="/">`.
 
@@ -307,7 +307,7 @@ Rule:
 
 | Element | Build |
 | --- | --- |
-| `Bramble` wordmark | `<Link href="/">` — real |
+| `Confyde` wordmark | `<Link href="/">` — real |
 | `Product`, `Customers`, `Pricing`, `Book a Demo`, `Login`, `Get started` | inert |
 
 **How "inert" is built.** Render each as:
@@ -329,7 +329,7 @@ Put all six behind one `<NavItem inert>` component so that when real routes land
 the switch is a single prop, not a sweep.
 
 **Open question for the owner, not for the engineer:** if a real hosted signup URL
-already exists, `Get started` (desktop), `Try Bramble free` (mobile bottom bar)
+already exists, `Get started` (desktop), `Try Confyde free` (mobile bottom bar)
 and `Get started free` (desktop CTA bar) should point at it instead of being
 inert. Do not guess a URL.
 
@@ -377,7 +377,7 @@ jump.
 **Left — wordmark**
 
 ```html
-<span class="m-logo" style="font-family:'Asap',var(--m-sans);font-size:19px;font-weight:800;letter-spacing:-.01em;color:#fff">Bramble</span>
+<span class="m-logo" style="font-family:'Asap',var(--m-sans);font-size:19px;font-weight:800;letter-spacing:-.01em;color:#fff">Confyde</span>
 ```
 
 - `font-family: var(--font-logo)` (Asap), `font-size: 19px`, `font-weight: 800`,
@@ -387,7 +387,7 @@ jump.
   a size/tracking override or write the three properties locally — do not
   "correct" it to the desktop values.
 - ⚠️ In the artboard this is a bare `<span>`, not a link. In the build it must be
-  `<Link href="/">` wrapping the span, with `aria-label="Bramble home"`, matching
+  `<Link href="/">` wrapping the span, with `aria-label="Confyde home"`, matching
   desktop. Flagged as a required a11y/parity fix, §7.
 
 **Right cluster**
@@ -871,7 +871,7 @@ instantly regardless.
 
 ```html
 <div style="position:sticky;bottom:0;z-index:70;display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--m-border);background:color-mix(in oklab,var(--m-card) 95%,transparent);backdrop-filter:blur(14px);padding:11px 16px 14px">
-  <a href="#" style="display:flex;height:50px;align-items:center;justify-content:center;gap:9px;border-radius:12px;background:var(--m-lime);font-size:16px;font-weight:700;color:var(--m-forest);box-shadow:0 8px 20px -12px rgba(21,48,31,.5)">Try Bramble free
+  <a href="#" style="display:flex;height:50px;align-items:center;justify-content:center;gap:9px;border-radius:12px;background:var(--m-lime);font-size:16px;font-weight:700;color:var(--m-forest);box-shadow:0 8px 20px -12px rgba(21,48,31,.5)">Try Confyde free
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden=""><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
   </a>
   <span style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 12px;font-size:11.5px;color:var(--m-ink-500)">
@@ -901,7 +901,7 @@ CTA link:
 - `color: var(--color-forest-900)` (`#15301f`)
 - `box-shadow: 0 8px 20px -12px rgba(21,48,31,.5)` — note `-12px` spread and
   `.5` alpha, both different from the trailer bar's `-10px / .4`.
-- Copy, verbatim: **`Try Bramble free`**
+- Copy, verbatim: **`Try Confyde free`**
 - Icon path is Lucide **`arrow-right`** (`M5 12h14` + `m12 5 7 7-7 7`) at
   **17px** with **`stroke-width: 2.4`** — a heavier stroke than anywhere else on
   the page. `<ArrowRight size={17} strokeWidth={2.4} aria-hidden="true" />`.
@@ -1003,7 +1003,7 @@ Items marked **[MUST]** block the build; **[SHOULD]** are strong recommendations
 1. **[MUST]** The mobile `<header id="m-nav">` contains no `<nav>` and no label.
    Wrap its contents in `<nav aria-label="Main">`, matching the desktop artboard.
 2. **[MUST]** The mobile wordmark is a bare `<span>` — not a link, not focusable.
-   Wrap in `<Link href="/" aria-label="Bramble home">`, matching desktop.
+   Wrap in `<Link href="/" aria-label="Confyde home">`, matching desktop.
 3. **[MUST]** Neither artboard has a skip link. Add
    `<a href="#main" class="sr-only focus:not-sr-only …">Skip to content</a>` as
    the first focusable element on the page, and `id="main"` on `<main>`. With a
@@ -1100,7 +1100,7 @@ Items marked **[MUST]** block the build; **[SHOULD]** are strong recommendations
       `15px/600`, icon gap `6px`.
 - [ ] Right links `padding: 5px 12px`; `Book a Demo` has `white-space: nowrap`
       and no icon gap.
-- [ ] Labels read exactly: `Bramble`, `Product`, `Customers`, `Pricing`,
+- [ ] Labels read exactly: `Confyde`, `Product`, `Customers`, `Pricing`,
       `Book a Demo`, `Login`, `Get started`.
 - [ ] Chevrons on `Product`, `Customers`, `Login` only. `Pricing` and
       `Book a Demo` have none.
@@ -1188,7 +1188,7 @@ Items marked **[MUST]** block the build; **[SHOULD]** are strong recommendations
 - [ ] CTA: 50px, radius 12px, lime-500 on forest-900, `16px/700`, `gap: 9px`,
       shadow `0 8px 20px -12px rgba(21,48,31,.5)`.
 - [ ] Icon is Lucide `arrow-right` @**17px** with `strokeWidth={2.4}`.
-- [ ] Copy verbatim: `Try Bramble free` and `90 seconds. No card.` (no asterisk).
+- [ ] Copy verbatim: `Try Confyde free` and `90 seconds. No card.` (no asterisk).
 - [ ] Caption 11.5px `--color-slate-500`, centred, wraps.
 - [ ] Absent at ≥1024px.
 

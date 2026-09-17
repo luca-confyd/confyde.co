@@ -194,7 +194,7 @@ Copy: **`AI assistant for landscapers`**
 <h1 class="pf-h1" style="color:var(--pf-ink-100);text-wrap:balance;
                          text-shadow:0 2px 18px rgba(0,0,0,.45)">
   <span style="display:block">
-    <span data-anim="word" data-delay="0.000" class="pf-anim-idle" style="display:inline-block">Bramble</span>
+    <span data-anim="word" data-delay="0.000" class="pf-anim-idle" style="display:inline-block">Confyde</span>
     <span data-anim="word" data-delay="0.045" class="pf-anim-idle" style="display:inline-block">builds</span>
     <span data-anim="word" data-delay="0.090" class="pf-anim-idle" style="display:inline-block">your</span>
     <span data-anim="word" data-delay="0.135" class="pf-anim-idle" style="display:inline-block">quotes.</span>
@@ -213,7 +213,7 @@ Copy: **`AI assistant for landscapers`**
 
 | Word | `data-delay` | Colour |
 | --- | --- | --- |
-| `Bramble` | `0.000` | `pf-ink-100` (inherited from the `h1`) |
+| `Confyde` | `0.000` | `pf-ink-100` (inherited from the `h1`) |
 | `builds` | `0.045` | `pf-ink-100` |
 | `your` | `0.090` | `pf-ink-100` |
 | `quotes.` | `0.135` | `pf-ink-100` |
@@ -269,12 +269,12 @@ Also on the `h1`: `color: var(--pf-ink-100)` → **`text-pf-ink-100`**,
 <p data-anim="up-blur" data-delay="0.32" data-duration="0.5"
    class="pf-anim-idle pf-hero-sub"
    style="margin-top:36px;max-width:720px;font-size:16px;line-height:1.55;
-          font-weight:500;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)">Tell Bramble about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it's sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients.<br><b>Runs your&nbsp;complete end-to-end sales system.</b></p>
+          font-weight:500;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)">Tell Confyde about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it's sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients.<br><b>Runs your&nbsp;complete end-to-end sales system.</b></p>
 ```
 
 Copy, verbatim, in two runs separated by a `<br>`:
 
-1. `Tell Bramble about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it's sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients.`
+1. `Tell Confyde about the job. What used to eat your evening comes back as a branded proposal in minutes, priced on your own materials, suppliers and margins - the lot! Once it's sent, it tells you who to chase, who to invoice, and how to upsell to your existing clients.`
 2. `<b>Runs your&nbsp;complete end-to-end sales system.</b>`
 
 Details that matter:
@@ -314,12 +314,12 @@ Row, `gap:12px`, `align-items:flex-start`, `z-index:30` (above the vignette).
      box-shadow:0 8px 20px -10px rgba(21,48,31,.4);
      background:var(--pf-lime,#c8e84a);padding:0 40px;
      font-size:16px;font-weight:700;color:var(--pf-ink-900);
-     white-space:nowrap">Try Bramble free</a>
+     white-space:nowrap">Try Confyde free</a>
   <span style="font-size:10px;color:rgba(255,255,255,.88)">*90 seconds. No card.</span>
 </div>
 ```
 
-- Label: **`Try Bramble free`**
+- Label: **`Try Confyde free`**
 - 44px tall, radius 12px, `padding: 0 40px`, 16px / 700,
   `background: lime-500`, `color: pf-ink-900`,
   `box-shadow: 0 8px 20px -10px rgba(21,48,31,.4)`, `white-space:nowrap`.
@@ -854,7 +854,7 @@ Same copy: `AI assistant for landscapers`.
 
 ```html
 <h1 class="m-h1" style="margin:12px 0 0;font-size:38px;color:#fff;
-                        text-shadow:0 2px 18px rgba(0,0,0,.45)">Bramble builds your quotes. <span style="color:var(--m-lime)">Then helps you win them.</span></h1>
+                        text-shadow:0 2px 18px rgba(0,0,0,.45)">Confyde builds your quotes. <span style="color:var(--m-lime)">Then helps you win them.</span></h1>
 ```
 
 ```css
@@ -876,7 +876,7 @@ desktop axes take over at `width >= 1024px`), so **`.display` + an explicit
 `font-size:38px` and `line-height:1.06` gives you the mobile H1 for free**.
 `.display-1`'s base 2.75rem/1.14 is *not* right here — override both.
 
-Copy: `Bramble builds your quotes. ` then a `<span style="color:var(--m-lime)">`
+Copy: `Confyde builds your quotes. ` then a `<span style="color:var(--m-lime)">`
 (`lime-500 #C8E84A`) wrapping `Then helps you win them.` **One span for the whole
 second sentence — no per-word split and no `data-anim` on mobile.** Note the
 trailing space after `quotes.` inside the plain text run; it is what separates the
@@ -886,10 +886,10 @@ two sentences when they share a line.
 
 ```html
 <p style="margin:16px 0 0;font-size:15.5px;line-height:1.55;color:#fff;
-          text-shadow:0 1px 3px rgba(0,0,0,.5)">Bramble learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.</p>
+          text-shadow:0 1px 3px rgba(0,0,0,.5)">Confyde learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.</p>
 ```
 
-Verbatim: `Bramble learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.`
+Verbatim: `Confyde learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.`
 
 15.5px / `line-height:1.55` / `#fff` / `text-shadow:0 1px 3px rgba(0,0,0,.5)` /
 `margin-top:16px`. No `<br>`, no bold run, no `&nbsp;`.
@@ -905,7 +905,7 @@ border-radius:12px;background:var(--m-lime);font-size:16.5px;font-weight:700;
 color:var(--m-forest);box-shadow:0 8px 20px -10px rgba(21,48,31,.5)
 ```
 
-Label **`Try Bramble free`** + a 18px arrow-right glyph
+Label **`Try Confyde free`** + a 18px arrow-right glyph
 (`stroke-width:2.4`, round caps/joins) → **Lucide `ArrowRight`**.
 Note the shadow alpha is `.5` here vs `.4` on desktop.
 
@@ -1002,7 +1002,7 @@ in the mobile layout.
 word `<span>`s and the mobile H1's colour `<span>` are presentational — do not
 add `role`, `aria-label` or `aria-hidden` to any of them. Screen readers
 concatenate the text nodes, so the literal spaces between the desktop word spans
-are what keep `Bramblebuildsyourquotes.` from happening. **Test this** with
+are what keep `Confydebuildsyourquotes.` from happening. **Test this** with
 VoiceOver, not by eye.
 
 Render exactly one `<h1>` in the DOM. If both heroes ship as
@@ -1050,7 +1050,7 @@ decoration. Check after the real photo ships, at the real breakpoints:
 | Eyebrow | `#fff` at 12.5px/700 | **4.5:1** |
 | `*90 seconds. No card.` | `rgba(255,255,255,.88)` at **10px** | **4.5:1** |
 | Stat labels | `rgba(255,255,255,.6)` at 12.5px | **4.5:1** |
-| `Try Bramble free` | `pf-ink-900` on `lime-500` | 4.5:1 (passes, ~9:1) |
+| `Try Confyde free` | `pf-ink-900` on `lime-500` | 4.5:1 (passes, ~9:1) |
 
 Two of these are at real risk:
 
@@ -1137,17 +1137,17 @@ Flagged, not fixed. Each needs a design or brand call before the build changes i
 
 - [ ] Eyebrow reads `AI assistant for landscapers`, 12.5px/700,
       **`letter-spacing:.16em`** (not `.14em` — i.e. not the `.eyebrow` class).
-- [ ] H1 line 1 = `Bramble builds your quotes.` in `pf-ink-100`.
+- [ ] H1 line 1 = `Confyde builds your quotes.` in `pf-ink-100`.
 - [ ] H1 line 2 = `Then helps you win them.`, **all five words** `lime-500`.
 - [ ] The nine `data-delay` values are exactly
       `0.000 0.045 0.090 0.135` / `0.200 0.245 0.290 0.335 0.380`.
 - [ ] Word spans have **no** `data-duration` (they inherit 0.5s).
 - [ ] Spaces survive between word spans — select the H1 and paste into a text
-      editor; it must read `Bramble builds your quotes. Then helps you win them.`
+      editor; it must read `Confyde builds your quotes. Then helps you win them.`
 - [ ] Sub-paragraph matches §2.3 character for character, including the bare `-`
       before "the lot", the `<br>`, the `<b>` run, and the **`&nbsp;`** in
       `Runs your complete`.
-- [ ] Primary CTA `Try Bramble free`, 44px, radius 12, `padding:0 40px`,
+- [ ] Primary CTA `Try Confyde free`, 44px, radius 12, `padding:0 40px`,
       `lime-500` on `pf-ink-900`, `.btn-lime` hover works.
 - [ ] Fine print `*90 seconds. No card.` — 10px, `rgba(255,255,255,.88)`,
       10px below the button.
@@ -1212,9 +1212,9 @@ Resize the window by **height** and check each threshold:
 - [ ] H1 computed `font-variation-settings` is **`'wght' 600, 'SOFT' 60,
       'opsz' 40`** and `line-height:1.06` — *not* the desktop axes. Check in
       DevTools at 1023px and again at 1024px; they must differ.
-- [ ] Mobile body copy is the `Bramble learns your prices…` string, not the
+- [ ] Mobile body copy is the `Confyde learns your prices…` string, not the
       desktop one.
-- [ ] CTAs are `Try Bramble free` (+ Lucide `ArrowRight`) and `Book a demo`
+- [ ] CTAs are `Try Confyde free` (+ Lucide `ArrowRight`) and `Book a demo`
       (+ Lucide `Calendar`), both 52px, stacked, full-width.
 - [ ] Trailing lines: `Runs your end-to-end sales system.` (14px/700) then
       `*90 seconds. No card.` (12.5px). Note mobile omits `complete`.

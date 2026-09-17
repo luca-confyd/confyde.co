@@ -79,7 +79,7 @@ Substituting the corrected token would be a visible, unrequested darkening.
 Fraunces at `"wght" 420, "SOFT" 100, "WONK" 0, "opsz" 10`. That is our
 `.display .display-2`. Copy, verbatim, one line, no `<br>`:
 
-> `You're on the tools. Bramble's running the office.`
+> `You're on the tools. Confyde's running the office.`
 
 On `.pf-oneline`, see §5.4 — it is **not** part of the motion hoist.
 
@@ -93,7 +93,7 @@ color:var(--color-forest-200,#B9C7B0)
 Copy, verbatim:
 
 > `Quoting, chasing, variations, invoices. It all lands on you, at night, after a
-> full day on the tools. Bramble runs the lot from first enquiry to final
+> full day on the tools. Confyde runs the lot from first enquiry to final
 > payment, so the job moves forward while you sleep.`
 
 (The mobile artboard truncates the last clause — see §6.2. Preserve both.)
@@ -123,7 +123,7 @@ correct.
 
 ### 1.4 The two state pills
 
-**Before Bramble** — one `<span>` child, no icon:
+**Before Confyde** — one `<span>` child, no icon:
 
 ```
 display:inline-flex; align-items:center; gap:9px; border-radius:9999px;
@@ -139,12 +139,12 @@ font-family:var(--font-sans); font-size:11.5px; font-weight:800;
 letter-spacing:.12em; text-transform:uppercase; color:#E9C9A6
 ```
 
-Copy: `Before Bramble`. `--font-sans` is Hanken Grotesk (RULINGS §01 ruling 9)
+Copy: `Before Confyde`. `--font-sans` is Hanken Grotesk (RULINGS §01 ruling 9)
 → `--font-ui`. The `gap:9px` is inert with one child — drop it (RULINGS
 principle 1 + §02 ruling 3). `#E9C9A6` is an un-tokened one-off; keep it as a
 commented local constant, same treatment as §02 ruling 5.
 
-**With Bramble** — Lucide `Sprout` + label:
+**With Confyde** — Lucide `Sprout` + label:
 
 ```
 display:inline-flex; align-items:center; gap:8px; border-radius:9999px;
@@ -153,11 +153,11 @@ background:var(--color-lime-500,#C8E84A); padding:6px 16px 6px 13px
 
 SVG `15×15`, `stroke:var(--color-forest-900,#15301F)`, `stroke-width:2.2`,
 `stroke-linecap/linejoin:round`, `flex:none`. Label as above but
-`color:var(--color-forest-900,#15301F)`. Copy: `With Bramble`.
+`color:var(--color-forest-900,#15301F)`. Copy: `With Confyde`.
 
 ---
 
-## 2. The "Before Bramble" phone
+## 2. The "Before Confyde" phone
 
 ### 2.1 Frame and screen
 
@@ -365,7 +365,7 @@ font-size:14px; line-height:1.55; color:var(--color-forest-200,#B9C7B0)
 
 ---
 
-## 3. The "With Bramble" phone
+## 3. The "With Confyde" phone
 
 ### 3.1 Frame and screen
 
@@ -505,7 +505,7 @@ Path data for the two less obvious ones:
 - `HardHat` — `M10 10V5a2 2 0 0 1 2-2v0a2 2 0 0 1 2 2v5` + `M14 6a6 6 0 0 1 6 6v3`
   + `M4 15v-3a6 6 0 0 1 6-6` + `rect x="2" y="15" width="20" height="5" rx="1"`
 
-Card 4's `Sprout` is the same glyph as the "With Bramble" pill.
+Card 4's `Sprout` is the same glyph as the "With Confyde" pill.
 
 Cards 1, 2, 4 and 5 carry a `data-calm=""` attribute; card 3 does not. Nothing in
 the artboard's CSS or JS reads it. **Drop it** — §9, D8.
@@ -514,7 +514,7 @@ the artboard's CSS or JS reads it. **Drop it** — §9, D8.
 
 Identical geometry to §2.7 but `color:#fff`:
 
-> `Bramble priced the variation and managed the contractors' prices. Marcus opens
+> `Confyde priced the variation and managed the contractors' prices. Marcus opens
 > his phone already knowing who to call first.`
 
 ---
@@ -1076,14 +1076,14 @@ H2 — `.m-h2` (`Fraunces; wght 600, SOFT 60, opsz 32; letter-spacing:-.005em;
 line-height:1.14`), `margin:10px 0 8px; font-size:26px; color:#fff`, with a hard
 `<br>`:
 
-> `You're on the tools.` `<br>` `Bramble's running the office.`
+> `You're on the tools.` `<br>` `Confyde's running the office.`
 
 See §7 for the `<br>` decision.
 
 Body — `margin:0 0 20px; font-size:14.5px; line-height:1.55; color:#B9C7B0`:
 
 > `Quoting, chasing, variations, invoices. It all lands on you, at night, after a
-> full day on the tools. Bramble runs the lot from first enquiry to final
+> full day on the tools. Confyde runs the lot from first enquiry to final
 > payment.`
 
 **Shorter than desktop** — the mobile artboard drops `, so the job moves forward
@@ -1135,7 +1135,7 @@ box-shadow:0 5px 14px -10px rgba(21,48,31,.4)`. Icon tile `23×23`,
 
 ### 6.4 The three rows each, verbatim
 
-**Before Bramble** — a different three, in a different order, with one shortened
+**Before Confyde** — a different three, in a different order, with one shortened
 message:
 
 | # | Sender | Time | Message | Channel | Tile bg | Icon |
@@ -1157,7 +1157,7 @@ margin:12px 2px 0; font-size:12px; line-height:1.45; color:rgba(255,255,255,.55)
 
 Entirely different copy from desktop's caption, and shorter.
 
-**With Bramble** — three of the desktop five, reordered, retitled, **and with no
+**With Confyde** — three of the desktop five, reordered, retitled, **and with no
 action labels at all**:
 
 | # | Icon | Title | Sub |
@@ -1235,7 +1235,7 @@ now-wide panel edge. Vertical padding never changes.
 (`wght 600, SOFT 60, opsz 32`) are unchanged at every width below 1024.
 
 **Drop the artboard's hard `<br>`, use `text-wrap:balance`.** The `<br>` is tuned
-for a 398px measure. At 320px it leaves `Bramble's running the office.` running
+for a 398px measure. At 320px it leaves `Confyde's running the office.` running
 288px against a 256px column, forcing an ugly three-line shape with an orphan; at
 560px it wastes half a line. `balance` reproduces the artboard's two-line break at
 430px and does the right thing at both ends. This is a rendering fidelity fix, not
@@ -1274,11 +1274,11 @@ outside the two phone frames stays in the accessibility tree untouched.**
 What stays, unchanged and fully readable:
 
 - the eyebrow, the `<h2>`, and the header paragraph;
-- both state pills, `Before Bramble` and `With Bramble` — these are the labels
+- both state pills, `Before Confyde` and `With Confyde` — these are the labels
   for the two halves of the comparison and they carry it;
 - both captions. On desktop they are 40 and 32 words and they *are* the argument:
   "Everyone wants an answer, and they all want it from you, now…" against
-  "Bramble priced the variation and managed the contractors' prices…". A screen
+  "Confyde priced the variation and managed the contractors' prices…". A screen
   reader user who reads only the header, the two pills and the two captions gets
   the entire point of the section.
 
@@ -1296,7 +1296,7 @@ The reasoning, both ways:
   read them out as though they were on screen. That is not a hypothetical; it is
   what `opacity:0` does to `getComputedStyle` traversal but not to the a11y tree.
 - **Against hiding it entirely.** `aria-hidden="true"` would leave a user with
-  "Before Bramble … Everyone wants an answer" and no indication that a phone is
+  "Before Confyde … Everyone wants an answer" and no indication that a phone is
   being shown at all, which is a real loss of narrative — the *device* is the
   metaphor, and "same phone, two mornings" is information.
 - **`role="img"` + `aria-label` is the right granularity**, and it is the same
@@ -1310,7 +1310,7 @@ Ship these two labels:
 > WhatsApp and missed-call notifications from clients and trades, every one
 > asking for a price or an update.`
 >
-> Right: `The same phone at 7:05 am with Bramble running — a short, calm list:
+> Right: `The same phone at 7:05 am with Confyde running — a short, calm list:
 > Sarah has opened your quote three times, the variation is priced and sent,
 > Ana's invoice has cleared, Jo wraps Friday, and Dave's plumbing price is in.`
 
@@ -1323,7 +1323,7 @@ Mechanics:
 - Change every `aria-hidden=""` in this section to `aria-hidden="true"` — 17 of
   them (the two notches, the two gradient washes, the ten notification icon
   tiles, the five calm icon tiles, the pip wrapper, the `Sprout` in the With
-  Bramble pill). The empty string is not a valid value; RULINGS §03/04 ruling 7
+  Confyde pill). The empty string is not a valid value; RULINGS §03/04 ruling 7
   already fixed the identical mistake on the social-proof avatars.
 - Card action labels are **not** interactive (§3.5). Nothing inside either phone
   is focusable, so the section adds zero tab stops and needs no focus styles.
@@ -1368,8 +1368,8 @@ quoted at the worse (bottom) end.
 | Header body, 16px | `#B9C7B0` | `#15301F` | **8.04** | 4.5 | pass |
 | Left caption, 14px | `#B9C7B0` | `#15301F` | **8.04** | 4.5 | pass |
 | Right caption, 14px | `#FFFFFF` | `#15301F` | **14.24** | 4.5 | pass |
-| **`Before Bramble`, 11.5px/800** | `#E9C9A6` | `#313B22` | **7.51** | 4.5 | **pass** |
-| `With Bramble`, 11.5px/800 | `#15301F` | `#C8E84A` | **10.24** | 4.5 | pass |
+| **`Before Confyde`, 11.5px/800** | `#E9C9A6` | `#313B22` | **7.51** | 4.5 | **pass** |
+| `With Confyde`, 11.5px/800 | `#15301F` | `#C8E84A` | **10.24** | 4.5 | pass |
 | Left clock `12:06 am`, 11px/600 | `rgba(255,255,255,.6)` | `#111B15` | **6.98** | 4.5 | pass |
 | `N unread`, 10.5px/700 | `#FFFFFF` | `#96602B` | **5.24** | 4.5 | pass |
 | Sender, 12.5px/600 | `#FFFFFF` | `#2B342E` | **12.86** | 4.5 | pass |
@@ -1435,10 +1435,10 @@ Except D1/D2 (ruled: fix, §5), D11 and D15 (existing RULINGS precedent), and D1
 | D9 | `.pf-buzz` fires **once** per 16s cycle (640→1280ms) while ten notifications arrive. Ten pings, one buzz. At 16s a 1% step is 160ms, so it reads as a slow wobble rather than a buzz | Flag. Fixing it means re-choreographing, which is a design change. |
 | D10 | `.pf-badge` ("All handled") fades out at 13.44s and is **absent for the last 2.56s** of every cycle — 16% of the loop — with nothing on the right phone motivating it | Flag. Probably a leftover from a longer sequence this badge once belonged to. |
 | D11 | `aria-hidden=""` (empty string) on 17 elements | **Fix** to `"true"`. §03/04 ruling 7 precedent. |
-| D12 | `gap:9px` on the `Before Bramble` pill, which has exactly one child | Drop the inert declaration, reproduce the render. §02 ruling 3 precedent. |
+| D12 | `gap:9px` on the `Before Confyde` pill, which has exactly one child | Drop the inert declaration, reproduce the render. §02 ruling 3 precedent. |
 | D13 | Radii off the 4/6/8/12 scale: 34 (frame), 26/27 (screen), 10 (calm card), 9 (halo ring), 7 (notification tile) | Ship as drawn, log. §01 ruling 8 precedent. |
 | D14 | The same 34px frame with the same padding gets a **26px** screen on desktop and a **27px** screen on mobile. One is a typo | Ship both as drawn, log. |
-| D15 | Mixed apostrophes: curly in `Where’s`, `Can’t`, `you’re`; straight in `Marcus's`, `You're`, `Bramble's`, `Here's`, `Ana's`, `contractors'` | **Fix** — normalise to curly. Typographic, not editorial. §02 ruling 10. |
+| D15 | Mixed apostrophes: curly in `Where’s`, `Can’t`, `you’re`; straight in `Marcus's`, `You're`, `Confyde's`, `Here's`, `Ana's`, `contractors'` | **Fix** — normalise to curly. Typographic, not editorial. §02 ruling 10. |
 | D16 | Sources are `assets/photo-3.png` / `assets/photo-1.png`; the repo ships `.webp` | Map to `/images/photo-3.webp` and `/images/photo-1.webp`. |
 | D17 | `.pf-livepip` declares no `animation-fill-mode`. Harmless while running (0% and 100% are both declared) but it is why the pulse renders as a solid dot, not a ghost, when the animation is absent | Note only. Our resting state sets `opacity:0` explicitly (§4.7). |
 | D18 | The artboard's reduced-motion block forces `opacity:1` on all ten halo rings and all five unread counts, and `margin-bottom:7px` onto jolt divs, rings and count spans — and is itself trapped inside the broken media query | **Fix.** Hard gate. Replace wholesale with §4.7. |
@@ -1579,9 +1579,9 @@ Right phone:
 - [ ] The section adds **zero** tab stops. Tab from the section above lands on
       whatever follows; the five action labels are not `<button>` or `<a>`.
 - [ ] VoiceOver: the section reads eyebrow → heading → paragraph → `Before
-      Bramble` → left label → left caption → `With Bramble` → right label →
+      Confyde` → left label → left caption → `With Confyde` → right label →
       right caption, and no individual notification is announced.
-- [ ] Contrast spot-checks against §8.3: `Before Bramble` on the rust pill must
+- [ ] Contrast spot-checks against §8.3: `Before Confyde` on the rust pill must
       measure **7.51:1** (it passes — do not "fix" it). The greeting, channel
       labels and notification times are the escalation.
 

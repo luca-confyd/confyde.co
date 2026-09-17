@@ -46,7 +46,7 @@ export const PULL_QUOTES: readonly PullQuote[] = [
   {
     id: "sam-whitfield",
     quote:
-      "I’m not a computer person. Bramble just gets it. I can see at a glance where every quote " +
+      "I’m not a computer person. Confyde just gets it. I can see at a glance where every quote " +
       "is at, and it tells me who to call. Beats the spreadsheet and the notepad I had going before.",
     name: "Sam Whitfield",
     org: "Owner, Coastal Gardens Co.",

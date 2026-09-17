@@ -14,7 +14,7 @@
  * the mobile board curly, for the same words. Normalising is typographic, not a
  * copy edit (RULINGS.md §02 ruling 10). The quotation marks and the em dashes
  * are the artboards' own characters and are untouched - docs/brand.md bans em
- * dashes in Bramble's voice, but this is a customer speaking.
+ * dashes in Confyde's voice, but this is a customer speaking.
  */
 
 /**
@@ -40,7 +40,7 @@ export const TESTIMONIALS_DESKTOP: readonly Testimonial[] = [
   {
     org: "Occo Landscapers & Builders",
     quote:
-      "“Bramble scaled our quoting more than 10×. It’s not about doing more quotes — it’s getting them out the same day, every time.”",
+      "“Confyde scaled our quoting more than 10×. It’s not about doing more quotes — it’s getting them out the same day, every time.”",
     initials: "DN",
     name: "Dave Nguyen",
     role: "Owner",
@@ -49,7 +49,7 @@ export const TESTIMONIALS_DESKTOP: readonly Testimonial[] = [
   {
     org: "Coastal Gardens",
     quote:
-      "“We needed to follow up without nagging, and build real relationships with clients. Bramble does that at scale.”",
+      "“We needed to follow up without nagging, and build real relationships with clients. Confyde does that at scale.”",
     initials: "SW",
     name: "Sam Whitfield",
     role: "Owner",
@@ -58,7 +58,7 @@ export const TESTIMONIALS_DESKTOP: readonly Testimonial[] = [
   {
     org: "BuildRight",
     quote:
-      "“Clients trust a clear quote. Bramble turns our numbers into something they actually understand — every time.”",
+      "“Clients trust a clear quote. Confyde turns our numbers into something they actually understand — every time.”",
     initials: "PS",
     name: "Priya Shah",
     role: "Estimator",
@@ -67,7 +67,7 @@ export const TESTIMONIALS_DESKTOP: readonly Testimonial[] = [
   {
     org: "Elm & Oak",
     quote:
-      "“I was sceptical of AI. Bramble’s pricing is genuinely strong — it finds line items I’d have missed and flags where I’m underquoting.”",
+      "“I was sceptical of AI. Confyde’s pricing is genuinely strong — it finds line items I’d have missed and flags where I’m underquoting.”",
     initials: "TR",
     name: "Tom Reeves",
     role: "Owner",
@@ -76,7 +76,7 @@ export const TESTIMONIALS_DESKTOP: readonly Testimonial[] = [
   {
     org: "Harbour Pools",
     quote:
-      "“Bramble feels like a teammate. I describe the job and it fleshes out scope, materials and margin in minutes — work that used to eat my evenings.”",
+      "“Confyde feels like a teammate. I describe the job and it fleshes out scope, materials and margin in minutes — work that used to eat my evenings.”",
     initials: "JL",
     name: "Jess Lam",
     role: "Director",
@@ -85,7 +85,7 @@ export const TESTIMONIALS_DESKTOP: readonly Testimonial[] = [
   {
     org: "GreenScape",
     quote:
-      "“Before Bramble, chasing quotes and invoices was chaos. Now it’s all in one place and I can see exactly what’s working.”",
+      "“Before Confyde, chasing quotes and invoices was chaos. Now it’s all in one place and I can see exactly what’s working.”",
     initials: "AM",
     name: "Alex Morgan",
     role: "Owner",
@@ -98,7 +98,7 @@ export const TESTIMONIALS_MOBILE: readonly Testimonial[] = [
   {
     org: "Occo Landscapers",
     quote:
-      "“Bramble scaled our quoting more than 10×. It’s getting them out the same day, every time.”",
+      "“Confyde scaled our quoting more than 10×. It’s getting them out the same day, every time.”",
     initials: "DN",
     name: "Dave Nguyen",
     role: "Owner",
@@ -107,7 +107,7 @@ export const TESTIMONIALS_MOBILE: readonly Testimonial[] = [
   {
     org: "Coastal Gardens",
     quote:
-      "“We needed to follow up without nagging, and build real relationships with clients. Bramble does that at scale.”",
+      "“We needed to follow up without nagging, and build real relationships with clients. Confyde does that at scale.”",
     initials: "SW",
     name: "Sam Whitfield",
     role: "Owner",
@@ -116,7 +116,7 @@ export const TESTIMONIALS_MOBILE: readonly Testimonial[] = [
   {
     org: "Elm & Oak",
     quote:
-      "“I was sceptical of AI. Bramble’s pricing is genuinely strong — it flags where I’m underquoting.”",
+      "“I was sceptical of AI. Confyde’s pricing is genuinely strong — it flags where I’m underquoting.”",
     initials: "TR",
     name: "Tom Reeves",
     role: "Owner",

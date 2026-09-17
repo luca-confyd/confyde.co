@@ -11,7 +11,7 @@ import {
 /**
  * The repeat-work panel, desktop composition.
  *
- * A botanical canvas panel carrying two cards side by side: Bramble's own
+ * A botanical canvas panel carrying two cards side by side: Confyde's own
  * "worth a call" list on the left, and the money that list has already made on
  * the right. Mutually exclusive with `repeat-work-mobile.tsx` at 1024px - see
  * `repeat-work.tsx` for why the two are separate compositions rather than one

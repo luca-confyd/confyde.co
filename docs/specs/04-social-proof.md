@@ -60,7 +60,7 @@ Eyebrow:
 
 Heading:
 
-> Landscapers & designers who stand behind Bramble.
+> Landscapers & designers who stand behind Confyde.
 
 (`&amp;` in both sources; the rendered character is `&`. Trailing full stop is
 present on both.)
@@ -71,7 +71,7 @@ present on both.)
 <div data-anim="up-blur" data-duration="0.5" class="pf-anim-idle"
      style="display:flex;flex-direction:column;align-items:center;gap:12px;margin:0 auto 32px;max-width:640px;text-align:center">
   <span style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pf-lime-500)">Built with the landscaping community</span>
-  <h2 class="pf-h2" style="margin:0;color:var(--pf-ink-900);text-wrap:balance">Landscapers &amp; designers who stand behind Bramble.</h2>
+  <h2 class="pf-h2" style="margin:0;color:var(--pf-ink-900);text-wrap:balance">Landscapers &amp; designers who stand behind Confyde.</h2>
 </div>
 ```
 
@@ -94,7 +94,7 @@ with no axis overrides.
 
 ```html
 <div class="m-eyebrow" style="text-align:center;color:#7E9A2B">Built with the landscaping community</div>
-<h2 class="m-h2" style="margin:10px 0 18px;text-align:center;font-size:26px;color:var(--m-ink)">Landscapers &amp; designers who stand behind Bramble.</h2>
+<h2 class="m-h2" style="margin:10px 0 18px;text-align:center;font-size:26px;color:var(--m-ink)">Landscapers &amp; designers who stand behind Confyde.</h2>
 ```
 
 | Artboard | Value | Project mapping |
@@ -718,7 +718,7 @@ changes it.
    one is `11px / 700`. So the utility matches neither artboard at either width,
    and the comment matches nothing at all.
 
-   `.eyebrow` was presumably derived from the "Before Bramble" chip
+   `.eyebrow` was presumably derived from the "Before Confyde" chip
    (`11.5px / 800` desktop, `10.5px / 800` mobile) — also not a match. **Worth a
    pass over every eyebrow on the page before deciding what `.eyebrow` should
    be.** For this section, ship the literal artboard values and do not use the

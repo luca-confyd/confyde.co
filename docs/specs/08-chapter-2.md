@@ -177,7 +177,7 @@ margin-top:6px; max-width:64ch; font-size:18px; color:var(--pf-ink-900)
 
 Copy, verbatim (note the em dash and the curly apostrophe — both stay, §9 D19):
 
-> `Bramble knows the moment a client opens your quote, then hands you a heatmap
+> `Confyde knows the moment a client opens your quote, then hands you a heatmap
 > of what they read and a replay of every visit — how long they sat on each
 > section, and what they keep coming back to. You’re ready to close the deal.`
 
@@ -1329,7 +1329,7 @@ p:       margin:8px 0 16px; font-size:14.5px; line-height:1.55; color:var(--m-in
 
 > `Win the job and the client, not just the quote.`
 
-> `Bramble shows you what your client read, and how long they sat on it. You call knowing what they care about.`
+> `Confyde shows you what your client read, and how long they sat on it. You call knowing what they care about.`
 
 The paragraph is **different copy** from desktop's, not a truncation. Preserve
 both (§01 ruling 12 precedent).

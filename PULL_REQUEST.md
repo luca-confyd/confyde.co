@@ -1,6 +1,6 @@
-# Bramble homepage
+# Confyde homepage
 
-Rebuilds the Bramble marketing homepage from the Claude Design artboards as a
+Rebuilds the Confyde marketing homepage from the Claude Design artboards as a
 statically prerendered Next.js site.
 
 Every section was taken off the artboards value by value, then verified against

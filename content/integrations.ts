@@ -12,7 +12,7 @@
  * value with no role in the system stays a local constant.
  *
  * The one exception is Gmail & Outlook. Neither of those products is green; the
- * artboard sets that disc to `#2C5539`, which is Bramble's own `forest-700`, so
+ * artboard sets that disc to `#2C5539`, which is Confyde's own `forest-700`, so
  * it IS a token and is written as one. It reads as a deliberate choice - the
  * tile stands for two products at once and has no single brand mark to borrow.
  */
@@ -45,7 +45,7 @@ export const INTEGRATIONS: readonly Integration[] = [
     name: "Gmail & Outlook",
     sub: "Client email",
     initials: "G",
-    // Bramble's forest-700, not a partner colour - see the note above.
+    // Confyde's forest-700, not a partner colour - see the note above.
     disc: "var(--color-forest-700)",
   },
   { name: "Stripe", sub: "Card payments", initials: "S", disc: "#635BFF" },

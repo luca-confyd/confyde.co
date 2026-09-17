@@ -80,7 +80,7 @@ export function BeforeAfterMobile() {
 
           {/*
             The artboard breaks this line with a hard `<br>` tuned for its 430px
-            measure. At 320px that leaves "Bramble's running the office."
+            measure. At 320px that leaves "Confyde's running the office."
             running ~288px against a 256px column - a three-line shape with an
             orphan - and at 560px it wastes half a line. `text-balance`
             reproduces the artboard's own two-line break at 430px and does the

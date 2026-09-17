@@ -14,7 +14,7 @@ import { QUOTE, READING, SCOPE, TAKEOFF, TAKEOFF_LINES } from "@/content/home";
  * `visibility`, so both stay in the accessibility tree and every file would be
  * announced twice.
  *
- * WHY NOT SILENCE THEM. These cards are the chapter's claim. "Bramble measures
+ * WHY NOT SILENCE THEM. These cards are the chapter's claim. "Confyde measures
  * the job off the plan and prices it from your own suppliers" is only credible
  * because the reader can see a plan being measured and lines being priced. One
  * sentence restores that.
@@ -50,7 +50,7 @@ const TAKEOFF_ITEMS = spokenList(TAKEOFF_LINES.map((line) => line.label.toLowerC
 
 export const CH1_LABELS = {
   takeoff:
-    `A take-off in progress: Bramble measures a site plan and prices ` +
+    `A take-off in progress: Confyde measures a site plan and prices ` +
     `${countWord(TAKEOFF_LINES.length).toLowerCase()} lines — ${TAKEOFF_ITEMS} — to a quote ` +
     `total of ${TAKEOFF.total} in ${SPOKEN_ELAPSED}.`,
 

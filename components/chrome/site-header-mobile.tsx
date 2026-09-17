@@ -44,7 +44,7 @@ export function SiteHeaderMobile() {
         aria-label="Main"
         className="mx-auto flex w-full items-center justify-between gap-2.5 md:max-w-[720px]"
       >
-        <NavItem href="/" aria-label="Bramble home" className="flex items-center">
+        <NavItem href="/" aria-label="Confyde home" className="flex items-center">
           {/* 19px / -0.01em, not the 24px wordmark utility: the mobile bar is a
               different composition rather than a scale of the desktop one. */}
           <Wordmark className="text-[19px] tracking-[-0.01em] group-data-[nav-state=dark]:text-white group-data-[nav-state=light]:text-forest-900" />

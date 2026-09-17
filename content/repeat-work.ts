@@ -25,12 +25,12 @@ export type ClientRow = {
   name: string;
   /** The address or suburb that disambiguates the name. */
   place: string;
-  /** Why Bramble surfaced them. */
+  /** Why Confyde surfaced them. */
   note: string;
   /** The status word on the right of the row. */
   status: string;
   /**
-   * The action Bramble suggests. Text, never a control: it is a depiction of a
+   * The action Confyde suggests. Text, never a control: it is a depiction of a
    * button inside a depiction of the app, and rendering it as one would add
    * four inert tab stops. Absent on mobile, where the artboard draws none.
    */
@@ -39,7 +39,7 @@ export type ClientRow = {
 };
 
 /**
- * How many clients Bramble is said to be watching. Written three times in the
+ * How many clients Confyde is said to be watching. Written three times in the
  * desktop panel - the header count, the footer sentence and the footer link -
  * so it is one constant; three hand-typed numbers are how a number drifts.
  */
@@ -49,7 +49,7 @@ export const REPEAT_WORK = {
   eyebrow: "Customer CRM with smart reminders",
   heading: "The easiest job to win is the one you’ve already done.",
   intro:
-    "Bramble remembers every past client and what you built for them, then nudges you before " +
+    "Confyde remembers every past client and what you built for them, then nudges you before " +
     "they go looking for someone else.",
 
   /** The white card's header. Desktop names the noun, mobile does not. */
@@ -58,7 +58,7 @@ export const REPEAT_WORK = {
   countMobile: `4 of ${CLIENT_COUNT}`,
 
   /** Desktop only - the mobile card ends at the last row. */
-  footerNote: `Bramble checks all ${CLIENT_COUNT} every month and tells you who is worth a call.`,
+  footerNote: `Confyde checks all ${CLIENT_COUNT} every month and tells you who is worth a call.`,
   footerLink: `See all ${CLIENT_COUNT} →`,
 
   /** Desktop only. The mobile stat card carries no label. */
@@ -80,7 +80,7 @@ export const REPEAT_WORK = {
     "Nothing spent on ads to win it",
     "No quoting against three others on price",
     "They already know your work, so there is less selling to do",
-    "Bramble drafts the quote from the job you did for them",
+    "Confyde drafts the quote from the job you did for them",
   ],
 
   callout: {
