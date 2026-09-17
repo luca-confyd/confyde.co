@@ -40,7 +40,7 @@ export const GET_BACK_CARDS: readonly GetBackCard[] = [
   {
     eyebrow: "AI agents",
     figure: "Hours → minutes",
-    lead: "On the work your team repeats every week",
+    lead: "On the work your team repeats weekly",
     body:
       "Quotes, reports, data entry, chasing information. The jobs that fill a week start running " +
       "without anyone watching them.",
