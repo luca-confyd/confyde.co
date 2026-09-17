@@ -1,5 +1,3 @@
-import { QUOTE } from "./home";
-
 /**
  * "A business that doesn’t need chasing." - the day-to-day operations panel's
  * copy, its two client lists and the figures on its stat card.
@@ -14,33 +12,25 @@ import { QUOTE } from "./home";
  * list took the status-circle treatment: a row is now a title, one line of
  * evidence and a circle that resolves from spinner to tick.
  *
- * Sarah Henderson and 14 Beach Rd come from `QUOTE`, not from a second typing:
- * she is the client whose quote the hero, the take-off demo and the proposal
- * card all draw, and this row is the same relationship a year later.
- *
  * Apostrophes are U+2019 and the arrow is U+2192, both as drawn.
  */
 
 /**
  * A row in the "Where Confyde comes in" list.
  *
- * `title` is the thing Confyde did; `detail`, `client` and `place` are the
- * evidence, set as one secondary line "<detail> - <client>, <place>". They stay
- * three fields rather than one pre-joined string so the separator and the comma
- * are the component's typography rather than something baked into content.
+ * `title` is the capability; `detail` is the one line that says what it means
+ * in practice. They stay two fields rather than one pre-joined string so the
+ * dash between them is the component's typography rather than something baked
+ * into content - and so a narrow column can break the line at the dash.
  *
- * There is no `photo` and no `action` any more. The rows carry a status circle
- * instead, and the circle is the same for every row - so nothing about which
- * state a row is in lives here. The sequence is presentation, and it is
- * entirely in CSS (styles/motion/repeat-work.css).
+ * The rows used to carry a client and an address as well, back when this list
+ * was five named customers Confyde had chased. It is a list of what Confyde
+ * DOES now, so there is no client to name and nothing about the row is
+ * per-customer.
  */
 export type ClientRow = {
   title: string;
-  /** Why Confyde surfaced it. */
   detail: string;
-  client: string;
-  /** The address or suburb that disambiguates the client. */
-  place: string;
 };
 
 export const REPEAT_WORK = {
@@ -125,50 +115,40 @@ export const REPEAT_WORK = {
   },
 } as const;
 
-export const CLIENT_ROWS_DESKTOP: readonly ClientRow[] = [
+/**
+ * ONE LIST, NOT TWO. The desktop and mobile boards used to draw different
+ * customers - a different photograph against each name and, for one of them,
+ * differently worded copy - so deriving one list from the other would have
+ * quietly repaired the client's own edit. None of that survives: these are five
+ * capabilities, the same five at both breakpoints, with nothing per-row that
+ * could differ. The second array was two hand-maintained copies of one list.
+ */
+export const CLIENT_ROWS: readonly ClientRow[] = [
   {
-    title: "Fire pit and lighting",
-    detail: "Added at handover",
-    client: QUOTE.client,
-    place: QUOTE.address,
+    title: "AI agents",
+    detail: "Handling the work your team repeats every week",
   },
   {
-    title: "Lower terrace, stage two",
-    detail: "Quoted for after winter",
-    client: "Tom Ridgeway",
-    place: "112 Ridgeway Ave",
+    title: "Automations",
+    detail: "Your existing processes running without anyone driving them",
   },
   {
-    title: "Turf maintenance visit",
-    detail: "Second summer on the turf",
-    client: "Leah Cortez",
-    place: "Wattle Grove",
+    title: "Data and integrations",
+    detail: "Your systems connected so the answers are already there",
   },
   {
-    title: "Review requested",
-    detail: "Happy client, never asked",
-    client: "Jo Harcourt",
-    place: "Harcourt St terrace",
+    title: "Engineering delivery",
+    detail: "Building the teams and software behind the business",
   },
   {
-    title: "Annual maintenance booked",
-    detail: "Booked without being asked",
-    client: "Priya Raman",
-    place: "Alexandra Parade",
+    /*
+      NOTE: this detail is near-identical to the hero's "Technical strategy"
+      blurb ("What to build, what to buy, and what to stop paying for
+      entirely"). The two sit far apart on the page and say the same thing in
+      almost the same words. Left as given; flag if one of them should move.
+    */
+    title: "Technical strategy",
+    detail: "What to build, what to buy, what to stop paying for",
   },
 ];
 
-export const CLIENT_ROWS_MOBILE: readonly ClientRow[] = [
-  {
-    title: "Fire pit and lighting",
-    detail: "Added at handover",
-    client: QUOTE.client,
-    place: QUOTE.address,
-  },
-  {
-    title: "Turf maintenance visit",
-    detail: "Second summer on the turf",
-    client: "Leah Cortez",
-    place: "Wattle Grove",
-  },
-];

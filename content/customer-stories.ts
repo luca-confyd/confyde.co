@@ -12,15 +12,17 @@
  * photograph's alt text stays empty either way, because the name is set over
  * it in text.
  *
- * ARTWORK. Plann has its logo. Linktree and Kensington Tennis Club do not, so
- * they still draw photo-2 and photo-4 - the landscape and construction stock
- * the previous stories used, which has nothing to do with a link-in-bio
- * platform or a tennis club and is only there because the tile needs something
- * to lay out.
+ * PHOTOGRAPHS ARE PLACEHOLDERS. photo-1, photo-2 and photo-4 are the landscape
+ * and construction stock the previous stories used, and none of them has
+ * anything to do with a social scheduling tool, a link-in-bio platform or a
+ * tennis club. They are wrong for this copy and are only here because the tile
+ * needs an image to lay out. Replace before this goes anywhere public.
  *
- * That means the row currently mixes one logo tile with two photo tiles, and
- * it shows. The fix is the other two logos, not a third treatment: drop them in
- * as `logo` and the row evens out by itself.
+ * Plann's logo was briefly drawn here instead of its photograph. Reverted: one
+ * logo tile beside two photo tiles made the row look broken rather than
+ * branded. If logos are wanted here it is all three or none. The logo is still
+ * on the case study card in content/repeat-work.ts, where it is the only
+ * company on the card and has nothing to be inconsistent with.
  *
  * Photo order is 1, 2, 4: photo-3 belongs to the social-proof band and is
  * deliberately not reused here.
@@ -31,18 +33,6 @@
  */
 export type CustomerStory = {
   photo: string;
-  /**
-   * The client's own logo, when we have it.
-   *
-   * A story with a logo draws the logo INSTEAD of the photograph, and drops
-   * both the dark veil and the white studio name with it: the veil exists only
-   * to buy that name its contrast, and the name is what the logo already says.
-   * See story-card.tsx.
-   *
-   * `photo` stays required so a story always has something to draw if a logo
-   * file goes missing, and so the two treatments cannot both be absent.
-   */
-  logo?: string;
   studio: string;
   title: string;
   blurb: string;
@@ -52,7 +42,6 @@ export type CustomerStory = {
 export const CUSTOMER_STORIES: readonly CustomerStory[] = [
   {
     photo: "/images/photo-1.webp",
-    logo: "/images/logo-plann.png",
     studio: "Plann",
     title: "Building the team behind the exit",
     blurb:

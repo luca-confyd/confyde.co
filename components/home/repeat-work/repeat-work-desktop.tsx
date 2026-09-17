@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/primitives/reveal";
-import { CLIENT_ROWS_DESKTOP, REPEAT_WORK } from "@/content/repeat-work";
+import { CLIENT_ROWS, REPEAT_WORK } from "@/content/repeat-work";
 
 import { StatusCircle } from "./status-circle";
 
@@ -96,7 +96,22 @@ export function RepeatWorkDesktop() {
           anim="scale"
           delay={0.15}
           duration={0.5}
-          className="mx-auto mt-7 grid w-full max-w-[1024px] items-stretch gap-5 [grid-template-columns:minmax(0,1.15fr)_minmax(320px,1fr)]"
+          /*
+            TWO EQUAL TRACKS, AND NO SECOND CAP.
+
+            The tracks were `minmax(0,1.15fr)` and `minmax(320px,1fr)`, so at
+            1440 the cards came out 537 and 467 - 70px apart, which reads as a
+            mistake rather than as emphasis. `grid-cols-2` makes them equal.
+
+            The `max-w-[1024px]` is gone. The panel it sits in is already
+            1232px wide with 48px of its own padding, so a 1024 cap centred
+            inside that added 56px of dead margin on each side on top of the
+            padding: the cards started at x=208 against a page rail at x=80.
+            That is what made this band look indented past everything around
+            it. The panel's own padding stays - it is a raised plate and a plate
+            has an edge - but nothing else narrows the content now.
+          */
+          className="mt-7 grid w-full items-stretch gap-5 grid-cols-2"
         >
           {/* `overflow-hidden` is what clips the list's own rows to the card's
               radius.
@@ -127,7 +142,7 @@ export function RepeatWorkDesktop() {
                 pair rather than as one full card beside one half-empty one.
               */}
             <ul className="m-0 flex flex-1 list-none flex-col p-0">
-              {CLIENT_ROWS_DESKTOP.map((row, index) => (
+              {CLIENT_ROWS.map((row, index) => (
                 /* The hairline between rows is slate-100 and NOT the warmer
                    `--color-hairline` the card's own header uses. That is the
                    app's own list rule, drawn as drawn. */
@@ -142,15 +157,11 @@ export function RepeatWorkDesktop() {
                     <span className="font-ui text-[15px] font-medium text-charcoal-900">
                       {row.title}
                     </span>
-                    {/*
-                      One line, three fields. The middle dot separates what
-                      Confyde did from who it was for; the comma inside the
-                      second half is the client's own address. Both live here
-                      rather than in the content file so the punctuation stays a
-                      typographic decision.
-                    */}
+                    {/* The em dash lives here rather than in the content file,
+                        so the punctuation stays a typographic decision and a
+                        narrow column can break the line at it. */}
                     <span className="font-ui text-[13px] leading-[1.4] text-slate-500">
-                      {row.detail} &middot; {row.client}, {row.place}
+                      {row.detail}
                     </span>
                   </span>
 

@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/primitives/reveal";
-import { CLIENT_ROWS_MOBILE, REPEAT_WORK } from "@/content/repeat-work";
+import { CLIENT_ROWS, REPEAT_WORK } from "@/content/repeat-work";
 
 import { StatusCircle } from "./status-circle";
 
@@ -88,7 +88,7 @@ export function RepeatWorkMobile() {
             </div>
 
             <ul className="m-0 list-none p-0">
-              {CLIENT_ROWS_MOBILE.map((row, index) => (
+              {CLIENT_ROWS.map((row, index) => (
                 <li
                   key={row.title}
                   className="flex items-center gap-3 border-t border-slate-100 px-[14px] py-3 first:border-t-0"
@@ -99,7 +99,7 @@ export function RepeatWorkMobile() {
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="font-ui text-[14px] font-semibold text-ink">{row.title}</span>
                     <span className="font-ui text-[12.5px] leading-[1.45] text-slate-500">
-                      {row.detail} &middot; {row.client}, {row.place}
+                      {row.detail}
                     </span>
                   </span>
 
