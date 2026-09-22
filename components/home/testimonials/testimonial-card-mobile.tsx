@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { Testimonial } from "@/content/testimonials";
 
 import { AVATAR_FILL } from "./avatar-tone";
@@ -86,12 +88,24 @@ export function TestimonialCardMobile({
         <footer className="mt-auto flex items-center gap-[9px]">
           {/* `aria-hidden="true"`; the board writes `aria-hidden=""`, which is
               not a valid value (RULINGS.md §03/04 ruling 7). */}
-          <span
-            aria-hidden="true"
-            className={`grid size-8 flex-none place-items-center rounded-full text-[11px] font-extrabold text-white ${AVATAR_FILL[testimonial.tone]}`}
-          >
-            {testimonial.initials}
-          </span>
+          {testimonial.portrait ? (
+            /* The circle the tone fill draws on this board, at the same 32px. */
+            <Image
+              src={testimonial.portrait}
+              alt=""
+              aria-hidden="true"
+              width={32}
+              height={32}
+              className="size-8 flex-none rounded-full object-cover"
+            />
+          ) : (
+            <span
+              aria-hidden="true"
+              className={`grid size-8 flex-none place-items-center rounded-full text-[11px] font-extrabold text-white ${AVATAR_FILL[testimonial.tone]}`}
+            >
+              {testimonial.initials}
+            </span>
+          )}
           <span>
             <span className="block text-[13px] font-bold text-ink">{testimonial.name}</span>
             <span className="block text-[12px] text-slate-500">{testimonial.role}</span>

@@ -3,14 +3,17 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { CASE_STUDIES, caseStudyPath } from "@/content/case-studies";
 import { NavItem } from "./nav-item";
 
 const SHEET_ID = "m-nav-menu";
 
-/* First group mirrors the desktop nav; second is verbatim from the mobile
-   footer. `Customers` appears in both and is not repeated, and `Get started` is
-   not here because it is already in the bar. */
-const SECTIONS = ["Product", "Customers", "Pricing", "Book a Demo", "Login"];
+/* The first group mirrors the desktop nav, which is now the three case studies
+   and nothing else: Product, Customers and Pricing went with the desktop pill's
+   inert items. There is no dropdown here - a sheet inside a sheet - so the three
+   are listed flat, under the label the desktop trigger carries. The second group
+   is verbatim from the mobile footer, and `Get started` is not here because it
+   is already in the bar. */
 const SECONDARY = ["About", "Help centre", "Contact"];
 
 const ROW =
@@ -110,9 +113,18 @@ export function MobileNavMenu() {
             buttonRef.current?.focus();
           }}
         >
-          {SECTIONS.map((label) => (
-            <NavItem key={label} tone="light" className={ROW}>
-              {label}
+          <span className="block px-3 pt-2 pb-1 text-[11px] font-extrabold tracking-[0.14em] text-eyebrow uppercase">
+            Case studies
+          </span>
+
+          {CASE_STUDIES.map((study) => (
+            <NavItem
+              key={study.slug}
+              href={caseStudyPath(study.slug)}
+              tone="light"
+              className={ROW}
+            >
+              {study.client}
             </NavItem>
           ))}
 

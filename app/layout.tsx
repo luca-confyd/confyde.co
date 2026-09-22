@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Asap, Fraunces, Hanken_Grotesk, Nunito_Sans, Source_Serif_4 } from "next/font/google";
 
-import { SiteFooter } from "@/components/chrome/footer/site-footer";
-import { FloatingBars } from "@/components/chrome/floating-bars";
 import { SiteHeaderDesktop } from "@/components/chrome/site-header-desktop";
 import { SiteHeaderMobile } from "@/components/chrome/site-header-mobile";
 import { StickyBottomBar } from "@/components/chrome/sticky-bottom-bar";
@@ -60,11 +58,11 @@ const sourceSerif = Source_Serif_4({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://confydehq.co"),
-  title: "Confyde | Clear technical direction for scaling businesses",
+  title: "Confyde | The AI consultancy you hire to build, not just plan",
   description:
     "Confyde learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.",
   openGraph: {
-    title: "Confyde | Clear technical direction for scaling businesses",
+    title: "Confyde | The AI consultancy you hire to build, not just plan",
     description:
       "Scope, price and send a quote in minutes, not late-night hours. Priced on your own materials, suppliers and margins.",
     type: "website",
@@ -102,13 +100,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeaderDesktop />
         <SiteHeaderMobile />
 
+        {/* The footer and the floating promo bar are NOT here. Both belong to
+            the pages that want them, so they live in
+            app/(with-footer)/layout.tsx - see the note there. The case studies
+            close on their own CTA band instead. */}
         {children}
 
-        {/* The footer is page chrome, so it lives beside the nav and the bars
-            rather than at the foot of the page component. */}
-        <SiteFooter />
-
-        <FloatingBars />
         <StickyBottomBar />
       </body>
     </html>

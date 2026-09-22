@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { Testimonial } from "@/content/testimonials";
 
 import { AVATAR_FILL } from "./avatar-tone";
@@ -100,12 +102,25 @@ export function TestimonialCard({ testimonial, index }: { testimonial: Testimoni
             12px on a 40px tile, where the mobile card draws a full circle. A
             real difference between the boards, and both ship as drawn.
           */}
-          <span
-            aria-hidden="true"
-            className={`flex size-10 flex-none items-center justify-center rounded-xl text-[14px] font-extrabold text-white ${AVATAR_FILL[testimonial.tone]}`}
-          >
-            {testimonial.initials}
-          </span>
+          {testimonial.portrait ? (
+            /* Same 40px tile and same 12px corner as the tone fill it replaces,
+               so a card with a headshot and a card without keep one footer. */
+            <Image
+              src={testimonial.portrait}
+              alt=""
+              aria-hidden="true"
+              width={40}
+              height={40}
+              className="size-10 flex-none rounded-xl object-cover"
+            />
+          ) : (
+            <span
+              aria-hidden="true"
+              className={`flex size-10 flex-none items-center justify-center rounded-xl text-[14px] font-extrabold text-white ${AVATAR_FILL[testimonial.tone]}`}
+            >
+              {testimonial.initials}
+            </span>
+          )}
           <div>
             <p className="m-0 text-[16px] font-bold text-pf-ink-900">{testimonial.name}</p>
             <p className="m-0 text-[16px] text-pf-ink-700">{testimonial.role}</p>

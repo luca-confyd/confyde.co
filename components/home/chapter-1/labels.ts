@@ -1,26 +1,22 @@
-import { QUOTE, READING, SCOPE, TAKEOFF, TAKEOFF_LINES } from "@/content/home";
+import { QUOTE, READING, SCOPE, TAKEOFF } from "@/content/home";
 
 /**
- * The four product depictions in this chapter are `role="img"` regions, so each
+ * The product depictions in this chapter are `role="img"` regions, so each
  * needs one written sentence that carries what a sighted reader takes from it.
  *
- * WHY NOT READ THE CARDS THEMSELVES. The take-off card alone is four labels,
- * four specs, four supplier names, four unit rates, four quantities, four
- * totals, five superimposed timestamps and a three-row totals block - roughly
- * ninety tokens of invented data, of which a sighted reader absorbs the SHAPE
- * in under a second and none of the specifics. Read aloud it is a minute of
- * numbers with no argument in it. The price-library card is worse: its type
- * chip and its "Read" chip are superimposed siblings and `opacity` is not
- * `visibility`, so both stay in the accessibility tree and every file would be
- * announced twice.
+ * WHY NOT READ THE CARDS THEMSELVES. The price-library card is four file rows
+ * of invented data, of which a sighted reader absorbs the SHAPE in under a
+ * second and none of the specifics - and its type chip and its "Read" chip are
+ * superimposed siblings where `opacity` is not `visibility`, so both stay in
+ * the accessibility tree and every file would be announced twice.
  *
- * WHY NOT SILENCE THEM. These cards are the chapter's claim. "Confyde measures
- * the job off the plan and prices it from your own suppliers" is only credible
- * because the reader can see a plan being measured and lines being priced. One
- * sentence restores that.
+ * WHY NOT SILENCE THEM. These cards are the chapter's claim, and it is only
+ * credible because the reader can see files being read and lines being priced.
+ * One sentence restores that.
  *
- * Everything outside the four regions - three eyebrows, three sub-heads, three
- * paragraphs, the whole case the section makes - is announced normally.
+ * Everything outside those regions - the eyebrow, three sub-heads, three
+ * paragraphs, the tab strip, the whole case the section makes - is announced
+ * normally.
  *
  * The strings are BUILT from `content/home.ts` rather than typed out, for the
  * same reason the cards are: $15,563 is the sum of four priced lines that are
@@ -37,23 +33,7 @@ function countWord(n: number): string {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-/** "paving, stepping pavers, pool coping and screen planting" */
-function spokenList(items: readonly string[]): string {
-  if (items.length < 2) return items.join("");
-  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
-}
-
-/** "2m 14s" reads as two letters to a screen reader; spell it out. */
-const SPOKEN_ELAPSED = TAKEOFF.elapsed.replace(/(\d+)m/, "$1 minutes").replace(/(\d+)s/, "$1 seconds");
-
-const TAKEOFF_ITEMS = spokenList(TAKEOFF_LINES.map((line) => line.label.toLowerCase()));
-
 export const CH1_LABELS = {
-  takeoff:
-    `A take-off in progress: Confyde measures a site plan and prices ` +
-    `${countWord(TAKEOFF_LINES.length).toLowerCase()} lines — ${TAKEOFF_ITEMS} — to a quote ` +
-    `total of ${TAKEOFF.total} in ${SPOKEN_ELAPSED}.`,
-
   priceLibrary:
     `Four files being read into a price library: a PDF quote, an Excel pricelist and two ` +
     `photographs. All four are marked Read, and the footer says ` +

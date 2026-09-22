@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { NavFlipSentinel } from "@/components/chrome/nav-flip-sentinel";
 import { NavItem } from "@/components/chrome/nav-item";
 import { Reveal } from "@/components/primitives/reveal";
+import { BOOKING_URL } from "@/lib/booking";
 
 import { HeroCategories } from "./hero-categories";
 
@@ -39,9 +40,11 @@ const HEADLINE_LINES = [
   {
     tone: "",
     words: [
-      { word: "Clear", delay: 0 },
-      { word: "technical", delay: 0.045 },
-      { word: "direction", delay: 0.09 },
+      { word: "The", delay: 0 },
+      { word: "AI", delay: 0.045 },
+      { word: "consultancy", delay: 0.09 },
+      { word: "you", delay: 0.135 },
+      { word: "hire", delay: 0.18 },
     ],
   },
   {
@@ -50,9 +53,11 @@ const HEADLINE_LINES = [
     // at its own clause boundary to keep it.
     tone: "text-forest-500",
     words: [
-      { word: "for", delay: 0.2 },
-      { word: "scaling", delay: 0.245 },
-      { word: "businesses.", delay: 0.29 },
+      { word: "to", delay: 0.29 },
+      { word: "build,", delay: 0.335 },
+      { word: "not", delay: 0.38 },
+      { word: "just", delay: 0.425 },
+      { word: "plan.", delay: 0.47 },
     ],
   },
 ];
@@ -168,13 +173,35 @@ export function HeroDesktop({ cardFooter }: { cardFooter?: ReactNode }) {
                   anim="up-blur"
                   delay={0.42}
                   duration={0.5}
-                  className="mt-15 flex justify-center hero-short:mt-12"
+                  className="mt-15 flex items-center justify-center gap-7 hero-short:mt-12"
                 >
                   <NavItem
+                    href={BOOKING_URL}
                     tone="dark"
                     className="btn-lime inline-flex h-11 items-center justify-center rounded-xl bg-lime-500 px-10 text-[16px] font-bold whitespace-nowrap text-white shadow-[0_8px_20px_-10px_rgb(51_56_58/0.4)]"
                   >
                     Book a discovery call
+                  </NavItem>
+
+                  {/*
+                    The second action, deliberately not a second button: the
+                    call is the thing to do and this is the way out for someone
+                    who is not ready to book one, so it takes the weight of a
+                    link rather than competing with the lime.
+
+                    INERT, like the FAQ's "Get in touch" - there is no contact
+                    route on this site yet, so it ships as a keyboard-reachable
+                    control that announces itself as disabled rather than as a
+                    link to nowhere (RULINGS.md §01). Adding `href` is the whole
+                    switch when that route lands, and the mailto or the route
+                    belongs in lib/, next to BOOKING_URL, so both hero CTAs keep
+                    one destination each.
+                  */}
+                  <NavItem
+                    tone="dark"
+                    className="text-[16px] font-semibold whitespace-nowrap text-cream underline decoration-1 underline-offset-4 transition-colors duration-150 hover:text-white"
+                  >
+                    Contact us
                   </NavItem>
                 </Reveal>
               </div>

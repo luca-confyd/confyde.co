@@ -1,5 +1,4 @@
-import { ChevronDown } from "lucide-react";
-
+import { NavCaseStudies } from "./nav-case-studies";
 import { NavItem } from "./nav-item";
 import { DesktopNavHeader } from "./nav-theme-header";
 import { Wordmark } from "./wordmark";
@@ -47,8 +46,9 @@ const NAV_LINK =
  * `display: none` takes the other one out of the accessibility tree, so the page
  * never exposes two `Main` navigation landmarks and neither needs `aria-hidden`.
  *
- * Every destination but the wordmark is inert - see `<NavItem>`. The homepage is
- * the only page in scope.
+ * EVERY DESTINATION IS REAL NOW. The wordmark goes home and the one nav item
+ * opens the three case studies - see `<NavCaseStudies>`, which is the only
+ * client component in the header.
  */
 export function SiteHeaderDesktop() {
   return (
@@ -75,16 +75,13 @@ export function SiteHeaderDesktop() {
 
           <span aria-hidden="true" className={DIVIDER} />
 
+          {/* ONE DESTINATION. The pill carried Product, Customers and Pricing,
+              all three inert because none of those pages exists. The case
+              studies do, so the nav is that one item and its sheet - a nav of
+              real links rather than three that announce themselves as
+              disabled. */}
           <span className="flex gap-2.5">
-            <NavItem className={`${NAV_LINK} gap-1.5 px-3.5`}>
-              Product
-              <ChevronDown size={14} strokeWidth={2} aria-hidden="true" focusable="false" />
-            </NavItem>
-            <NavItem className={`${NAV_LINK} gap-1.5 px-3.5`}>
-              Customers
-              <ChevronDown size={14} strokeWidth={2} aria-hidden="true" focusable="false" />
-            </NavItem>
-            <NavItem className={`${NAV_LINK} px-3.5`}>Pricing</NavItem>
+            <NavCaseStudies triggerClassName={NAV_LINK} />
           </span>
         </div>
 

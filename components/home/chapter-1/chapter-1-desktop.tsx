@@ -1,13 +1,19 @@
 import { ChapterShell } from "@/components/home/chapter/chapter-shell";
 import { Reveal } from "@/components/primitives/reveal";
 
-import { PriceLibraryCard } from "./price-library-card";
-import { ProposalCard } from "./proposal-card";
-import { TakeoffCard } from "./takeoff-card";
+// import { DiscoveryTabs } from "./discovery-tabs";
 
 /**
- * Chapter 1 at 1024px and above: the take-off demo across the top of the
- * panel, then the price library and the proposal card side by side beneath it.
+ * Chapter 1 at 1024px and above: the discovery tabs across the top of the
+ * panel, then two panels of copy side by side beneath it.
+ *
+ * THE TWO PRODUCT CARDS ARE GONE. Panels B and C used to close on a price
+ * library being built from files and a branded quote for Sarah Henderson, and
+ * both panels now make a different case, so the depictions were removed rather
+ * than left illustrating a claim the words no longer make. The components
+ * (price-library-card.tsx, proposal-card.tsx), their figures in
+ * content/home.ts and their labels in labels.ts all still exist and are now
+ * unused here.
  *
  * EYEBROW COLOUR. All three eyebrows take `--color-eyebrow-muted`, not
  * `--color-eyebrow`, and the reason they were chosen has since gone away.
@@ -56,19 +62,22 @@ export function Chapter1Desktop() {
         </>
       }
     >
-      {/* Panel A - the take-off demo. */}
-      <div className="pb-10">
+      {/* Panel A - the discovery-call intro.
+
+          `pb-2`, not the `pb-10` it carried while the tab strip was here: that
+          40px was the air under a card, and with the card commented out it was
+          40px under a paragraph, which read as a hole. The two panels below
+          come up to meet it. */}
+      <div className="pb-2">
         <div className="relative flex flex-col items-center gap-3.5">
           <div className="flex flex-col items-center gap-1.5 text-center">
-            {/* [LOG] The spaced hyphen is the client's, where every other
-                eyebrow on the page uses none. Flagged, not edited. */}
             <Reveal
               as="span"
               anim="up-blur"
               duration={0.5}
               className="mb-1 text-[12px] font-extrabold tracking-[0.14em] text-eyebrow-muted uppercase"
             >
-              START HERE - ESTIMATING &amp; QUOTING
+              START HERE / DISCOVERY CALL
             </Reveal>
 
             <Reveal
@@ -78,22 +87,10 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="display display-3 text-pf-ink-900"
             >
-              Build a client-ready estimate in minutes, not your nights.
+              Thirty minutes to work out what’s worth doing.
             </Reveal>
 
             {/*
-              [LOG] `then and rewrites it` is ungrammatical, and the mobile
-              artboard's version of the same sentence is not - it reads "and
-              rewrites it in language ready for your client" and drops "AI". If
-              the client fixes this one they will probably want mobile's
-              wording. Client copy either way; flagged, not edited.
-
-              The artboard wraps the last sentence in a bold-italic pair whose
-              own child cancels both, so it renders as plain body text. The
-              rendered result is reproduced and the inert wrapper dropped -
-              which also happens to be what docs/brand.md's ban on italics
-              wants (RULINGS.md §02 ruling 3).
-
               The 60ch cap is ~1046px at 18px, wider than the 1000px card below
               it, so it never bites at 1440px - but it is what stops the
               paragraph running the panel's full 1184px at wider windows.
@@ -105,19 +102,24 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mt-1.5 mb-[18px] max-w-[60ch] text-[18px] text-pf-ink-900"
             >
-              Confyde’s AI measures your job off the plan, prices it from your own materials
-              &amp; suppliers - then and rewrites it ready for your client.{"\u00A0"}
-              <span>You just add your margin.</span>
+              We walk through your operations, your team and your roadmap, then map the handful of
+              changes that would actually move the needle: AI where it earns its place, plus the
+              software and technical decisions underneath it.
             </Reveal>
           </div>
 
-          <Reveal
+          {/* The discovery tab strip, COMMENTED OUT rather than deleted: three
+              tabs (Map your operations / Brief your team / Shape the roadmap)
+              over one line of copy. The component, its content and its mobile
+              call site are all untouched, so restoring it is uncommenting this
+              block and its import. */}
+          {/* <Reveal
             anim="scale"
             duration={0.5}
             className="mx-auto flex w-full max-w-[1000px] flex-col items-center"
           >
-            <TakeoffCard />
-          </Reveal>
+            <DiscoveryTabs />
+          </Reveal> */}
         </div>
       </div>
 
@@ -139,8 +141,8 @@ export function Chapter1Desktop() {
       <div className="h-px" />
 
       <div className="grid gap-12 [grid-template-columns:1fr_1px_1fr]">
-        {/* Panel B - the price library. */}
-        <div className="flex min-w-0 flex-col gap-6 pt-12">
+        {/* Panel B - how we work. */}
+        <div className="flex min-w-0 flex-col gap-6 pt-8">
           <div className="flex flex-col gap-1.5">
             <Reveal
               as="span"
@@ -148,7 +150,7 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mb-1 text-[12px] font-extrabold tracking-[0.14em] text-eyebrow-muted uppercase"
             >
-              Your price library
+              How we work
             </Reveal>
             <Reveal
               as="h3"
@@ -157,7 +159,9 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="display display-3 text-pf-ink-900"
             >
-              Confyde learns your real prices.
+              Agency expertise, without the
+              <br />
+              agency price tag.
             </Reveal>
             {/* 14px here against the wide panel's 18px. Two different jobs:
                 that one opens the chapter, this one supports a card.
@@ -179,12 +183,12 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mt-1.5 mb-[14px] max-w-[48ch] text-[14px] text-pf-ink-900"
             >
-              Confyde learns your materials, labour rates and margins from your own files, so
-              every line is priced on what the job actually costs you. No more finding out at
-              the end that you quoted it too cheap.
+              We work alongside you a day or two a week, and we scale up when a project
+              needs it. You get the senior thinking and the judgement calls a good agency
+              brings, without paying for one full time. Same people, same standard, a
+              fraction of the cost.
             </Reveal>
           </div>
-          <PriceLibraryCard />
         </div>
 
         {/* The column rule, also unpainted, and for the same reason as the
@@ -199,8 +203,8 @@ export function Chapter1Desktop() {
             without anything measuring it. */}
         <div />
 
-        {/* Panel C - the proposal. */}
-        <div className="flex min-w-0 flex-col gap-6 pt-12">
+        {/* Panel C - the plan. */}
+        <div className="flex min-w-0 flex-col gap-6 pt-8">
           <div className="flex flex-col gap-1.5">
             <Reveal
               as="span"
@@ -208,7 +212,7 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mb-1 text-[12px] font-extrabold tracking-[0.14em] text-eyebrow-muted uppercase"
             >
-              Premium proposals
+              A clear plan
             </Reveal>
             <Reveal
               as="h3"
@@ -217,7 +221,9 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="display display-3 text-pf-ink-900"
             >
-              Beautifully branded proposals, sent in minutes, not days.
+              It all starts with a
+              <br />
+              well-defined strategy.
             </Reveal>
             {/* See panel B for why the bottom margin is written out. */}
             <Reveal
@@ -227,12 +233,11 @@ export function Chapter1Desktop() {
               duration={0.5}
               className="mt-1.5 mb-[14px] max-w-[48ch] text-[14px] text-pf-ink-900"
             >
-              Choose from a range of branded templates built by sales professionals. Your
-              professionally designed quote lands same day while your competitors are still
-              promising theirs.
+              We start by defining what is actually holding you back. Those become goals
+              you can put a number against, then jobs with a name and a date on each. No
+              vague promises, just what is done, what is next, and what it changed.
             </Reveal>
           </div>
-          <ProposalCard />
         </div>
       </div>
     </ChapterShell>

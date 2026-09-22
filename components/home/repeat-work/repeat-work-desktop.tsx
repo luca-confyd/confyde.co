@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/primitives/reveal";
@@ -209,14 +210,19 @@ export function RepeatWorkDesktop() {
               </span>
 
               {/*
-                Text, never a control: no case study page exists (RULINGS.md
-                §01), and rendering this as a link or a button would put an
-                inert tab stop in the page. Same call the row action chips made
-                before them.
+                A LINK NOW. It shipped as plain text while there was no case
+                study page to send anyone to; Plann's exists, so the chip is
+                the control the artboard draws. `next/link` because the
+                destination is a route on this site, and the focus ring is the
+                cream one - this chip sits on the forest-900 tile, not on the
+                page surface.
               */}
-              <span className="inline-flex flex-none items-center rounded-lg bg-cream/[0.12] px-[15px] py-2 font-ui text-[13.5px] font-semibold whitespace-nowrap text-white">
+              <Link
+                href={REPEAT_WORK.company.caseStudyHref}
+                className="inline-flex flex-none items-center rounded-lg bg-cream/[0.12] px-[15px] py-2 font-ui text-[13.5px] font-semibold whitespace-nowrap text-white no-underline transition-colors duration-150 hover:bg-cream/[0.2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
+              >
                 {REPEAT_WORK.company.caseStudy}
-              </span>
+              </Link>
             </div>
 
             <div>

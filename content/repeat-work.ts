@@ -15,6 +15,8 @@
  * Apostrophes are U+2019 and the arrow is U+2192, both as drawn.
  */
 
+import { caseStudyPath } from "./case-studies";
+
 /**
  * A row in the "Where Confyde comes in" list.
  *
@@ -59,59 +61,67 @@ export const REPEAT_WORK = {
     location or a headcount nobody has checked. Swap it for the real sub-line
     when there is one - it is a placeholder, just not a fabricated one.
 
-    `caseStudy` is TEXT, never a control: no case study page exists
-    (RULINGS.md §01), and rendering it as a link or a button would put an inert
-    tab stop in the page. Same call the action chips used to make.
+    `caseStudy` IS a control now: Plann's case study exists at
+    `/case-studies/plann`, so the chip is a link rather than the text it shipped
+    as while there was nowhere to send anyone. `caseStudyHref` is built from
+    `caseStudyPath`, so this and the three tiles in content/customer-stories.ts
+    share one spelling of the route.
   */
   company: {
     logo: "/images/logo-plann.png",
     name: "Plann",
     meta: "The business behind the exit",
     caseStudy: "View the case study \u2192",
+    caseStudyHref: caseStudyPath("plann"),
   },
 
   /** Desktop only. The mobile stat card carries no label. */
-  statLabel: "Repeat work",
+  statLabel: "Plann",
 
+  /*
+    THE FIGURES ARE PLANN'S OWN, and they are the same two the case study's
+    numbers card carries (content/case-studies.ts). The card sits under Plann's
+    logo and a link to that study, so a figure here that the study does not also
+    state is a number a reader can catch us on. Keep the labels short: the
+    layout sets each at two lines and the pair was evened up once already.
+  */
   stats: [
     {
-      figure: "38%",
-      label: "of jobs won this year were clients you’d worked for before",
+      figure: "5.5×",
+      label: "monthly revenue growth, US$55K to US$300K",
     },
     {
-      /*
-        Shortened from "won back from past clients, without chasing a single
-        new lead". At 60 characters it ran to three lines against the first
-        label's two, which made the two halves of one claim look like a
-        headline and a footnote in a layout that had just been evened up. 46
-        characters sets two lines at the same measure.
-      */
-      figure: "$412k",
-      label: "won back from past clients, no new leads chased",
+      figure: "8 weeks",
+      label: "sell-side technical diligence, start to close",
     },
   ],
 
   /** Identical in both artboards, so one array. */
   ticks: [
-    "Nothing spent on ads to win it",
-    "No quoting against three others on price",
-    "They already know your work, so there is less selling to do",
-    "Confyde drafts the quote from the job you did for them",
+    "Built the team around the work",
+    "Built the platform to carry the growth",
+    "Made the company diligence-proof",
+    "Acquired by Linktree, platform and team intact",
   ],
 
+  /*
+    DRAWN FROM THE CASE STUDY, not written beside it. The claim and the figure
+    are both in content/case-studies.ts under "What changed", and the card above
+    links to that study, so the two have to agree.
+
+    The mobile body is the shorter edit the two artboards' pattern asks for
+    here: same claim, one clause fewer, because this block sets a third wider on
+    desktop than it does on a phone.
+  */
   callout: {
-    title: "Every client, every job, every note. In one place.",
-    /*
-      [LOG] The mobile artboard drops "and keep up to date" from the end of the
-      second clause. Preserved as two strings rather than unified - the client's
-      copy, their call (RULINGS.md §02 rulings 12-14).
-    */
+    title: "Scaling a business remotely, across multiple time zones.",
     bodyDesktop:
-      "No spreadsheet, no shoebox of business cards, no separate CRM to pay for and keep up " +
-      "to date. It fills itself in as you quote.",
+      "Four teams and four managers, fully remote across five time zones. Hiring, " +
+      "performance and progression frameworks built from nothing, so the team kept working " +
+      "as it grew instead of slowing down.",
     bodyMobile:
-      "No spreadsheet, no shoebox of business cards, no separate CRM to pay for. It fills " +
-      "itself in as you quote.",
+      "Four teams and four managers, fully remote across five time zones, with hiring and " +
+      "progression frameworks built from nothing.",
   },
 } as const;
 

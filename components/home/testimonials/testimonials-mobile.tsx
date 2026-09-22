@@ -29,6 +29,9 @@ export function TestimonialsMobile() {
       <TestimonialScroller
         label="Customer testimonials"
         geometry={MOBILE_CARD}
+        /* Same wrap as desktop. There are no arrows here, so what it buys is a
+           swipe that never hits a wall. */
+        loop
         /* 4px of top padding so the focus ring is not clipped by the scroll
            box, and 8px below: both are the artboard's own `padding:4px 16px 8px`
            and neither needed changing to make room for the ring. */

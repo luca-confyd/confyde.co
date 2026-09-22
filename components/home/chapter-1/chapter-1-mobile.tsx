@@ -1,19 +1,16 @@
 import { ChapterShellMobile } from "@/components/home/chapter/chapter-shell-mobile";
 
-import { PriceLibraryCardMobile } from "./price-library-card-mobile";
-import { ProposalCardMobile } from "./proposal-card-mobile";
-import { TakeoffCardMobile } from "./takeoff-card-mobile";
+// import { DiscoveryTabs } from "./discovery-tabs";
 
 /**
  * Chapter 1 below 1024px.
  *
- * [LOG] THE SUB-BLOCK ORDER IS DIFFERENT, DELIBERATELY. Desktop runs take-off →
- * price library → proposal, with the second and third side by side. Mobile runs
- * take-off → proposal → price library, stacked. That is not a reflow of the
- * desktop composition, it is a different edit: on a phone the proposal card is
- * the payoff and the price library is the supporting explanation, so the payoff
- * comes second rather than last. Both orders ship (RULINGS.md §02 ruling 12 -
- * two different moments, not ours to unify).
+ * [LOG] THE SUB-BLOCK ORDER IS DIFFERENT, DELIBERATELY. Desktop runs the two
+ * lower panels side by side; mobile stacks them in the artboard's own order,
+ * which was the reverse of desktop's when each panel closed on a product card
+ * (RULINGS.md §02 ruling 12 - two different moments, not ours to unify). The
+ * cards are gone now, so the order carries less weight than it did, but it is
+ * still the client's edit rather than ours.
  *
  * The sub-heads are `<h3>`, matching desktop, so the chapter's outline reads
  * h2 → h3, h3, h3 at both breakpoints.
@@ -22,9 +19,11 @@ import { TakeoffCardMobile } from "./takeoff-card-mobile";
  * sub-blocks open on their sub-head - so the muted eyebrow pair the desktop
  * panel needs has no call site on this side.
  *
- * Every paragraph below is a DIFFERENT sentence from its desktop counterpart,
- * not a truncation of it, and the take-off one is the grammatical version of
- * the sentence desktop gets wrong. Both preserved; flagged as a pair.
+ * Every sub-block now runs the same copy at both breakpoints. The two lower
+ * ones used to carry their own mobile sentences, preserved as a pair; the
+ * replacement copy is identical on both, so there is no pair left to keep.
+ *
+ * THE TWO PRODUCT CARDS ARE GONE - see chapter-1-desktop.tsx for why.
  */
 export function Chapter1Mobile() {
   return (
@@ -37,35 +36,37 @@ export function Chapter1Mobile() {
           cut is reached through `.marquee-heading-mobile`. The first sub-head
           has no top margin; the two below it carry the artboard's 26px. */}
       <h3 className="display marquee-heading-mobile text-[19px] text-ink">
-        Build a client-ready estimate in minutes, not your nights.
+        Thirty minutes to work out what’s worth doing.
       </h3>
       <p className="mt-2 mb-4 text-[14.5px] leading-[1.55] text-slate-700">
-        Confyde measures the job off the plan and prices it from your own suppliers, and
-        rewrites it in language ready for your client. You just add your margin.
+        We walk through your operations, your team and your roadmap, then map the handful of
+        changes that would actually move the needle: AI where it earns its place, plus the
+        software and technical decisions underneath it.
       </p>
-      <TakeoffCardMobile />
+      {/* Commented out, not deleted, as on desktop. */}
+      {/* <DiscoveryTabs /> */}
 
-      {/* The mobile artboard breaks this sub-head with a hard <br> where desktop
-          runs it on one line, and writes a DIFFERENT paragraph below it - not a
-          truncation of desktop's. Both preserved, as with the take-off copy. */}
+      {/* Both remaining panels now carry the same words on desktop and mobile, so the
+          per-breakpoint pairs the artboards drew here are gone. */}
       <h3 className="display marquee-heading-mobile mt-[26px] text-[19px] text-ink">
-        Beautifully branded proposals, <br />
-        sent in minutes, not days.
+        It all starts with a <br />
+        well-defined strategy.
       </h3>
       <p className="mt-2 mb-4 text-[14.5px] leading-[1.55] text-slate-700">
-        Professional templates, branded for your business, designed by sales experts. Your
-        quote lands same day while your competitors are still promising theirs.
+        We start by defining what is actually holding you back. Those become goals you can
+        put a number against, then jobs with a name and a date on each. No vague promises,
+        just what is done, what is next, and what it changed.
       </p>
-      <ProposalCardMobile />
 
       <h3 className="display marquee-heading-mobile mt-[26px] text-[19px] text-ink">
-        Confyde learns your real prices.
+        Agency expertise, without the <br />
+        agency price tag.
       </h3>
       <p className="mt-2 mb-4 text-[14.5px] leading-[1.55] text-slate-700">
-        Confyde learns from your pricing, so every quote gets faster and easier, and it knows
-        your margins.
+        We work alongside you a day or two a week, and we scale up when a project needs it.
+        You get the senior thinking and the judgement calls a good agency brings, without
+        paying for one full time. Same people, same standard, a fraction of the cost.
       </p>
-      <PriceLibraryCardMobile />
     </ChapterShellMobile>
   );
 }

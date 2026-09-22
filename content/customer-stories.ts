@@ -12,11 +12,17 @@
  * photograph's alt text stays empty either way, because the name is set over
  * it in text.
  *
- * PHOTOGRAPHS ARE PLACEHOLDERS. photo-1, photo-2 and photo-4 are the landscape
- * and construction stock the previous stories used, and none of them has
- * anything to do with a social scheduling tool, a link-in-bio platform or a
- * tennis club. They are wrong for this copy and are only here because the tile
- * needs an image to lay out. Replace before this goes anywhere public.
+ * THE TILES NOW CARRY EACH CLIENT'S OWN SCREEN. They were photo-1, photo-2 and
+ * photo-4 - landscape and construction stock with nothing to do with a social
+ * scheduling tool, a link-in-bio platform or a tennis club - and they are now
+ * the same three screenshots the case studies draw in their articles, so the
+ * tile and the page it opens show the same thing.
+ *
+ * WHAT THAT COSTS. These are 16:9 captures in a tile that is far taller than it
+ * is wide, so `object-cover` crops hard to the centre and the dark veil above
+ * sits over what survives. That is fine for a wash of colour and a recognisable
+ * shape; it is not a legible screenshot. If these should read as screens rather
+ * than as texture, they want their own crops at the tile's own proportion.
  *
  * Plann's logo was briefly drawn here instead of its photograph. Reverted: one
  * logo tile beside two photo tiles made the row look broken rather than
@@ -27,10 +33,14 @@
  * Photo order is 1, 2, 4: photo-3 belongs to the social-proof band and is
  * deliberately not reused here.
  *
- * `href` is absent on all three. No story pages exist, and the client scoped
- * this build to the homepage (RULINGS.md §01), so every card ships inert.
- * Adding `href` is the whole switch when the articles land.
+ * THE WORDS ARE THE STUDY'S OWN. `studio`, `title`, `blurb` and `href` are all
+ * read from that case study's record in content/case-studies.ts, so a tile and
+ * the page it opens cannot say different things - which they had already begun
+ * to do. Only `photo` is set here, because a tile crops far taller than the
+ * article's 16:9 figure and may one day want its own crop.
  */
+import { CASE_STUDIES, caseStudyPath } from "./case-studies";
+
 export type CustomerStory = {
   photo: string;
   studio: string;
@@ -39,32 +49,20 @@ export type CustomerStory = {
   href?: string;
 };
 
-export const CUSTOMER_STORIES: readonly CustomerStory[] = [
-  {
-    photo: "/images/photo-1.webp",
-    studio: "Plann",
-    title: "Building the team behind the exit",
-    blurb:
-      "Engineering leadership, growth strategy, and the hiring that took Plann through to a " +
-      "successful exit.",
-  },
-  {
-    photo: "/images/photo-2.webp",
-    studio: "Linktree",
-    title: "Agents and security at 70m creators",
-    blurb:
-      "Automated workflows and hardened systems, built to serve a platform of 70 million-plus " +
-      "creators.",
-  },
-  {
-    photo: "/images/photo-4.webp",
-    studio: "Kensington Tennis Club",
-    title: "A club that runs itself",
-    blurb:
-      "App development and AI built into the day-to-day, driving new revenue and faster service " +
-      "for members.",
-  },
-];
+/** The tile's own artwork, by slug. Everything else comes from the study. */
+const TILE_PHOTOS: Record<string, string> = {
+  plann: "/images/plann-screen.png",
+  linktree: "/images/linktree-screen.png",
+  "kensington-tennis-club": "/images/ktc-screen.png",
+};
+
+export const CUSTOMER_STORIES: readonly CustomerStory[] = CASE_STUDIES.map((study) => ({
+  photo: TILE_PHOTOS[study.slug],
+  studio: study.client,
+  href: caseStudyPath(study.slug),
+  title: study.card.title,
+  blurb: study.card.blurb,
+}));
 
 /**
  * The photo tile's geometry, as one decision rather than four scattered ones.

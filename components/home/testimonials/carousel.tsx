@@ -51,6 +51,12 @@ type TestimonialScrollerProps = {
   /** Scroll-linked horizontal drift on the track. Desktop only, as drawn. */
   drift?: boolean;
   /**
+   * Wraps the strip end to end, so paging never runs out of cards. See the
+   * note on the mechanism below - it renders a second, hidden copy of
+   * `children`, so only pass it where that copy is worth the markup.
+   */
+  loop?: boolean;
+  /**
    * px to open the scroller at, so the strip starts part-way in rather than
    * with a card flush to the left edge. See the note on the effect below -
    * this one write must not be mistaken for the reader taking over.
@@ -93,6 +99,14 @@ type TestimonialScrollerProps = {
  *      good and eases the track back to its resting frame. Once someone is
  *      driving, nothing is animating behind them.
  *
+ * THE LOOP. With `loop`, the strip has no ends: the last card is followed by
+ * the first one and paging back from the first lands on the last. It is done
+ * with a hidden second copy of the cards and a rebase by exactly one lap -
+ * see `lap`, `page` and the effect that catches drags - rather than with a
+ * transform or an index, so the container stays a native snap scroller and the
+ * drag, the trackpad, the arrows and the arrow keys all keep working the way
+ * they already did.
+ *
  * Under `prefers-reduced-motion: reduce` the listener is never attached and
  * styles/motion/testimonials.css pins the transform off regardless, so a
  * preference flipped mid-session still lands on the resting frame.
@@ -102,6 +116,7 @@ export function TestimonialScroller({
   geometry,
   arrows = false,
   drift = false,
+  loop = false,
   initialOffset,
   viewportClassName,
   scrollerClassName,
@@ -117,13 +132,52 @@ export function TestimonialScroller({
      the opening write IS that first scroll - the drift would retire before
      anyone had touched anything. */
   const openingRef = useRef(false);
+  /* The hidden second copy of the strip. Measured rather than counted, because
+     this component never sees how many cards it was handed. */
+  const cloneRef = useRef<HTMLDivElement>(null);
 
   const pitch = cardPitch(geometry);
+
+  /*
+    One lap: the distance after which the strip repeats itself, which is the
+    clone's own width plus the gap in front of it - `n * (card + gap)`, an exact
+    multiple of the pitch and therefore of the snap interval. Rebasing by it
+    lands on an identical snap point in front of identical pixels, which is what
+    makes the wrap invisible.
+
+    Read on demand rather than cached: it changes with a resize, and a stale lap
+    would rebase onto the wrong card rather than fail visibly.
+  */
+  const lap = useCallback(() => {
+    const clone = cloneRef.current;
+    if (!loop || !clone) return 0;
+    return clone.getBoundingClientRect().width + geometry.gap;
+  }, [loop, geometry.gap]);
 
   const page = useCallback(
     (direction: -1 | 1) => {
       const scroller = scrollerRef.current;
       if (!scroller) return;
+
+      /*
+        THE REBASE HAPPENS BEFORE THE SCROLL, NOT AFTER IT. If the step would
+        carry us out of the first lap, we jump a whole lap in the opposite
+        direction first - instantly, onto identical pixels - and only then
+        animate the one pitch. So the smooth scroll always lands inside the
+        first lap and there is never a jump at the end of a movement, which is
+        the thing that makes a looping carousel look broken.
+
+        It also means scrollLeft only leaves the first lap when the reader
+        drags it there, which is what lets the scroll listener below tell a
+        drag apart from our own animation without a flag.
+      */
+      const oneLap = lap();
+      if (oneLap > 0) {
+        const target = scroller.scrollLeft + direction * pitch;
+        if (target >= oneLap) scroller.scrollLeft -= oneLap;
+        else if (target < 0) scroller.scrollLeft += oneLap;
+      }
+
       scroller.scrollBy({
         left: direction * pitch,
         /* Reduced motion means no smooth scrolling either - the jump is the
@@ -131,7 +185,7 @@ export function TestimonialScroller({
         behavior: prefersReducedMotion() ? "auto" : "smooth",
       });
     },
-    [pitch],
+    [pitch, lap],
   );
 
   /*
@@ -162,7 +216,10 @@ export function TestimonialScroller({
         scroller.scrollTo({ left: 0, behavior });
         break;
       case "End":
-        scroller.scrollTo({ left: scroller.scrollWidth, behavior });
+        /* With a loop on, `scrollWidth` is the far end of the CLONE, which the
+           rebase below would immediately return to the start - End would read
+           as Home. The last real card is one pitch short of a lap. */
+        scroller.scrollTo({ left: lap() > 0 ? lap() - pitch : scroller.scrollWidth, behavior });
         break;
       default:
         return;
@@ -195,6 +252,34 @@ export function TestimonialScroller({
     );
     return () => cancelAnimationFrame(frame);
   }, [initialOffset]);
+
+  /*
+    The wrap for everything we do not drive: a drag, a trackpad swipe, a
+    momentum fling. Those can only run the strip FORWARD out of the first lap -
+    a native scroll container has no negative scrollLeft - so one test is
+    enough, and the backward direction is covered by the arrows and the arrow
+    keys, which rebase before they move (see `page`).
+
+    Rebasing mid-scroll rather than on `scrollend` is deliberate: it keeps a
+    full lap of runway in front of the reader at all times, so a long fling
+    never hits the end of the track. It is invisible because a lap is an exact
+    repeat - the same cards sit at the new offset - and it cannot fight our own
+    animations, because those never leave the first lap.
+  */
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!loop || !scroller) return;
+
+    const rebase = () => {
+      const oneLap = lap();
+      /* `oneLap > 0` also guards the frame before layout, where the clone has
+         no width yet and rebasing would mean scrolling to 0. */
+      if (oneLap > 0 && scroller.scrollLeft >= oneLap) scroller.scrollLeft -= oneLap;
+    };
+
+    scroller.addEventListener("scroll", rebase, { passive: true });
+    return () => scroller.removeEventListener("scroll", rebase);
+  }, [loop, lap]);
 
   useEffect(() => {
     const scroller = scrollerRef.current;
@@ -278,6 +363,28 @@ export function TestimonialScroller({
         >
           <div ref={trackRef} className={`testi-drift flex w-max ${trackClassName ?? ""}`}>
             {children}
+            {/*
+              THE SECOND LAP. The cards again, so there is always something
+              past the last one to scroll onto; `page` and the effect above
+              hand the reader back to the first lap once they are inside this
+              one. Rendering `children` twice costs nothing beyond the markup -
+              they are the same Server Component output, already built.
+
+              `aria-hidden` and `inert` because it is the same six quotes: a
+              screen reader would otherwise read the section twice, and `inert`
+              keeps the copy out of find-in-page and out of the tab order
+              should a card ever grow a link.
+            */}
+            {loop ? (
+              <div
+                aria-hidden="true"
+                inert
+                ref={cloneRef}
+                className={`flex ${trackClassName ?? ""}`}
+              >
+                {children}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

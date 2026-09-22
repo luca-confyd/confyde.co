@@ -65,6 +65,7 @@ export function TestimonialsDesktop() {
         geometry={DESKTOP_CARD}
         arrows
         drift
+        loop
         viewportClassName="relative w-full overflow-hidden"
         initialOffset={START_OFFSET}
         trackClassName="gap-[var(--testi-gap)]"

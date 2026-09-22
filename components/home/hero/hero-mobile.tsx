@@ -4,6 +4,7 @@ import { HeroCategoriesMobile } from "./hero-categories";
 
 import { NavFlipSentinel } from "@/components/chrome/nav-flip-sentinel";
 import { NavItem } from "@/components/chrome/nav-item";
+import { BOOKING_URL } from "@/lib/booking";
 
 /* The mobile scrim is gone, and so is the photograph it was cut for. It ran
    92/76/34 against the desktop scrim's 88/74/34 because the mobile copy block
@@ -81,8 +82,8 @@ export function HeroMobile() {
             step up the ramp to stay legible on it.
           */}
           <h1 className="display mt-3 text-[clamp(30px,8.84vw,38px)] leading-[1.06] tracking-[-0.01em] text-white">
-            {"Clear technical direction "}
-            <span className="text-forest-500">for scaling businesses.</span>
+            {"The AI consultancy you hire "}
+            <span className="text-forest-500">to build, not just plan.</span>
           </h1>
 
           {/* Not the desktop paragraph re-cut - a different, shorter piece of
@@ -94,14 +95,28 @@ export function HeroMobile() {
             and customers get better answers.
           </p>
 
-          {/* One action, full width - the primary thing to do on a phone. */}
+          {/* The primary thing to do on a phone, full width. */}
           <NavItem
+            href={BOOKING_URL}
             tone="dark"
             className={`btn-lime ${CTA} mt-[22px] bg-lime-500 text-white shadow-[0_8px_20px_-10px_rgb(51_56_58/0.5)]`}
           >
             Book a discovery call
             <ArrowRight size={18} strokeWidth={2.4} aria-hidden="true" focusable="false" />
           </NavItem>
+
+          {/* Desktop sets this beside the button; there is no room beside a
+              full-width one, so it sits under it and stays centred on the
+              button's own axis. Inert for the same reason as desktop's - see
+              the note there. */}
+          <span className="mt-4 flex justify-center">
+            <NavItem
+              tone="dark"
+              className="text-[15px] font-semibold text-cream underline decoration-1 underline-offset-4"
+            >
+              Contact us
+            </NavItem>
+          </span>
 
           <HeroCategoriesMobile />
         </div>

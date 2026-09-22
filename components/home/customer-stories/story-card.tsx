@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import type { CustomerStory } from "@/content/customer-stories";
 import { STORY_TILE } from "@/content/customer-stories";
@@ -8,8 +9,12 @@ import { Reveal } from "@/components/primitives/reveal";
  * One customer story: a photograph with the studio's name set over it, and the
  * article's title and blurb beneath.
  *
- * INERT BY DEFAULT. The artboard draws each card as `<a href="#">`, but no
- * story pages exist. With no `href` this renders
+ * A LINK WHEN IT HAS SOMEWHERE TO GO. With an `href` the card is `next/link`,
+ * not a bare `<a>`: the case studies are routes on this site, so they prefetch
+ * and client-navigate like any other.
+ *
+ * INERT OTHERWISE. The artboard draws each card as `<a href="#">`. With no
+ * `href` this renders
  * `<button type="button" aria-disabled="true">`, exactly as
  * components/chrome/nav-item.tsx does for the nav's unbuilt destinations: in
  * the natural tab order, announced honestly, no `#` in the URL bar and no
@@ -25,7 +30,7 @@ export function StoryCard({ story, delay }: { story: CustomerStory; delay: numbe
 
   return (
     <Reveal
-      as={inert ? "button" : "a"}
+      as={inert ? "button" : Link}
       anim="up-scale"
       delay={delay}
       duration={0.5}
@@ -96,17 +101,18 @@ export function StoryCard({ story, delay }: { story: CustomerStory; delay: numbe
           className="object-cover"
         />
 
-        {/* The veil that buys the white name its contrast. `to-t` with the
-            heavier stop at the bottom is the artboard's own direction, and the
-            two stops are the neutral dark above at 86% and 34%. `/srgb`
-            because Tailwind v4 interpolates gradients in oklab by default and
-            the artboard's stops are plain `rgba()` - here the two stops share a
-            colour so only the alpha ramps and the pixels match either way, but
-            the declaration should say which space it means. */}
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-t/srgb from-[#171A1B]/86 to-[#171A1B]/34"
-        />
+        {/* The veil that buys the white name its contrast. FLAT, not the
+            artboard's bottom-heavy gradient: these tiles carry screenshots now,
+            which are bright across the whole frame rather than dark at the top
+            the way the stock photographs were, so a ramp from 86% to 34% left
+            the upper half of the tile washed out and the name sitting on a
+            different tone from the image below it. One opacity over the whole
+            frame reads as a deliberate tint instead.
+
+            70% of the same neutral dark the fill underneath uses. Over the
+            white of a screenshot that lands around #5D6060, which clears AA for
+            the white name set over it. */}
+        <span aria-hidden="true" className="absolute inset-0 bg-[#171A1B]/70" />
 
         {/*
           Fraunces at the mobile cut (wght 600, SOFT 60, opsz 40) rather than

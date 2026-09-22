@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-
+import { BOOKING_URL } from "@/lib/booking";
 import { useFloatingBars } from "@/lib/use-floating-bars";
 import { NavItem } from "./nav-item";
 
@@ -25,10 +24,6 @@ const BAR = "shadow-overlay flex items-center rounded-xl bg-white";
 function TrailerBar() {
   return (
     <div className={`${BAR} gap-4 p-2.5`}>
-      <span className="relative block h-11 w-16 flex-none overflow-hidden rounded-lg">
-        <Image src="/images/photo-2.webp" alt="" fill sizes="64px" className="object-cover" />
-      </span>
-
       <span className="flex flex-col gap-0.5 leading-[1.3]">
         {/* A third Fraunces cut, neither the .display default (opsz 40) nor its
             desktop override (wght 420 / SOFT 100 / opsz 10). Bar-specific, so it
@@ -45,6 +40,7 @@ function TrailerBar() {
       </span>
 
       <NavItem
+        href={BOOKING_URL}
         tone="light"
         className="btn-lime inline-flex h-10 flex-none items-center rounded-xl bg-lime-500 px-5 font-ui text-[14px] font-semibold whitespace-nowrap text-white shadow-[0_8px_20px_-10px_rgb(51_56_58/0.4)]"
       >
