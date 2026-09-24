@@ -30,9 +30,9 @@ export const ABOUT = {
   eyebrow: "About Confyde",
   title: "The technical person on your side of the table.",
   lede:
-    "Senior technical judgement for owner-led businesses that don’t have a CTO. Every " +
-    "engagement is led by an operator who’s built, scaled and sold a technology " +
-    "business, working inside yours, with no stake in what you buy.",
+    "Not sure what AI means for your business, worried you’re falling behind, or " +
+    "unconvinced your team is building the right things? We give you a straight answer " +
+    "on where you stand and what to do next, then help you do it.",
   meta: [
     { label: "Founded", value: "2024, London" },
     { label: "Who leads your work", value: "A senior operator, on every engagement" },
