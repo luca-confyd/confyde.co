@@ -1,4 +1,4 @@
-import type { CaseStudy } from "./case-studies";
+import { type CaseStudy, findCaseStudy } from "./case-studies";
 
 /**
  * The about page, `/about`.
@@ -9,14 +9,18 @@ import type { CaseStudy } from "./case-studies";
  * the case study's own shape, minus the fields only a study has (slug, client,
  * card), and rendered by the same components.
  *
- * Still to settle before this is public:
+ * THE QUOTE IS PLANN'S, NOT THE DESIGN'S. The design drew a stand-in quote
+ * credited to "Christy Nguyen"; the page carries Christy Laurence's real
+ * testimonial instead, read from the Plann record so the two pages cannot
+ * quote her differently.
  *
- *   1. THE FIGURES. "40+", "15 yrs", "70%", "3" and "Founded 2019, Melbourne"
- *      are the design's, not yet confirmed.
- *   2. THE QUOTE'S NAME. The design attributes it to "Christy Nguyen, Founder,
- *      Plann"; the Plann case study names the founder Christy Laurence. Shipped
- *      as drawn - check which is right, and whether the quote is hers.
+ * Still to settle before this is public: the figures. "40+", "15 yrs", "70%",
+ * "3" and "Founded 2019, Melbourne" are the design's, not yet confirmed.
  */
+
+const plann = findCaseStudy("plann");
+if (!plann) throw new Error("content/about.ts quotes the Plann case study, which is missing");
+
 export const ABOUT = {
   eyebrow: "About Confyde",
   title: "Senior technical guidance for the age of AI.",
@@ -99,14 +103,7 @@ export const ABOUT = {
       ],
     },
   ],
-  quote: {
-    text:
-      "Confyde took the engineering problem off my desk entirely. By the time we were in " +
-      "diligence there was nothing to explain away.",
-    initials: "CN",
-    name: "Christy Nguyen",
-    role: "Founder, Plann",
-  },
+  quote: plann.quote,
   ctaHeading: "Not sure where to start?",
 } satisfies Pick<CaseStudy, "title" | "lede" | "meta" | "numbers" | "sections" | "quote"> & {
   eyebrow: string;
