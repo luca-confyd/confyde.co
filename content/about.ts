@@ -13,14 +13,6 @@ import { type CaseStudy, findCaseStudy } from "./case-studies";
  * THE QUOTE IS PLANN'S. The design drew a stand-in quote credited to "Christy
  * Nguyen"; the page carries Christy Laurence's real testimonial instead, read
  * from the Plann record so the two pages cannot quote her differently.
- *
- * Still to settle before this is public:
- *
- *   1. "WHAT WE DON'T DO". The brief says to confirm each claim in it is true
- *      - no vendor commission, no reselling, no rebuild by default, and saying
- *      so when a hire would serve better - before publishing.
- *   2. THE COMPANY NUMBER. The brief has it as a stub, so the line prints
- *      without one until `company.number` is set.
  */
 
 const plann = findCaseStudy("plann");
@@ -138,28 +130,7 @@ export const ABOUT = {
         },
       ],
     },
-    {
-      id: "what-we-dont-do",
-      heading: "What we don’t do",
-      blocks: [
-        { kind: "statement", text: "No kickbacks, no lock-in, no rebuild by default." },
-        {
-          kind: "prose",
-          text:
-            "We don’t take commission from software vendors, we don’t resell the tools we " +
-            "recommend, and we don’t start from “tear it down.” If hiring someone would " +
-            "serve you better than hiring us, we’ll say so.",
-        },
-      ],
-    },
   ],
-  /** The small print under the article. `number` is unset until supplied. */
-  company: {
-    name: "Confyd Ltd, trading as Confyde.",
-    registered: "Registered in England and Wales",
-    number: undefined,
-    city: "London.",
-  },
   quote: plann.quote,
   ctaHeading: "Got a decision on the table?",
   ctaBody: "Thirty minutes to work out whether it’s the right one.",
@@ -169,5 +140,4 @@ export const ABOUT = {
   railPrompt: string;
   ctaHeading: string;
   ctaBody: string;
-  company: { name: string; registered: string; number?: string; city: string };
 };

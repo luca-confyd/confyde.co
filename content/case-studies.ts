@@ -55,12 +55,6 @@ export type StepsBlock = {
 export type FigureBlock = { kind: "figure"; caption: string; src?: string };
 
 /**
- * A serif headline inside a section, set between the section heading and the
- * prose - "No kickbacks, no lock-in, no rebuild by default." on the about page.
- */
-export type StatementBlock = { kind: "statement"; text: string };
-
-/**
  * A bulleted list of bold lead-ins and their sentences, under an optional
  * subheading. Unlike a section, the subheading is not in the "On this page"
  * rail: it is part of the section it sits in.
@@ -76,7 +70,6 @@ export type CaseStudyBlock =
   | CalloutBlock
   | StepsBlock
   | FigureBlock
-  | StatementBlock
   | PointsBlock;
 
 export type CaseStudySection = {

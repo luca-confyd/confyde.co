@@ -91,16 +91,13 @@ export function CaseStudyBody({
 }
 
 /**
- * One block of the article. A switch rather than a lookup table: six cases,
+ * One block of the article. A switch rather than a lookup table: five cases,
  * each with its own markup, and TypeScript checks the union is covered.
  */
 function Block({ block }: { block: CaseStudyBlock }) {
   switch (block.kind) {
     case "prose":
       return <p className="m-0 text-[18px] leading-[1.72] text-pf-ink-700">{block.text}</p>;
-
-    case "statement":
-      return <p className="display display-4 m-0 leading-[1.4] text-pf-ink-900">{block.text}</p>;
 
     case "points":
       return (
