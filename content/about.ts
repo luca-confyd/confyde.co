@@ -87,12 +87,6 @@ export const ABOUT = {
           heading: "What that means for you",
           points: [
             {
-              lead: "If someone will look closely at your business:",
-              text:
-                "We’ve been on the selling side of technical due diligence, so we know what " +
-                "a buyer, investor or auditor asks, and we build to that standard from day one.",
-            },
-            {
               lead: "If you’re being told to use AI:",
               text:
                 "We’ve put AI in front of hundreds of thousands of users with testing in " +
@@ -101,7 +95,7 @@ export const ABOUT = {
             {
               lead: "If you’re not a tech company:",
               text:
-                "Kensington Tennis Club went from four systems to one app and one website, " +
+                "We’ve taken a members’ club from four systems to one app and one website, " +
                 "and we’re still their technical answer today.",
             },
             {
