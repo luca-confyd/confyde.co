@@ -14,7 +14,13 @@ import type { CaseStudy } from "@/content/case-studies";
  * the odd/even selectors rather than as elements: a divider element between
  * wrapped grid items lands in the wrong place as soon as the row count changes.
  */
-export function CaseStudyNumbers({ study }: { study: CaseStudy }) {
+export function CaseStudyNumbers({
+  eyebrow = "The numbers",
+  study,
+}: {
+  eyebrow?: string;
+  study: Pick<CaseStudy, "numbers">;
+}) {
   /* No figures, no card. The hero's `pb-44` is what this overlaps into, so a
      study without one simply leaves that padding as the band's own foot. */
   const numbers = study.numbers;
@@ -29,7 +35,7 @@ export function CaseStudyNumbers({ study }: { study: CaseStudy }) {
         <div className="shadow-border-strong rounded-xl bg-pf-surface-50 px-6 py-7 desk:px-10 desk:py-9">
           <div className="flex flex-col gap-2 border-b border-hairline pb-5 desk:flex-row desk:items-baseline desk:justify-between desk:gap-6">
             <span className="text-[11px] font-extrabold tracking-[0.16em] text-eyebrow uppercase">
-              The numbers
+              {eyebrow}
             </span>
             {numbers.note ? (
               <span className="text-[14px] text-slate-600">{numbers.note}</span>

@@ -21,7 +21,14 @@ import type { CaseStudy, CaseStudyBlock } from "@/content/case-studies";
  * `scroll-mt` on the headings is what stops the sticky nav covering a heading
  * the rail has just jumped to.
  */
-export function CaseStudyBody({ study }: { study: CaseStudy }) {
+export function CaseStudyBody({
+  railPrompt = "Want the same read on your business?",
+  study,
+}: {
+  /** The line above the rail's booking link. */
+  railPrompt?: string;
+  study: Pick<CaseStudy, "sections">;
+}) {
   return (
     <section
       data-section="case-study-body"
@@ -48,7 +55,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
         <div aria-hidden="true" className="my-2.5 h-px bg-hairline" />
 
         <span className="text-[14px] leading-[1.5] text-slate-600">
-          Want the same read on your business?
+          {railPrompt}
         </span>
         {/* The one real destination on this page, and the same one every
             "Book a discovery call" on the site points at. */}

@@ -6,10 +6,15 @@ import { NavItem } from "@/components/chrome/nav-item";
  * the homepage's, so the page opens and closes on the one dark treatment the
  * site already has.
  *
- * The copy is fixed rather than per-study: it is the site's ask, not the case
- * study's, and it is the same sentence chapter 1 opens with.
+ * The copy is fixed across the studies: it is the site's ask, not the case
+ * study's, and it is the same sentence chapter 1 opens with. The about page
+ * asks the shorter question its design draws, so the heading can be passed.
  */
-export function CaseStudyCta() {
+export function CaseStudyCta({
+  heading = "Not sure where your version of this starts?",
+}: {
+  heading?: string;
+}) {
   return (
     <section
       data-section="case-study-cta"
@@ -17,9 +22,7 @@ export function CaseStudyCta() {
     >
       <div className="mx-auto flex w-full max-w-[1232px] flex-col gap-7 desk:flex-row desk:items-center desk:justify-between desk:gap-12 desk:px-6">
         <div className="flex max-w-[640px] flex-col gap-3.5">
-          <h2 className="display display-2 text-pf-ink-100">
-            Not sure where your version of this starts?
-          </h2>
+          <h2 className="display display-2 text-pf-ink-100">{heading}</h2>
           <p className="m-0 text-[17px] leading-[1.6] text-cream">
             Thirty minutes to work out what’s worth doing, and what isn’t.
           </p>

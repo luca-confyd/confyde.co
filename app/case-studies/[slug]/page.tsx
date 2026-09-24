@@ -76,7 +76,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
       <PageEffects />
 
       <main id="top">
-        <CaseStudyHero study={study} />
+        <CaseStudyHero eyebrow={`Case study / ${study.client}`} study={study} />
         <CaseStudyNumbers study={study} />
         <CaseStudyBody study={study} />
         <CaseStudyQuote study={study} />

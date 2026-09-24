@@ -24,7 +24,14 @@ import type { CaseStudy } from "@/content/case-studies";
  * belong together: change one and the card either floats off the band or eats
  * the lede.
  */
-export function CaseStudyHero({ study }: { study: CaseStudy }) {
+export function CaseStudyHero({
+  eyebrow,
+  study,
+}: {
+  /** "Case study / <client>" on a study; the about page brings its own. */
+  eyebrow: string;
+  study: Pick<CaseStudy, "title" | "lede" | "meta">;
+}) {
   return (
     <section
       data-section="case-study-hero"
@@ -41,7 +48,7 @@ export function CaseStudyHero({ study }: { study: CaseStudy }) {
             grid surface, where the design's #7FBFBA sits at 6.4.
           */}
           <span className="text-[12px] font-extrabold tracking-[0.14em] text-forest-300 uppercase">
-            Case study / {study.client}
+            {eyebrow}
           </span>
 
           {/* `.display-1` is the page's own h1 scale (4.75rem at desk against

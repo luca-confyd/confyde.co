@@ -46,8 +46,8 @@ const NAV_LINK =
  * `display: none` takes the other one out of the accessibility tree, so the page
  * never exposes two `Main` navigation landmarks and neither needs `aria-hidden`.
  *
- * EVERY DESTINATION IS REAL NOW. The wordmark goes home and the one nav item
- * opens the three case studies - see `<NavCaseStudies>`, which is the only
+ * EVERY DESTINATION IS REAL NOW. The wordmark goes home, About goes to /about
+ * and the case studies item opens the three studies - see `<NavCaseStudies>`, which is the only
  * client component in the header.
  */
 export function SiteHeaderDesktop() {
@@ -75,12 +75,15 @@ export function SiteHeaderDesktop() {
 
           <span aria-hidden="true" className={DIVIDER} />
 
-          {/* ONE DESTINATION. The pill carried Product, Customers and Pricing,
-              all three inert because none of those pages exists. The case
-              studies do, so the nav is that one item and its sheet - a nav of
-              real links rather than three that announce themselves as
-              disabled. */}
+          {/* REAL DESTINATIONS ONLY. The pill carried Product, Customers and
+              Pricing, all three inert because none of those pages exists. About
+              and the case studies do, so the nav is those two - a nav of real
+              links rather than three that announce themselves as disabled.
+              About leads, as the about page's design draws it. */}
           <span className="flex gap-2.5">
+            <NavItem href="/about" className={`${NAV_LINK} px-3.5`}>
+              About
+            </NavItem>
             <NavCaseStudies triggerClassName={NAV_LINK} />
           </span>
         </div>
