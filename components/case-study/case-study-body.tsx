@@ -91,13 +91,37 @@ export function CaseStudyBody({
 }
 
 /**
- * One block of the article. A switch rather than a lookup table: four cases,
+ * One block of the article. A switch rather than a lookup table: six cases,
  * each with its own markup, and TypeScript checks the union is covered.
  */
 function Block({ block }: { block: CaseStudyBlock }) {
   switch (block.kind) {
     case "prose":
       return <p className="m-0 text-[18px] leading-[1.72] text-pf-ink-700">{block.text}</p>;
+
+    case "statement":
+      return <p className="display display-4 m-0 leading-[1.4] text-pf-ink-900">{block.text}</p>;
+
+    case "points":
+      return (
+        <div className="flex flex-col gap-5">
+          {block.heading ? (
+            <h3 className="display display-4 m-0 text-pf-ink-900">{block.heading}</h3>
+          ) : null}
+          {/* Hairline rows, the same rhythm as the numbered steps, so the two
+              lists on a page read as one family. */}
+          <ul className="m-0 flex list-none flex-col p-0">
+            {block.points.map((point) => (
+              <li
+                key={point.lead}
+                className="border-t border-hairline py-5 text-[17px] leading-[1.65] text-slate-600 last:border-b"
+              >
+                <span className="font-semibold text-pf-ink-900">{point.lead}</span> {point.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
 
     case "callout":
       return (

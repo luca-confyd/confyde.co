@@ -1,4 +1,4 @@
-import { FOOTER_BLURB, FOOTER_COLUMNS_MOBILE, FOOTER_COPYRIGHT } from "@/content/footer";
+import { FOOTER_BLURB, FOOTER_COLUMNS, FOOTER_COPYRIGHT } from "@/content/footer";
 import { NavItem } from "../nav-item";
 import { Wordmark } from "../wordmark";
 
@@ -10,11 +10,10 @@ const COLUMN_LINK = "text-[13.5px] font-semibold text-[rgb(255_255_255/0.76)] tr
 /**
  * The footer's mobile composition, <1024px.
  *
- * Not a narrow version of the desktop one. It drops the four social marks
- * entirely, folds three link columns into two, and its Product column lists the
- * product's features where desktop's lists the site's pages. Two compositions,
- * two components - the same split the two headers and the two marquees already
- * use.
+ * Not a narrow version of the desktop one: its own type sizes, colours and
+ * spacing, from its own artboard. The links are the same list as desktop's -
+ * see content/footer.ts. Two compositions, two components - the same split the
+ * two headers and the two marquees already use.
  */
 export function FooterMobile() {
   return (
@@ -28,7 +27,7 @@ export function FooterMobile() {
       <p className="mt-2.5 mb-0 text-[13.5px] leading-[1.6] text-[rgb(255_255_255/0.76)]">{FOOTER_BLURB}</p>
 
       <div className="mt-[22px] grid grid-cols-2 gap-5">
-        {FOOTER_COLUMNS_MOBILE.map((column) => (
+        {FOOTER_COLUMNS.map((column) => (
           <div key={column.heading}>
             {/* Lime-500 on forest, which §05 ruling 6 settles: the corrected
                 `--color-eyebrow-*` tokens exist for lime-700 on light surfaces
@@ -40,7 +39,7 @@ export function FooterMobile() {
             <ul className="m-0 mt-2 flex list-none flex-col gap-[7px] p-0">
               {column.links.map((link) => (
                 <li key={link.label}>
-                  <NavItem tone="dark" className={COLUMN_LINK}>
+                  <NavItem href={link.href} tone="dark" className={COLUMN_LINK}>
                     {link.label}
                   </NavItem>
                 </li>

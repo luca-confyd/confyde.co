@@ -55,7 +55,7 @@ export async function generateMetadata({
   return {
     title,
     description: study.lede,
-    openGraph: { title, description: study.lede, type: "article", locale: "en_AU" },
+    openGraph: { title, description: study.lede, type: "article", locale: "en_GB" },
   };
 }
 

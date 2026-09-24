@@ -3,19 +3,24 @@ import { type CaseStudy, findCaseStudy } from "./case-studies";
 /**
  * The about page, `/about`.
  *
- * Copy is taken verbatim from the client's design doc ("About Page.dc.html").
- * The page is the case study template with a different article in it - the same
- * hero, numbers card, rail, quote and closing band - so the record is written to
- * the case study's own shape, minus the fields only a study has (slug, client,
- * card), and rendered by the same components.
+ * Layout from the client's design doc ("About Page.dc.html"); copy from
+ * "Confyde — About page content and site fixes", verbatim. The page is the case
+ * study template with a different article in it - the same hero, numbers card,
+ * rail, quote and closing band - so the record is written to the case study's
+ * own shape, minus the fields only a study has (slug, client, card), and
+ * rendered by the same components.
  *
- * THE QUOTE IS PLANN'S, NOT THE DESIGN'S. The design drew a stand-in quote
- * credited to "Christy Nguyen"; the page carries Christy Laurence's real
- * testimonial instead, read from the Plann record so the two pages cannot
- * quote her differently.
+ * THE QUOTE IS PLANN'S. The design drew a stand-in quote credited to "Christy
+ * Nguyen"; the page carries Christy Laurence's real testimonial instead, read
+ * from the Plann record so the two pages cannot quote her differently.
  *
- * Still to settle before this is public: the figures. "40+", "15 yrs", "70%",
- * "3" and "Founded 2019, Melbourne" are the design's, not yet confirmed.
+ * Still to settle before this is public:
+ *
+ *   1. "WHAT WE DON'T DO". The brief says to confirm each claim in it is true
+ *      - no vendor commission, no reselling, no rebuild by default, and saying
+ *      so when a hire would serve better - before publishing.
+ *   2. THE COMPANY NUMBER. The brief has it as a stub, so the line prints
+ *      without one until `company.number` is set.
  */
 
 const plann = findCaseStudy("plann");
@@ -23,24 +28,24 @@ if (!plann) throw new Error("content/about.ts quotes the Plann case study, which
 
 export const ABOUT = {
   eyebrow: "About Confyde",
-  title: "Senior technical guidance for the age of AI.",
+  title: "The technical person on your side of the table.",
   lede:
-    "The experience of a big consultancy, without the layers in between. A small team " +
-    "of engineering and product leaders who embed with growing businesses and stay " +
-    "until the work runs without us.",
+    "Senior technical judgement for owner-led businesses that don’t have a CTO. Every " +
+    "engagement is led by an operator who’s built, scaled and sold a technology " +
+    "business, working inside yours, with no stake in what you buy.",
   meta: [
-    { label: "Founded", value: "2019, Melbourne" },
-    { label: "What we do", value: "Technical strategy · Engineering delivery · AI · Security" },
-    { label: "How we work", value: "Embedded, not advisory" },
+    { label: "Founded", value: "2024, London" },
+    { label: "Who leads your work", value: "A senior operator, on every engagement" },
+    { label: "What we do", value: "Technical strategy · AI · Software delivery" },
+    { label: "How we work", value: "In writing, in plain English, accountable for the outcome" },
   ],
-  numbersEyebrow: "Confyde in numbers",
+  numbersEyebrow: "Where our experience comes from",
   numbers: {
-    note: "Since 2019",
     items: [
-      { figure: "40+", label: "businesses we’ve embedded with" },
-      { figure: "15 yrs", label: "average leadership experience across the team" },
-      { figure: "70%", label: "of clients come back for a second engagement" },
-      { figure: "3", label: "client exits supported through diligence" },
+      { figure: "12+ yrs", label: "leading engineering in travel, SaaS and AI" },
+      { figure: "8 weeks", label: "sell-side technical due diligence, start to close" },
+      { figure: "3 → 20", label: "engineers hired and led through to acquisition" },
+      { figure: "500K", label: "monthly users on agentic AI features, reached in three months" },
     ],
   },
   railPrompt: "Want to see if we’re a fit?",
@@ -52,17 +57,17 @@ export const ABOUT = {
         {
           kind: "prose",
           text:
-            "Most growing businesses hit the same wall: the product works, but the " +
-            "engineering behind it can’t keep pace with the business. The usual answers — " +
-            "a strategy deck, a junior agency team, a year-long hiring search — don’t fix " +
-            "it fast enough.",
+            "Most owners make their biggest technology decisions with nobody on their side " +
+            "of the table. The vendor wants the sale, the agency wants the build, and the " +
+            "team is too close to it to say no.",
         },
         {
           kind: "prose",
           text:
-            "Confyde started as the thing we wished existed when we were running those " +
-            "teams ourselves: senior operators who step in, own the problem, and leave " +
-            "behind a team that can carry it.",
+            "Confyde is who you’d want in the room: people who’ve run engineering inside a " +
+            "growing business, sat on the selling side of an acquisition, and shipped AI to " +
+            "real users. We tell you what to build, what to buy and what to stop paying " +
+            "for, and then we stay accountable for how it goes.",
         },
         {
           kind: "callout",
@@ -70,6 +75,36 @@ export const ABOUT = {
           statement:
             "Advice is cheap. The value is in being accountable for what ships, and for " +
             "what happens after.",
+        },
+        {
+          kind: "points",
+          heading: "What that means for you",
+          points: [
+            {
+              lead: "If someone will look closely at your business:",
+              text:
+                "We’ve been on the selling side of technical due diligence, so we know what " +
+                "a buyer, investor or auditor asks, and we build to that standard from day one.",
+            },
+            {
+              lead: "If you’re being told to use AI:",
+              text:
+                "We’ve put AI in front of hundreds of thousands of users with testing in " +
+                "front of it, so we can tell you what will hold up and what’s a demo.",
+            },
+            {
+              lead: "If you’re not a tech company:",
+              text:
+                "Kensington Tennis Club went from four systems to one app and one website, " +
+                "and we’re still their technical answer today.",
+            },
+            {
+              lead: "If you don’t speak the language:",
+              text:
+                "everything comes in writing, in plain English, with a recommendation rather " +
+                "than a menu of options.",
+            },
+          ],
         },
       ],
     },
@@ -83,31 +118,56 @@ export const ABOUT = {
             {
               title: "Start with an honest read",
               detail:
-                "A short discovery to work out what’s worth doing — and telling you when " +
-                "the answer is “not much”.",
+                "A short, paid review of the decision in front of you, delivered in writing " +
+                "within a week. Sometimes the answer is “don’t do it”, and that’s worth " +
+                "knowing before you spend.",
             },
             {
               title: "Embed and own it",
               detail:
-                "We sit inside your team, in your tools, accountable for delivery rather " +
-                "than recommendations.",
+                "A day or two a week inside your business, in your tools, accountable for " +
+                "delivery rather than recommendations.",
             },
             {
               title: "Hand over on purpose",
               detail:
-                "Every engagement ends with a team and a system that run without us. " +
-                "That’s the measure.",
+                "You own everything we build, it’s documented, and someone on your side " +
+                "knows how it runs. Staying on should be your choice, not because you’re stuck.",
             },
           ],
         },
       ],
     },
+    {
+      id: "what-we-dont-do",
+      heading: "What we don’t do",
+      blocks: [
+        { kind: "statement", text: "No kickbacks, no lock-in, no rebuild by default." },
+        {
+          kind: "prose",
+          text:
+            "We don’t take commission from software vendors, we don’t resell the tools we " +
+            "recommend, and we don’t start from “tear it down.” If hiring someone would " +
+            "serve you better than hiring us, we’ll say so.",
+        },
+      ],
+    },
   ],
+  /** The small print under the article. `number` is unset until supplied. */
+  company: {
+    name: "Confyd Ltd, trading as Confyde.",
+    registered: "Registered in England and Wales",
+    number: undefined,
+    city: "London.",
+  },
   quote: plann.quote,
-  ctaHeading: "Not sure where to start?",
+  ctaHeading: "Got a decision on the table?",
+  ctaBody: "Thirty minutes to work out whether it’s the right one.",
 } satisfies Pick<CaseStudy, "title" | "lede" | "meta" | "numbers" | "sections" | "quote"> & {
   eyebrow: string;
   numbersEyebrow: string;
   railPrompt: string;
   ctaHeading: string;
+  ctaBody: string;
+  company: { name: string; registered: string; number?: string; city: string };
 };

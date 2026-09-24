@@ -14,8 +14,7 @@ import { SiteFooter } from "@/components/chrome/footer/site-footer";
  * foot of the page - and the floating "Not sure where to start?" bar put a
  * third CTA over the top of them.
  *
- * The nav and the mobile sticky bottom bar stay in app/layout.tsx as chrome on
- * every page.
+ * The nav stays in app/layout.tsx as chrome on every page.
  */
 export default function WithFooterLayout({ children }: LayoutProps<"/">) {
   return (

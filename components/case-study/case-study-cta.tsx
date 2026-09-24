@@ -8,12 +8,14 @@ import { NavItem } from "@/components/chrome/nav-item";
  *
  * The copy is fixed across the studies: it is the site's ask, not the case
  * study's, and it is the same sentence chapter 1 opens with. The about page
- * asks the shorter question its design draws, so the heading can be passed.
+ * asks its own question, so the heading and body can be passed.
  */
 export function CaseStudyCta({
   heading = "Not sure where your version of this starts?",
+  body = "Thirty minutes to work out what’s worth doing, and what isn’t.",
 }: {
   heading?: string;
+  body?: string;
 }) {
   return (
     <section
@@ -24,7 +26,7 @@ export function CaseStudyCta({
         <div className="flex max-w-[640px] flex-col gap-3.5">
           <h2 className="display display-2 text-pf-ink-100">{heading}</h2>
           <p className="m-0 text-[17px] leading-[1.6] text-cream">
-            Thirty minutes to work out what’s worth doing, and what isn’t.
+            {body}
           </p>
         </div>
 

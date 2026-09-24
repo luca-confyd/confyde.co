@@ -8,14 +8,13 @@ import { NavItem } from "./nav-item";
 
 const SHEET_ID = "m-nav-menu";
 
-/* The first group mirrors the desktop nav, which is now About and the three
-   case studies: Product, Customers and Pricing went with the desktop pill's
-   inert items. There is no dropdown here - a sheet inside a sheet - so the three
-   studies are listed flat, under the label the desktop trigger carries. The
-   second group is the mobile footer's, less About, which is a real page now and
-   leads the sheet as it leads the desktop pill. `Get started` is not here
-   because it is already in the bar. */
-const SECONDARY = ["Help centre", "Contact"];
+/* The first group mirrors the desktop nav: About and the three case studies.
+   There is no dropdown here - a sheet inside a sheet - so the three studies are
+   listed flat, under the label the desktop trigger carries. The second group
+   follows the footer's Support column; Help centre went with the footer's other
+   links to pages that do not exist. `Get started` is not here because it is
+   already in the bar. */
+const SECONDARY = ["Contact"];
 
 const ROW =
   "flex h-12 w-full items-center rounded-lg px-3 text-left text-[16px] font-semibold text-ink hover:bg-well";
