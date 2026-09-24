@@ -40,7 +40,7 @@ export default function AboutPage() {
 
       <main id="top">
         <CaseStudyHero eyebrow={ABOUT.eyebrow} study={ABOUT} />
-        <CaseStudyNumbers eyebrow={ABOUT.numbersEyebrow} study={ABOUT} />
+        <CaseStudyNumbers eyebrow={ABOUT.numbersEyebrow} wordFigures study={ABOUT} />
         <CaseStudyBody railPrompt={ABOUT.railPrompt} study={ABOUT} />
         <CompanyDetails />
         <CaseStudyQuote study={ABOUT} />

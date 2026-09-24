@@ -16,9 +16,16 @@ import type { CaseStudy } from "@/content/case-studies";
  */
 export function CaseStudyNumbers({
   eyebrow = "The numbers",
+  wordFigures = false,
   study,
 }: {
   eyebrow?: string;
+  /**
+   * Set when the figures are short phrases ("AI in production") rather than
+   * numbers. The number-sized type cannot fit a long word in a quarter-width
+   * column, so these drop to a heading size: 20px, 28px at desk.
+   */
+  wordFigures?: boolean;
   study: Pick<CaseStudy, "numbers">;
 }) {
   /* No figures, no card. The hero's `pb-44` is what this overlaps into, so a
@@ -59,7 +66,13 @@ export function CaseStudyNumbers({
                 {/* The design's 46px Bitter. `.display-2` is the page's
                     equivalent slot (3rem at desk) and `tabular-nums` holds the
                     figures on one baseline grid across the row. */}
-                <span className="display display-2 tabular-nums text-pf-ink-900">
+                <span
+                  className={
+                    wordFigures
+                      ? "display text-[20px] leading-[1.2] text-pf-ink-900 desk:text-[28px]"
+                      : "display display-2 tabular-nums text-pf-ink-900"
+                  }
+                >
                   {item.figure}
                 </span>
                 <span className="text-[15px] leading-[1.45] text-slate-600">{item.label}</span>

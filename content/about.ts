@@ -43,9 +43,15 @@ export const ABOUT = {
   numbers: {
     items: [
       { figure: "12+ yrs", label: "leading engineering in travel, SaaS and AI" },
-      { figure: "8 weeks", label: "sell-side technical due diligence, start to close" },
-      { figure: "3 → 20", label: "engineers hired and led through to acquisition" },
-      { figure: "500K", label: "monthly users on agentic AI features, reached in three months" },
+      {
+        figure: "Startup to exit",
+        label: "so we know what your business needs now, and what it’ll need next",
+      },
+      { figure: "Budget & team", label: "owned end to end: the hiring, the spend and the results" },
+      {
+        figure: "AI in production",
+        label: "not pilots or demos, but live products real customers use every day",
+      },
     ],
   },
   railPrompt: "Want to see if we’re a fit?",
