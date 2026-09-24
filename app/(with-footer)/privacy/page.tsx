@@ -14,7 +14,6 @@ import { PageEffects } from "@/components/primitives/page-effects";
  * STILL TO FILL BEFORE THIS IS PUBLIC. The bracketed stubs render as written,
  * so an unfinished policy looks unfinished rather than complete:
  *
- *   - the "Last updated" date
  *   - the company number and the ICO registration number (pay the ICO data
  *     protection fee first if it has not been paid)
  *   - the accounting provider and the accountant
@@ -48,7 +47,7 @@ export default function PrivacyPage() {
         >
           <div className="mx-auto flex w-full max-w-[1232px] flex-col gap-5 desk:px-6">
             <h1 className="display display-1 text-balance text-pf-ink-100">Privacy policy</h1>
-            <p className="m-0 text-[16px] text-cream">Last updated: [date]</p>
+            <p className="m-0 text-[16px] text-cream">Last updated: 24 September 2026</p>
           </div>
 
           <NavFlipSentinel />
