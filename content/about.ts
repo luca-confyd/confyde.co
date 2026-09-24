@@ -41,7 +41,7 @@ export const ABOUT = {
       },
       { figure: "Budget & team", label: "owned end to end: the hiring, the spend and the results" },
       {
-        figure: "AI in production",
+        figure: "AI that works",
         label: "not pilots or demos, but live products real customers use every day",
       },
     ],

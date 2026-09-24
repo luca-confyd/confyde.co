@@ -21,7 +21,7 @@ export function CaseStudyNumbers({
 }: {
   eyebrow?: string;
   /**
-   * Set when the figures are short phrases ("AI in production") rather than
+   * Set when the figures are short phrases ("AI that works") rather than
    * numbers. The number-sized type cannot fit a long word in a quarter-width
    * column, so these drop to a heading size: 20px, 28px at desk.
    */
