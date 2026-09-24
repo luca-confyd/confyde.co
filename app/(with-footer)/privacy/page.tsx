@@ -11,13 +11,12 @@ import { PageEffects } from "@/components/primitives/page-effects";
  * is why it lives in `(with-footer)`. No design doc; it borrows the case
  * study's hero surface and article type so it reads as the same site.
  *
- * STILL TO FILL BEFORE THIS IS PUBLIC. The bracketed stubs render as written,
- * so an unfinished policy looks unfinished rather than complete:
- *
- *   - the "Last updated" date
- *   - the company number and the ICO registration number (pay the ICO data
- *     protection fee first if it has not been paid)
- *   - the accounting provider and the accountant
+ * NO PLACEHOLDERS, AND NO CLAIMS WE CANNOT BACK. The draft carried
+ * placeholders for the company number, the ICO registration number and the
+ * accounting suppliers. Rather than publish brackets, all three are left out.
+ * Once the ICO fee is paid, add "We're registered with the Information
+ * Commissioner's Office (ICO), registration number …" back under "Who we are";
+ * the company number can go beside it.
  *
  * COOKIES. The source offered two paragraphs. The site runs no analytics or
  * tracking scripts, so this carries the strictly-necessary one, and the
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: { title, description, type: "website", locale: "en_GB" },
 };
 
-const EMAIL = "privacy@confyde.co";
+const EMAIL = "hello@confyde.co";
 
 export default function PrivacyPage() {
   return (
@@ -48,7 +47,7 @@ export default function PrivacyPage() {
         >
           <div className="mx-auto flex w-full max-w-[1232px] flex-col gap-5 desk:px-6">
             <h1 className="display display-1 text-balance text-pf-ink-100">Privacy policy</h1>
-            <p className="m-0 text-[16px] text-cream">Last updated: [date]</p>
+            <p className="m-0 text-[16px] text-cream">Last updated: 24 September 2026</p>
           </div>
 
           <NavFlipSentinel />
@@ -57,10 +56,8 @@ export default function PrivacyPage() {
         <article className="mx-auto flex w-full max-w-[1232px] flex-col gap-6 px-4 pt-14 pb-20 sm-only:px-8 desk:px-6 desk:pt-19 desk:pb-28 [&>*]:max-w-[720px]">
           <H2>Who we are</H2>
           <P>
-            Confyde is the trading name of Confyd Ltd, a company registered in England and Wales
-            (company number [stub]), based in London. We’re the controller of the personal data
-            described in this policy. We’re registered with the Information Commissioner’s Office
-            (ICO), registration number [stub].
+            Confyde is the trading name of Confyd Ltd, a company registered in England and Wales,
+            based in London. We’re the controller of the personal data described in this policy.
           </P>
           <P>
             If you have any questions about this policy or how we use your data, email <Email />.
@@ -104,10 +101,6 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong>Vercel</strong> hosts our website.
-            </li>
-            <li>
-              <strong>[Accounting provider]</strong> handles invoicing, and{" "}
-              <strong>[accountant]</strong> prepares our accounts.
             </li>
           </UL>
           <P>We may also share data if the law requires it.</P>
