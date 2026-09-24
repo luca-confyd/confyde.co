@@ -7,9 +7,9 @@
  * (Quoting, Proposals, Follow-ups, Client CRM). None of those exist, so both
  * went, and what is left is the same four links at every width.
  *
- * CONTACT AND PRIVACY HAVE NO PAGE YET. They stay, as asked, and render as the
- * inert <NavItem> every destination-less link on the site uses. Adding `href`
- * is the whole switch once they exist.
+ * CONTACT HAS NO PAGE YET. It stays, as asked, and renders as the inert
+ * <NavItem> every destination-less link on the site uses. Adding `href` is the
+ * whole switch once it exists.
  */
 
 export type FooterLink = {
@@ -39,7 +39,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
       { label: "Case studies", href: "/#case-studies" },
     ],
   },
-  { heading: "Support", links: [{ label: "Contact" }, { label: "Privacy" }] },
+  { heading: "Support", links: [{ label: "Contact" }, { label: "Privacy", href: "/privacy" }] },
 ];
 
 /** Both artboards draw the same line; only its size and opacity differ. */
