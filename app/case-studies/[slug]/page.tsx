@@ -55,7 +55,7 @@ export async function generateMetadata({
   return {
     title,
     description: study.lede,
-    openGraph: { title, description: study.lede, type: "article", locale: "en_AU" },
+    openGraph: { title, description: study.lede, type: "article", locale: "en_GB" },
   };
 }
 
@@ -76,7 +76,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
       <PageEffects />
 
       <main id="top">
-        <CaseStudyHero study={study} />
+        <CaseStudyHero eyebrow={`Case study / ${study.client}`} study={study} />
         <CaseStudyNumbers study={study} />
         <CaseStudyBody study={study} />
         <CaseStudyQuote study={study} />

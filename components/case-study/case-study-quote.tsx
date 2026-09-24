@@ -19,7 +19,7 @@ import type { CaseStudy } from "@/content/case-studies";
  * The photograph is `aria-hidden` for the same reason the initials are: the
  * name it stands for is set immediately beside it.
  */
-export function CaseStudyQuote({ study }: { study: CaseStudy }) {
+export function CaseStudyQuote({ study }: { study: Pick<CaseStudy, "quote"> }) {
   return (
     <section
       data-section="case-study-quote"

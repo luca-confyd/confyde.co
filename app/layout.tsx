@@ -3,7 +3,6 @@ import { Asap, Fraunces, Hanken_Grotesk, Nunito_Sans, Source_Serif_4 } from "nex
 
 import { SiteHeaderDesktop } from "@/components/chrome/site-header-desktop";
 import { SiteHeaderMobile } from "@/components/chrome/site-header-mobile";
-import { StickyBottomBar } from "@/components/chrome/sticky-bottom-bar";
 import "./globals.css";
 
 /* -----------------------------------------------------------------------------
@@ -56,17 +55,25 @@ const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
 });
 
+/* One sentence for the page description and both social cards. The template's
+   quoting-software copy it replaces was never Confyde's. */
+const SITE_DESCRIPTION =
+  "Senior technical guidance for owner-led businesses without a CTO. Technical strategy, AI and software delivery, in plain English.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://confydehq.co"),
   title: "Confyde | The AI consultancy you hire to build, not just plan",
-  description:
-    "Confyde learns your prices, drafts your estimates, and sends a branded proposal in minutes. Then it tells you who to chase, so more of the jobs you quote turn into money in the bank.",
+  description: SITE_DESCRIPTION,
   openGraph: {
     title: "Confyde | The AI consultancy you hire to build, not just plan",
-    description:
-      "Scope, price and send a quote in minutes, not late-night hours. Priced on your own materials, suppliers and margins.",
+    description: SITE_DESCRIPTION,
     type: "website",
-    locale: "en_AU",
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary",
+    title: "Confyde | The AI consultancy you hire to build, not just plan",
+    description: SITE_DESCRIPTION,
   },
 };
 
@@ -94,19 +101,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
 
-        {/* Two headers and two bar systems, mutually exclusive at 1024px.
+        {/* Two headers, mutually exclusive at 1024px.
             `display: none` takes the inactive pair out of the accessibility
             tree, so only one `Main` landmark is ever exposed. */}
         <SiteHeaderDesktop />
         <SiteHeaderMobile />
 
-        {/* The footer and the floating promo bar are NOT here. Both belong to
+        {/* The footer and the floating promo bar are NOT here. Nor is the
+            mobile "Try Confyde free" bar any more: it sold a free trial of a
+            product Confyde does not have, and went with the rest of the
+            template's leftovers. Both belong to
             the pages that want them, so they live in
             app/(with-footer)/layout.tsx - see the note there. The case studies
             close on their own CTA band instead. */}
         {children}
-
-        <StickyBottomBar />
       </body>
     </html>
   );

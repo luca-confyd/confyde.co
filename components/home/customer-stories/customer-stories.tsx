@@ -35,6 +35,7 @@ export function CustomerStories() {
       a plain `sm:` would win at 1440px.
     */
     <section
+      id="case-studies"
       data-section="customer-stories"
       className="mx-auto flex w-full max-w-[592px] flex-col px-4 py-[34px] sm-only:max-w-[624px] sm-only:px-8 desk:max-w-[1440px] desk:px-0 desk:pt-16 desk:pb-24"
     >

@@ -21,7 +21,14 @@ import type { CaseStudy, CaseStudyBlock } from "@/content/case-studies";
  * `scroll-mt` on the headings is what stops the sticky nav covering a heading
  * the rail has just jumped to.
  */
-export function CaseStudyBody({ study }: { study: CaseStudy }) {
+export function CaseStudyBody({
+  railPrompt = "Want the same read on your business?",
+  study,
+}: {
+  /** The line above the rail's booking link. */
+  railPrompt?: string;
+  study: Pick<CaseStudy, "sections">;
+}) {
   return (
     <section
       data-section="case-study-body"
@@ -48,7 +55,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
         <div aria-hidden="true" className="my-2.5 h-px bg-hairline" />
 
         <span className="text-[14px] leading-[1.5] text-slate-600">
-          Want the same read on your business?
+          {railPrompt}
         </span>
         {/* The one real destination on this page, and the same one every
             "Book a discovery call" on the site points at. */}
@@ -84,13 +91,34 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
 }
 
 /**
- * One block of the article. A switch rather than a lookup table: four cases,
+ * One block of the article. A switch rather than a lookup table: five cases,
  * each with its own markup, and TypeScript checks the union is covered.
  */
 function Block({ block }: { block: CaseStudyBlock }) {
   switch (block.kind) {
     case "prose":
       return <p className="m-0 text-[18px] leading-[1.72] text-pf-ink-700">{block.text}</p>;
+
+    case "points":
+      return (
+        <div className="flex flex-col gap-5">
+          {block.heading ? (
+            <h3 className="display display-4 m-0 text-pf-ink-900">{block.heading}</h3>
+          ) : null}
+          {/* Hairline rows, the same rhythm as the numbered steps, so the two
+              lists on a page read as one family. */}
+          <ul className="m-0 flex list-none flex-col p-0">
+            {block.points.map((point) => (
+              <li
+                key={point.lead}
+                className="border-t border-hairline py-5 text-[17px] leading-[1.65] text-slate-600 last:border-b"
+              >
+                <span className="font-semibold text-pf-ink-900">{point.lead}</span> {point.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
 
     case "callout":
       return (

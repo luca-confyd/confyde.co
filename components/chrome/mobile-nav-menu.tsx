@@ -8,13 +8,13 @@ import { NavItem } from "./nav-item";
 
 const SHEET_ID = "m-nav-menu";
 
-/* The first group mirrors the desktop nav, which is now the three case studies
-   and nothing else: Product, Customers and Pricing went with the desktop pill's
-   inert items. There is no dropdown here - a sheet inside a sheet - so the three
-   are listed flat, under the label the desktop trigger carries. The second group
-   is verbatim from the mobile footer, and `Get started` is not here because it
-   is already in the bar. */
-const SECONDARY = ["About", "Help centre", "Contact"];
+/* The first group mirrors the desktop nav: About and the three case studies.
+   There is no dropdown here - a sheet inside a sheet - so the three studies are
+   listed flat, under the label the desktop trigger carries. The second group
+   follows the footer's Support column; Help centre went with the footer's other
+   links to pages that do not exist. `Get started` is not here because it is
+   already in the bar. */
+const SECONDARY = ["Contact"];
 
 const ROW =
   "flex h-12 w-full items-center rounded-lg px-3 text-left text-[16px] font-semibold text-ink hover:bg-well";
@@ -113,6 +113,10 @@ export function MobileNavMenu() {
             buttonRef.current?.focus();
           }}
         >
+          <NavItem href="/about" tone="light" className={ROW}>
+            About
+          </NavItem>
+
           <span className="block px-3 pt-2 pb-1 text-[11px] font-extrabold tracking-[0.14em] text-eyebrow uppercase">
             Case studies
           </span>

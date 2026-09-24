@@ -54,7 +54,23 @@ export type StepsBlock = {
  */
 export type FigureBlock = { kind: "figure"; caption: string; src?: string };
 
-export type CaseStudyBlock = ProseBlock | CalloutBlock | StepsBlock | FigureBlock;
+/**
+ * A bulleted list of bold lead-ins and their sentences, under an optional
+ * subheading. Unlike a section, the subheading is not in the "On this page"
+ * rail: it is part of the section it sits in.
+ */
+export type PointsBlock = {
+  kind: "points";
+  heading?: string;
+  points: readonly { lead: string; text: string }[];
+};
+
+export type CaseStudyBlock =
+  | ProseBlock
+  | CalloutBlock
+  | StepsBlock
+  | FigureBlock
+  | PointsBlock;
 
 export type CaseStudySection = {
   /** The anchor, and the rail's href. Kebab-case, unique within the study. */
@@ -116,7 +132,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     meta: [
       { label: "Industry", value: "Marketing technology" },
       { label: "Services", value: "Technical strategy · Engineering delivery · Hiring" },
-      { label: "Engagement", value: "Ongoing" },
+      { label: "Role", value: "Chief Technology Officer, in-house, 2018–2024" },
     ],
     numbers: {
       items: [
@@ -253,7 +269,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     ],
     numbers: {
       items: [
-        { figure: "80%", label: "Fewer P1 cyber security incidents" },
+        { figure: "80%", label: "Fewer P1 incidents during the integration" },
         { figure: "Weekly", label: "Release cadence, with evaluation in front" },
         { figure: "~25%", label: "Less delivery time on medium-sized work" },
         { figure: "Zero", label: "Downtime on the platform migration" },

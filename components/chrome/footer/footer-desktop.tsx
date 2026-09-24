@@ -1,4 +1,4 @@
-import { FOOTER_BLURB, FOOTER_COLUMNS_DESKTOP, FOOTER_COPYRIGHT } from "@/content/footer";
+import { FOOTER_BLURB, FOOTER_COLUMNS, FOOTER_COPYRIGHT } from "@/content/footer";
 import { NavItem } from "../nav-item";
 import { Wordmark } from "../wordmark";
 import { InstagramMark, LinkedInMark, XMark, YouTubeMark } from "./social-marks";
@@ -84,9 +84,9 @@ export function FooterDesktop() {
           </div>
 
           <div className="flex gap-20">
-            {FOOTER_COLUMNS_DESKTOP.map((column) => (
+            {FOOTER_COLUMNS.map((column) => (
               <div key={column.heading} className="flex flex-col gap-3">
-                {/* A real heading, not the artboard's bare <span>: these three
+                {/* A real heading, not the artboard's bare <span>: these
                     words are what makes the link lists navigable by heading.
                     Level and type size are independent (§03/04 ruling 8), so the
                     12px bold cut is untouched. */}
@@ -95,16 +95,8 @@ export function FooterDesktop() {
                 <ul className="m-0 flex list-none flex-col gap-2 p-0">
                   {column.links.map((link) => (
                     <li key={link.label}>
-                      <NavItem tone="dark" className={COLUMN_LINK}>
+                      <NavItem href={link.href} tone="dark" className={COLUMN_LINK}>
                         {link.label}
-                        {link.badge ? (
-                          // rgba(200,232,74,.14) is lime-500 at 14%. Lime means
-                          // forward motion, and an open role is exactly that, so
-                          // this is one of the accent's sanctioned uses.
-                          <span className="rounded-full bg-lime-500/14 px-[7px] py-px text-[10px] font-bold tracking-[0.06em] text-lime-500 uppercase">
-                            {link.badge}
-                          </span>
-                        ) : null}
                       </NavItem>
                     </li>
                   ))}

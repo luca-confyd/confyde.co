@@ -1,21 +1,21 @@
 /**
  * The footer's copy.
  *
- * The two artboards are not two renderings of one list: desktop carries three
- * columns (Product / Company / Support) and mobile carries two (Product /
- * Company) whose link sets overlap only partly - mobile's Product column is the
- * feature names, desktop's is the site's own pages, and mobile folds Support's
- * "Help centre" and "Contact" into Company. The blurb used to differ too ("Landscape
- * businesses" against "landscapers").
+ * ONE LINK LIST, BOTH BREAKPOINTS. The artboards drew two: a desktop set of
+ * the template's product pages (Features, Pricing, Security, Changelog,
+ * Careers, Blog, Help centre) and a mobile set of quoting-software features
+ * (Quoting, Proposals, Follow-ups, Client CRM). None of those exist, so both
+ * went, and what is left is the same four links at every width.
  *
- * Both are transcribed verbatim. We do not edit the client's copy, and merging
- * the two lists would be a content decision, not a port. Flagged for the client.
+ * CONTACT HAS NO PAGE YET. It stays, as asked, and renders as the inert
+ * <NavItem> every destination-less link on the site uses. Adding `href` is the
+ * whole switch once it exists.
  */
 
 export type FooterLink = {
   readonly label: string;
-  /** The Careers pill. Only one link in either artboard carries one. */
-  readonly badge?: string;
+  /** The destination. Absent means the page does not exist yet. */
+  readonly href?: string;
 };
 
 export type FooterColumn = {
@@ -30,21 +30,16 @@ export type FooterColumn = {
 export const FOOTER_BLURB =
   "Technical expertise for growing businesses. We work out where AI fits, build the systems behind it, and stay accountable for how they run.";
 
-export const FOOTER_COLUMNS_DESKTOP: readonly FooterColumn[] = [
-  { heading: "Product", links: [{ label: "Features" }, { label: "Pricing" }, { label: "Security" }, { label: "Changelog" }] },
-  { heading: "Company", links: [{ label: "Careers", badge: "Hiring" }, { label: "About" }, { label: "Blog" }] },
-  { heading: "Support", links: [{ label: "Help centre" }, { label: "Contact" }, { label: "Privacy" }] },
-];
-
-export const FOOTER_COLUMNS_MOBILE: readonly FooterColumn[] = [
-  {
-    heading: "Product",
-    links: [{ label: "Quoting" }, { label: "Proposals" }, { label: "Follow-ups" }, { label: "Client CRM" }, { label: "Pricing" }],
-  },
+export const FOOTER_COLUMNS: readonly FooterColumn[] = [
   {
     heading: "Company",
-    links: [{ label: "About" }, { label: "Customers" }, { label: "Help centre" }, { label: "Contact" }],
+    links: [
+      { label: "About", href: "/about" },
+      // The homepage's case study band: there is no /case-studies index.
+      { label: "Case studies", href: "/#case-studies" },
+    ],
   },
+  { heading: "Support", links: [{ label: "Contact" }, { label: "Privacy", href: "/privacy" }] },
 ];
 
 /** Both artboards draw the same line; only its size and opacity differ. */
